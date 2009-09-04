@@ -3,7 +3,7 @@
 RENDER="../render.py"
 RENDER_COMM="../render_comm.py"
 RENDER_DIM="../dim.sh"
-MKSPR="$HOME/Games/Naev/naev-git/naev/mkspr"
+MKSPR="$HOME/naev/mkspr" # Edit this as applicable.
 
 export PYTHONPATH="$PWD"
 
