@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+echo "$HOME/naev" # Edit this to point to your NAEV Git checkout.
