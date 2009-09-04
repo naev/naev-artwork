@@ -1,5 +1,7 @@
 NAEV-ARTWORK README
 
+WARNING: The .sh files within 3D/ are subject to change, and being that they can contain user-specific data, it's wise to back them up.
+
 DIRECTORIES:
 
    ships/  --  This directory contains all of the current .blends. Ships go on layer 1, and their engine meshes go on layer 7.
