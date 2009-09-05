@@ -33,7 +33,7 @@ function getsize {
    SHIP=`basename "${1%.png}"`
 
    if [[ "$SHIP" =~ dirge ]]; then SIZE=40;
-   elif [[ "$SHIP" =~ gawain ]]; then SIZE=22; # Upsized from 48, engine.
+   elif [[ "$SHIP" =~ gawain ]]; then SIZE=56; # Upsized from 48, engine.
    elif [[ "$SHIP" =~ hawking ]]; then SIZE=139; # Downsized from 150, engine.
    elif [[ "$SHIP" =~ hyena ]]; then SIZE=44; # Upsized from 40, engine.
    elif [[ "$SHIP" =~ koala ]]; then SIZE=46; # Upsized from 46, engine 
@@ -52,8 +52,8 @@ function getsize {
    elif [[ "$SHIP" =~ kahan ]]; then SIZE=100;
    elif [[ "$SHIP" =~ archimedes ]]; then SIZE=130;
    elif [[ "$SHIP" =~ watson ]]; then SIZE=130;
-   elif [[ "$SHIP" =~ quicksilver ]]; then SIZE=90;
-   elif [[ "$SHIP" =~ derivative ]]; then SIZE=55;
+   elif [[ "$SHIP" =~ quicksilver ]]; then SIZE=70;
+   elif [[ "$SHIP" =~ derivative ]]; then SIZE=45;
    fi
 }
 
