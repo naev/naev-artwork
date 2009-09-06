@@ -25,6 +25,7 @@ function getsprites {
    elif [[ "$SHIP" =~ watson ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ quicksilver ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ derivative ]]; then SPRITES=8;
+   elif [[ "$SHIP" =~ peacemaker ]]; then SPRITES=12;
    else echo "Error, $SHIP not found."
    fi
 }
@@ -54,6 +55,7 @@ function getsize {
    elif [[ "$SHIP" =~ watson ]]; then SIZE=130;
    elif [[ "$SHIP" =~ quicksilver ]]; then SIZE=70;
    elif [[ "$SHIP" =~ derivative ]]; then SIZE=45;
+   elif [[ "$SHIP" =~ peacemaker ]]; then SIZE=110;
    fi
 }
 
