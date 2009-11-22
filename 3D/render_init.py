@@ -5,10 +5,11 @@ import Blender
 import os
 
 
-def Initialize():
+def Initialize( intensity=1. ):
    # variables to use
    scn = Blender.Scene.GetCurrent() # global scene
    ctxt = scn.getRenderingContext()
+   print("Intensity " + str(intensity))
 
    # unlink stuff we don't want
    for obj in Blender.Object.Get(): # destroy old cameras
@@ -32,7 +33,7 @@ def Initialize():
    # Overhead Spot
    sun = Blender.Lamp.New('Area')
    sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .4 )
+   sun.setEnergy( .4*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = 14.
@@ -44,7 +45,7 @@ def Initialize():
    
    # Forward Upper Spot
    sun = Blender.Lamp.New('Spot')
-   sun.setEnergy( .32 )
+   sun.setEnergy( .32*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = 7.
@@ -57,7 +58,7 @@ def Initialize():
    
    # Forward Lower Spot
    sun = Blender.Lamp.New('Spot')
-   sun.setEnergy( .64 )
+   sun.setEnergy( .64*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = -7.
@@ -70,7 +71,7 @@ def Initialize():
    
    # Forward Middle Hemi
    sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08 )
+   sun.setEnergy( .08*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = -3.5
@@ -83,7 +84,7 @@ def Initialize():
    
    # Back Middle Hemi
    sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08 )
+   sun.setEnergy( .08*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = -3.5
@@ -96,7 +97,7 @@ def Initialize():
    
    # Left Middle Hemi
    sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08 )
+   sun.setEnergy( .08*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = -3.5
@@ -109,7 +110,7 @@ def Initialize():
 
    # Right Middle Hemi
    sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08 )
+   sun.setEnergy( .08*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = -3.5
@@ -123,7 +124,7 @@ def Initialize():
    # Side Lamp
    sun = Blender.Lamp.New('Lamp')
    sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .6 )
+   sun.setEnergy( .6*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = 1.
@@ -137,7 +138,7 @@ def Initialize():
    # Overhead Lamp
    sun = Blender.Lamp.New('Lamp')
    sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .8 )
+   sun.setEnergy( .8*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = 12.
@@ -151,7 +152,7 @@ def Initialize():
       # Test Sun
    sun = Blender.Lamp.New('Sun')
    sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .48 )
+   sun.setEnergy( .48*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = 25.
@@ -165,7 +166,7 @@ def Initialize():
    # Overhead Hemi
    sun = Blender.Lamp.New('Hemi')
    sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .2 )
+   sun.setEnergy( .2*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
    sunobj.LocZ = 18.

@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+function getintensity {
+   SHIP=`basename "${1%.png}"`
+
+   if [[ "$SHIP" =~ dirge ]]; then INTENSITY=0.8;
+   else INTENSITY=1.0
+   fi
+}
+
 function getsprites {
    SHIP=`basename "${1%.png}"`
 
@@ -74,4 +82,10 @@ elif [ "$1" == "w" ]; then
 elif [ "$1" == "e" ]; then
    hasengine $2
    echo $ENGINE
+elif [ "$1" == "i" ]; then
+   getintensity $2
+   echo $INTENSITY
+else
+   echo "Unknown parameter $1!"
+   exit 1
 fi
