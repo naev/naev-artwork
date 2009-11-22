@@ -54,6 +54,7 @@ if __name__ == "__main__":
    parser.add_option('-x', '--spritex', dest='sx', help='X sprites to render.', type='int')
    parser.add_option('-y', '--spritey', dest='sy', help='Y sprites to render.', type='int')
    parser.add_option('-e', '--engine', dest='engine', help='Enable engine glow on layer 9.', type='string')
+   parser.add_option('-i', '--intensity', dest='intensity', help="Controls the intensity level.", type='float')
 
    options, args = parser.parse_args(argv) # In this example we wont use the args
 
@@ -66,13 +67,18 @@ if __name__ == "__main__":
    else:
       sy = sx
 
+   # Set intensity
+   intensity = 1.
+   if options.intensity:
+      intensity = options.intensity
+
    # Set up layers if needed
    if options.engine == "true":
       Blender.Window.ViewLayers( [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10] )
    else:
       Blender.Window.ViewLayers( [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10] )
 
-   render_init.Initialize()
+   render_init.Initialize( intensity )
    Render( sx, sy )
    Blender.Quit()
 

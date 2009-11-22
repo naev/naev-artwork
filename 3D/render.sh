@@ -21,8 +21,9 @@ function render {
    else
       SPRITES=`$RENDER_DIM s $BLEND`
       ENGINES=`$RENDER_DIM e $BLEND`
+      INTENSITY=`$RENDER_DIM i $BLEND`
       REND_SCRIPT="$RENDER"
-      REND_PARAMS="--spritex $SPRITES"
+      REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY"
    fi
 
    # Render
