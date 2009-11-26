@@ -32,7 +32,7 @@ RENDERING:
 
       Note: This is for rendering one ship (or select ships). If you wish to do everything at once, running render.sh and dim.sh without arguments will do that.
 
-      1. Once you have a ship you wish to render, place it in 3D/ships and add entries for it to dim.sh.
+      1. Once you have a ship you wish to render, place it in 3D/ships and add two entries for it to 3D/dim.sh - One for the number of sprites, and one for the size of each sprite cell.
       2. When you've done that, you can run render.sh with your ship's name as an argument, such as ./render.sh admonisher
       3. With the render finished, you can run ./resize.sh  which will resize the sprite to a usable size, as defined in dim.sh
 
