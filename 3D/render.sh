@@ -16,6 +16,7 @@ function render {
 
    # Check what to run.
    if [ "$2" = "comm" ]; then
+      INTENSITY=`$RENDER_DIM i $BLEND`
       REND_SCRIPT="$RENDER_COMM"
       REND_PARAMS="--intensity $INTENSITY"
    else
