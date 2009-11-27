@@ -17,7 +17,7 @@ function render {
    # Check what to run.
    if [ "$2" = "comm" ]; then
       REND_SCRIPT="$RENDER_COMM"
-      REND_PARAMS=""
+      REND_PARAMS="--intensity $INTENSITY"
    else
       SPRITES=`$RENDER_DIM s $BLEND`
       ENGINES=`$RENDER_DIM e $BLEND`
