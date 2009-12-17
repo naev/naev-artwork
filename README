@@ -8,7 +8,7 @@ DIRECTORIES:
 
    .gitignore by default will not commit 3D/raw or 3D/final, as they merely contain renders.
 
-   ships/  --  This directory contains all of the current .blends. Ships go on layer 1, and their engine meshes go on layer 7.
+   ships/  --  This directory contains all of the current .blends. Ships go on layer 1, and their engine meshes go on layer 9.
    ships/legacy -- This is a legacy directory, containing unused ships and texture variants. Since the current .blends are resized and repositioned, it's likely best to just take the textures from these and apply them to current .blends (in ships/). The files are gzipped for size, but Blender can read them without issue.
 
 outfits/
