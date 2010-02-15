@@ -111,15 +111,6 @@ function render {
          cp "sprite.png"  "../../raw/${BLEND%.blend}.png"
       fi
       echo " ... Done!"
-
-      # Make engine sprite if applicable
-      #if [ "$ENGINES" == "true" ]; then
-      #   echo -n "Rendering ${BLEND%.blend}_engine ... "
-      #   blender "../$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS --layers 9
-      #   $MKSPR $SPRITES
-      #   cp "sprite.png"  "../../raw/${BLEND%.blend}_engine.png"
-      #   echo -e " ... Done!\n"
-      #fi
    fi
 
    # Clean up
@@ -198,7 +189,6 @@ if [ $# -gt 0 ]; then
                for layer in $LAYERS; do
                   LAYER=$layer
                   render "$model.blend"
-                  echo A
                done
             elif [ "$ENGINES" == "true" ]; then
                render "$model.blend"
