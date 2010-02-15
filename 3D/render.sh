@@ -35,13 +35,13 @@ function renderjobs {
    fi
    if [ -n "$MODELS" ]; then
       for model in $MODELS; do
+         ENGINES=$(enginestate $model)
          if [ -n "$LAYERS" ]; then
             for layer in $LAYERS; do               
                JOBS=$(expr $JOBS + 1)
             done
-         elif [ "$ENGINES" == "true" ] && [ "$FIRSTRUN" != "false" ]; then
-            JOBS=$(expr $JOBS + 1 + `count $MODELS`)
-            FIRSTRUN=false
+         elif [ "$ENGINES" == "true" ]; then
+            JOBS=$(expr $JOBS + 2)
          else
             JOBS=$(expr $JOBS + 1)
          fi
@@ -50,6 +50,15 @@ function renderjobs {
       JOBS=$(expr $ARGCOUNT \* 2)
    fi
    echo $JOBS
+}
+
+function enginestate {
+   if [ "$ENGINERENDER" == "0" ]; then
+      ENGINES=false
+   else
+      ENGINES=`$RENDER_DIM e $1`
+   fi
+   echo $ENGINES
 }
 
 function render {
@@ -173,18 +182,11 @@ if [ $# -gt 0 ]; then
                ;;
          esac
       done
-      
-      if [ "$ENGINERENDER" == "0" ]; then
-         ENGINES=false
-         NOCONTINUE=true
-      else
-         ENGINES=`$RENDER_DIM e $BLEND`
-      fi
 
       if [ -n "$MODELS" ]; then
          JOBS=$(renderjobs)
          for model in $MODELS; do
-            ENGINES=`$RENDER_DIM e $model.blend`
+            ENGINES=$(enginestate $model)
             if [ -n "$LAYERS" ]; then
                for layer in $LAYERS; do
                   LAYER=$layer
@@ -192,11 +194,9 @@ if [ $# -gt 0 ]; then
                done
             elif [ "$ENGINES" == "true" ]; then
                render "$model.blend"
-               if [ "$NOCONTINUE" != "true" ]; then
-                  LAYER=9
-                  render "$model.blend"
-                  unset LAYER
-               fi
+               LAYER=9
+               render "$model.blend"
+               unset LAYER
             else
                render $model.blend
             fi
