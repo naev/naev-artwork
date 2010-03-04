@@ -26,6 +26,8 @@ def Render( sx, sy ):
       for obj in Blender.Object.Get():
          if i != 0 and obj.getType() in ['Mesh','Empty']:
             obj.RotZ = obj.RotZ + ((math.pi * 2) / total)
+         elif obj.getType() in ['Mesh','Empty'] and options.rotz:
+           obj.RotZ = obj.RotZ + (options.rotz / 180. * math.pi)
 
       ctxt.render()
       ctxt.saveRenderedImage( str(i).zfill(3)+".png" )
@@ -56,6 +58,7 @@ if __name__ == "__main__":
    parser.add_option('-e', '--engine', dest='engine', help='Enable engine glow on layer 9.', type='string')
    parser.add_option('-i', '--intensity', dest='intensity', help="Controls the intensity level.", type='float')
    parser.add_option('-l', '--layers', dest='layers', help='Enable rendering of arbitrary layers.', type='string')
+   parser.add_option('-r', '--rotz', dest='rotz', help="Begins render with arbitrary Z rotation.", type='float')
 
    options, args = parser.parse_args(argv) # In this example we wont use the args
 
