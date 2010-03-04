@@ -37,7 +37,7 @@ function renderjobs {
       for model in $MODELS; do
          ENGINES=$(enginestate $model)
          if [ -n "$LAYERS" ]; then
-            for layer in $LAYERS; do               
+            for layer in $LAYERS; do
                JOBS=$(expr $JOBS + 1)
             done
          elif [ "$ENGINES" == "true" ]; then
@@ -61,10 +61,16 @@ function enginestate {
    echo $ENGINES
 }
 
+function finish {
+   if [ -n "$JOBS" ]; then
+      echo -e "\E[31m- - - - - - - -"; tput sgr0
+      echo -e "Render Finished: \t`date +%T`\nElapsed Time: \t\t$(converttime)"
+   fi
+}
+
 function render {
    BLEND="$1"
    RENDERPATH=$SHIPPATH
-   RENDERED=1
    
    # Check what to run.
    if [ "$2" = "comm" ]; then
@@ -78,7 +84,9 @@ function render {
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY"
    fi
-
+   if [ -n "$ROTZ" ]; then
+      REND_PARAMS="$REND_PARAMS --rotz $ROTZ"
+   fi
    # Render
    test -d ".render" || mkdir ".render"
    cd .render
@@ -136,48 +144,41 @@ if [ $# -gt 0 ]; then
          render "$BLEND" "comm"
       done
    elif [ "$1" = "-g" ]; then
-      while getopts ":Sl:m:e:dgh" opt; do
+      while getopts ":Sl:m:e:dghr:" opt; do
          case $opt in
-            S)
-               STATION="true"
+            S) STATION="true"
                ;;
-            l)
-               LAYERS=$OPTARG
+            l) LAYERS=$OPTARG 
                ;;
-            m)
-               MODELS=$OPTARG
+            m) MODELS=$OPTARG
                ;;
-            e)
-               if [ "$OPTARG" != 1 ] && [ "$OPTARG" != 0 ]; then
+            e) if [ "$OPTARG" != 1 ] && [ "$OPTARG" != 0 ]; then
                   echo -e "\E[31mValid input for -e is 0 or 1."; tput sgr0
                   exit 1
                else
                   ENGINERENDER=$OPTARG
                fi
                ;;
-            d)
-               DEBUG=true
+            d) DEBUG=true
                ;;
-            g)
-               echo -e "\E[33mNAEV Render Script (Getopts Mode)"; tput sgr0
+            g) echo -e "\E[33mNAEV Render Script (Getopts Mode)"; tput sgr0
                ;;
-            h)
-               echo "Usage: ./render.sh [options]
-   Options:
-      -S: Render models from stations/
-      -l \"[layers]\": Renders with extra layers. One render per layer.
-      -m \"[models]\": List of models to be rendered.
-      -e [0/1]: Disable or enable automatic engine glow rendering.
-      -d: Enable verbose output from Blender.
-
-      Note: When rendering multiple models or layers, quotes are necessary."
-               ;;
-            \?)
-               echo -e "\E[31mUnknown option: -$OPTARG\nRun with -h for usage information."; tput sgr0
+            h) echo -e " Usage: ./render.sh [options]\n"\
+               " Options:\n"\
+               "  -S: Render models from stations/\n"\
+               "  -l \"[layers]\": Renders with extra layers. One render per layer.\n"\
+               "  -m \"[models]\": List of models to be rendered.\n"\
+               "  -e [0/1]: Disable or enable automatic engine glow rendering.\n"\
+               "  -d: Enable verbose output from Blender.\n\n"\
+               " Note: When rendering multiple models or layers, quotes are necessary."
                exit 1
                ;;
-            :)
-               echo -e "\E[31mOption -$OPTARG requires an argument."; tput sgr0
+            r) ROTZ=$OPTARG
+               ;;
+            \?) echo -e "\E[31mUnknown option: -$OPTARG\nRun with -h for usage information."; tput sgr0
+               exit 1
+               ;;
+            :) echo -e "\E[31mOption -$OPTARG requires an argument."; tput sgr0
                exit 1
                ;;
          esac
@@ -202,12 +203,14 @@ if [ $# -gt 0 ]; then
             fi
          done
       fi
+      finish
    else
       for SHIPNAME in "$@"; do
          ARGCOUNT="`count $@`"
          JOBS=$(renderjobs)
          render "$SHIPNAME.blend"
          render "$SHIPNAME.blend" "comm"
+         finish
       done
    fi
 
@@ -219,8 +222,3 @@ else
    done
 fi
 cd ..
-
-if [ -n "$RENDERED" ]; then
-   echo -e "\E[31m- - - - - - - -"; tput sgr0
-   echo -e "Render Finished: \t`date +%T`\nElapsed Time: \t\t$(converttime)"
-fi
