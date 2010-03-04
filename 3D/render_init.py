@@ -5,11 +5,10 @@ import Blender
 import os
 
 
-def Initialize( intensity=1. ):
+def Initialize( intensity=1., resolution=512 ):
    # variables to use
    scn = Blender.Scene.GetCurrent() # global scene
    ctxt = scn.getRenderingContext()
-   print("Intensity " + str(intensity))
 
    # unlink stuff we don't want
    for obj in Blender.Object.Get(): # destroy old cameras
@@ -137,7 +136,6 @@ def Initialize( intensity=1. ):
 
    # Overhead Lamp
    sun = Blender.Lamp.New('Lamp')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
    sun.setEnergy( .8*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
@@ -181,8 +179,8 @@ def Initialize( intensity=1. ):
    ctxt.setImageType(Blender.Scene.Render.PNG)
    ctxt.enablePremultiply()
    ctxt.enableRGBAColor()
-   ctxt.imageSizeX(512)
-   ctxt.imageSizeY(512)
+   ctxt.imageSizeX(resolution)
+   ctxt.imageSizeY(resolution)
    ctxt.threads = 5
    ctxt.OSALevel = 8
    ctxt.oversampling = True

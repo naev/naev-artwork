@@ -16,7 +16,6 @@ filename = Blender.Get('filename')
 scn      = Blender.Scene.GetCurrent() # global scene
 ctxt     = scn.getRenderingContext()
 
-
 #
 # Renders the 36 sprites with names like 000.png, 001.png, ...
 #
@@ -59,6 +58,7 @@ if __name__ == "__main__":
    parser.add_option('-i', '--intensity', dest='intensity', help="Controls the intensity level.", type='float')
    parser.add_option('-l', '--layers', dest='layers', help='Enable rendering of arbitrary layers.', type='string')
    parser.add_option('-r', '--rotz', dest='rotz', help="Begins render with arbitrary Z rotation.", type='float')
+   parser.add_option('-R', '--resolution', dest='resolution', help="Renders at an arbitrary resolution.", type='int')
 
    options, args = parser.parse_args(argv) # In this example we wont use the args
 
@@ -75,6 +75,9 @@ if __name__ == "__main__":
    intensity = 1.
    if options.intensity:
       intensity = options.intensity
+   resolution = 512
+   if options.resolution:
+      resolution = options.resolution
 
    if options.layers:
       layers = options.layers
@@ -90,8 +93,7 @@ if __name__ == "__main__":
       Blender.Window.ViewLayers(layerlist)
    else:
       Blender.Window.ViewLayers( [1, 2, 3, 4, 5, 6, 7, 8] )
-
-   render_init.Initialize( intensity )
+   render_init.Initialize( intensity, resolution )
    Render( sx, sy )
    Blender.Quit()
 
