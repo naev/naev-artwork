@@ -84,9 +84,14 @@ function render {
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY"
    fi
+
+   # Options passed to render.py
    if [ -n "$ROTZ" ]; then
       REND_PARAMS="$REND_PARAMS --rotz $ROTZ"
+   elif [ -n "$RESOLUTION" ]; then
+      REND_PARAMS="$REND_PARAMS --resolution $RESOLUTION"
    fi
+
    # Render
    test -d ".render" || mkdir ".render"
    cd .render
@@ -135,6 +140,10 @@ function render {
    cd ..
 }
 
+function resize {
+   
+}
+
 cd ships
 # Parameters - only do those
 if [ $# -gt 0 ]; then
@@ -144,7 +153,7 @@ if [ $# -gt 0 ]; then
          render "$BLEND" "comm"
       done
    elif [ "$1" = "-g" ]; then
-      while getopts ":Sl:m:e:dghr:" opt; do
+      while getopts ":Sl:m:e:dghr:R:" opt; do
          case $opt in
             S) STATION="true"
                ;;
@@ -170,11 +179,14 @@ if [ $# -gt 0 ]; then
                "  -m \"[models]\": List of models to be rendered.\n"\
                "  -e [0/1]: Disable or enable automatic engine glow rendering.\n"\
                "  -r [degrees]: Rotate the model before rendering. Negative is clockwise.\n"\
+               "  -R [pixels]: Render at an arbitrary resolution. Default is 512px.\n"\
                "  -d: Enable verbose output from Blender.\n\n"\
                " Note: When rendering multiple models or layers, quotes are necessary."
                exit 1
                ;;
             r) ROTZ=$OPTARG
+               ;;
+            R) RESOLUTION=$OPTARG
                ;;
             \?) echo -e "\E[31mUnknown option: -$OPTARG\nRun with -h for usage information."; tput sgr0
                exit 1
