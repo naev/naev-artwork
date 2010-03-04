@@ -169,6 +169,7 @@ if [ $# -gt 0 ]; then
                "  -l \"[layers]\": Renders with extra layers. One render per layer.\n"\
                "  -m \"[models]\": List of models to be rendered.\n"\
                "  -e [0/1]: Disable or enable automatic engine glow rendering.\n"\
+               "  -r [degrees]: Rotate the model before rendering. Negative is clockwise.\n"\
                "  -d: Enable verbose output from Blender.\n\n"\
                " Note: When rendering multiple models or layers, quotes are necessary."
                exit 1
