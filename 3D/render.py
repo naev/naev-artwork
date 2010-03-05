@@ -56,7 +56,7 @@ if __name__ == "__main__":
    parser.add_option('-y', '--spritey', dest='sy', help='Y sprites to render.', type='int')
    parser.add_option('-e', '--engine', dest='engine', help='Enable engine glow on layer 9.', type='string')
    parser.add_option('-i', '--intensity', dest='intensity', help="Controls the intensity level.", type='float')
-   parser.add_option('-l', '--layers', dest='layers', help='Enable rendering of arbitrary layers.', type='string')
+   parser.add_option('-l', '--layer', dest='layers', help='Enable rendering of arbitrary layers.', type='string')
    parser.add_option('-r', '--rotz', dest='rotz', help="Begins render with arbitrary Z rotation.", type='float')
    parser.add_option('-R', '--resolution', dest='resolution', help="Renders at an arbitrary resolution.", type='int')
 

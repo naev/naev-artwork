@@ -16,11 +16,13 @@ test -d "raw" || mkdir "raw"
 function count {
    echo $@ | wc -w
 }
+
 function converttime {
    date -d "0 $(expr `date +%s` - $BEGIN) sec" +%T
 }
 
 function debuglevel {
+   # Redirects output to /dev/null by default.
    if [ "$DEBUG" == "true" ]; then
       printf '\n'
       $@
@@ -30,14 +32,15 @@ function debuglevel {
 }
 
 function renderjobs {
+   # Computes the number of queued renders (solely for output purposes.)
    if [ -z "$JOBS" ]; then
       JOBS=0
    fi
    if [ -n "$MODELS" ]; then
       for model in $MODELS; do
          ENGINES=$(enginestate $model)
-         if [ -n "$LAYERS" ]; then
-            for layer in $LAYERS; do
+         if [ -n "$layers" ]; then
+            for layer in $layers; do
                JOBS=$(expr $JOBS + 1)
             done
          elif [ "$ENGINES" == "true" ]; then
@@ -53,19 +56,15 @@ function renderjobs {
 }
 
 function enginestate {
+   # If engines are disabled (as an argument), don't bother checking dim.sh
    if [ "$ENGINERENDER" == "0" ]; then
       ENGINES=false
+   elif [ "$ENGINERENDER" == "1" ]; then
+      ENGINES=true
    else
       ENGINES=`$RENDER_DIM e $1`
    fi
    echo $ENGINES
-}
-
-function finish {
-   if [ -n "$JOBS" ]; then
-      echo -e "\E[31m- - - - - - - -"; tput sgr0
-      echo -e "Render Finished: \t`date +%T`\nElapsed Time: \t\t$(converttime)"
-   fi
 }
 
 function render {
@@ -85,12 +84,12 @@ function render {
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY"
    fi
 
-   # Options passed to render.py
-   if [ -n "$ROTZ" ]; then
-      REND_PARAMS="$REND_PARAMS --rotz $ROTZ"
-   elif [ -n "$RESOLUTION" ]; then
-      REND_PARAMS="$REND_PARAMS --resolution $RESOLUTION"
-   fi
+   # Iterate over arguments and build the options list passed to render.py
+   for arg in rotz resolution layer; do
+      if [ -n "${!arg}" ]; then
+         REND_PARAMS="$REND_PARAMS --$arg ${!arg}"
+      fi
+   done
 
    # Render
    test -d ".render" || mkdir ".render"
@@ -98,20 +97,26 @@ function render {
    if [ -z "$COUNT" ]; then
       COUNT=1
    fi
+
+   # Render from the stations/ dir if argument is passed.
    if [ "$STATION" == true  ]; then
       RENDERPATH=$STATIONPATH
    fi
-   if [ -n "$LAYER" ] && [ "$LAYER" != 9 ]; then
-      echo -en "\E[32mRendering ${BLEND%.blend}_$LAYER ... "; tput sgr0
+
+   # Outputs different things depending on layers.
+   if [ -n "$layer" ] && [ "$layer" != 9 ]; then
+      echo -en "\E[32mRendering ${BLEND%.blend}_$layer ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS --layers $LAYER
-   elif [ "$LAYER" == 9 ] && [ "$ENGINES" == "true" ]; then
+      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
+   elif [ "$layer" == 9 ]; then
+      echo Uhh
       echo -en "\E[32mRendering ${BLEND%.blend}_engine ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS --layers $LAYER
+      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
    else
+      echo Test $layer $ENGINES
       echo -en "\E[32mRendering ${BLEND%.blend} ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
@@ -125,9 +130,9 @@ function render {
    else
       # Make sprite
       $MKSPR $SPRITES
-      if [ -n "$LAYER" ] && [ "$LAYER" != 9 ]; then
-         cp "sprite.png"  "../../raw/${BLEND%.blend}_$LAYER.png"
-      elif [ "$LAYER" == 9 ] && [ "$ENGINES" == "true" ]; then
+      if [ -n "$layer" ] && [ "$layer" != 9 ]; then
+         cp "sprite.png"  "../../raw/${BLEND%.blend}_$layer.png"
+      elif [ "$layer" == 9 ] && [ "$ENGINES" == "true" ]; then
          cp "sprite.png"  "../../raw/${BLEND%.blend}_engine.png"
       else
          cp "sprite.png"  "../../raw/${BLEND%.blend}.png"
@@ -140,8 +145,12 @@ function render {
    cd ..
 }
 
-function resize {
-   
+function finish {
+   # Runs at the end, showing duration.
+   if [ -n "$JOBS" ]; then
+      echo -e "\E[31m- - - - - - - -"; tput sgr0
+      echo -e "Render Finished: \t`date +%T`\nElapsed Time: \t\t$(converttime)"
+   fi
 }
 
 cd ships
@@ -157,7 +166,7 @@ if [ $# -gt 0 ]; then
          case $opt in
             S) STATION="true"
                ;;
-            l) LAYERS=$OPTARG 
+            l) layers=$OPTARG 
                ;;
             m) MODELS=$OPTARG
                ;;
@@ -184,9 +193,9 @@ if [ $# -gt 0 ]; then
                " Note: When rendering multiple models or layers, quotes are necessary."
                exit 1
                ;;
-            r) ROTZ=$OPTARG
+            r) rotz=$OPTARG
                ;;
-            R) RESOLUTION=$OPTARG
+            R) resolution=$OPTARG
                ;;
             \?) echo -e "\E[31mUnknown option: -$OPTARG\nRun with -h for usage information."; tput sgr0
                exit 1
@@ -201,23 +210,25 @@ if [ $# -gt 0 ]; then
          JOBS=$(renderjobs)
          for model in $MODELS; do
             ENGINES=$(enginestate $model)
-            if [ -n "$LAYERS" ]; then
-               for layer in $LAYERS; do
-                  LAYER=$layer
+            if [ -n "$layers" ]; then
+               # Multiple layers can be specified, so they must be iterated over.
+               for layer in $layers; do
                   render "$model.blend"
                done
             elif [ "$ENGINES" == "true" ]; then
+               # Engine meshes are on their own layer, but layer is not set by Getopts.
                render "$model.blend"
-               LAYER=9
+               layer=9
                render "$model.blend"
-               unset LAYER
+               unset layer
             else
+               # Simply renders model with no special layers.
                render $model.blend
             fi
          done
       fi
       finish
-   else
+   else # Falls back to legacy behaviour.
       for SHIPNAME in "$@"; do
          ARGCOUNT="`count $@`"
          JOBS=$(renderjobs)
