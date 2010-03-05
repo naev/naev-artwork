@@ -13,15 +13,18 @@ export PYTHONPATH="$PWD"
 # Create output directory if needed
 test -d "raw" || mkdir "raw"
 
-function count {
+count ()
+{
    echo $@ | wc -w
 }
 
-function converttime {
+converttime ()
+{
    date -d "0 $(expr `date +%s` - $BEGIN) sec" +%T
 }
 
-function debuglevel {
+debuglevel ()
+{
    # Redirects output to /dev/null by default.
    if [ "$DEBUG" == "true" ]; then
       printf '\n'
@@ -31,11 +34,13 @@ function debuglevel {
    fi
 }
 
-function renderjobs {
+renderjobs ()
+{
    # Computes the number of queued renders (solely for output purposes.)
    if [ -z "$JOBS" ]; then
       JOBS=0
    fi
+   
    if [ -n "$MODELS" ]; then
       for model in $MODELS; do
          ENGINES=$(enginestate $model)
@@ -55,7 +60,8 @@ function renderjobs {
    echo $JOBS
 }
 
-function enginestate {
+enginestate ()
+{
    # If engines are disabled (as an argument), don't bother checking dim.sh
    if [ "$ENGINERENDER" == "0" ]; then
       ENGINES=false
@@ -67,7 +73,8 @@ function enginestate {
    echo $ENGINES
 }
 
-function render {
+render ()
+{
    BLEND="$1"
    RENDERPATH=$SHIPPATH
    
@@ -110,13 +117,11 @@ function render {
       COUNT=$(expr $COUNT + 1)
       debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
    elif [ "$layer" == 9 ]; then
-      echo Uhh
       echo -en "\E[32mRendering ${BLEND%.blend}_engine ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
       debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
    else
-      echo Test $layer $ENGINES
       echo -en "\E[32mRendering ${BLEND%.blend} ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
@@ -145,7 +150,8 @@ function render {
    cd ..
 }
 
-function finish {
+finish ()
+{
    # Runs at the end, showing duration.
    if [ -n "$JOBS" ]; then
       echo -e "\E[31m- - - - - - - -"; tput sgr0
