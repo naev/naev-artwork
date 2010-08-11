@@ -4,6 +4,7 @@ import math
 import Blender
 
 import render_init
+import render_comm
 
 import sys
 import optparse
@@ -59,6 +60,7 @@ if __name__ == "__main__":
    parser.add_option('-l', '--layer', dest='layers', help='Enable rendering of arbitrary layers.', type='string')
    parser.add_option('-r', '--rotz', dest='rotz', help="Begins render with arbitrary Z rotation.", type='float')
    parser.add_option('-R', '--resolution', dest='resolution', help="Renders at an arbitrary resolution.", type='int')
+   parser.add_option('-c', '--comm', dest='comm', help="Renders using the comm camera.", type='int')
 
    options, args = parser.parse_args(argv) # In this example we wont use the args
 
@@ -93,7 +95,12 @@ if __name__ == "__main__":
       Blender.Window.ViewLayers(layerlist)
    else:
       Blender.Window.ViewLayers( [1, 2, 3, 4, 5, 6, 7, 8] )
-   render_init.Initialize( intensity, resolution )
+
+   # Use the comm render script if necessary.
+   if options.comm == "1":
+      render_comm.Initialize( intensity, resolution )
+   else:
+      render_init.Initialize( intensity, resolution )
+
    Render( sx, sy )
    Blender.Quit()
-

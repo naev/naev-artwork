@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 RENDER="../render.py"
-RENDER_COMM="../render_comm.py"
 RENDER_DIM="../dim.sh"
 MKSPR="$(./naevpath.sh)/mkspr"
 SHIPPATH=".."
@@ -13,17 +12,32 @@ export PYTHONPATH="$PWD"
 # Create output directory if needed
 test -d "raw" || mkdir "raw"
 
-count ()
+usage()
+{
+   echo -e " Usage: ./render.sh [options]\n"\
+   " Options:\n"\
+   "  -S: Render models from stations/\n"\
+   "  -l \"[layers]\": Renders with extra layers. One render per layer.\n"\
+   "  -m \"[models]\": List of models to be rendered.\n"\
+   "  -c [0/1]: Enable or disable comm rendering (on by default).\n"\
+   "  -e [0/1]: Disable or enable automatic engine glow rendering.\n"\
+   "  -r [degrees]: Rotate the model before rendering. Negative is clockwise.\n"\
+   "  -R [pixels]: Render at an arbitrary resolution. Default is 512px.\n"\
+   "  -d: Enable verbose output from Blender.\n\n"\
+   " Note: When rendering multiple models or layers, quotes are necessary."
+}
+
+count()
 {
    echo $@ | wc -w
 }
 
-converttime ()
+converttime()
 {
    date -d "0 $(expr `date +%s` - $BEGIN) sec" +%T
 }
 
-debuglevel ()
+debuglevel()
 {
    # Redirects output to /dev/null by default.
    if [ "$DEBUG" == "true" ]; then
@@ -34,16 +48,19 @@ debuglevel ()
    fi
 }
 
-renderjobs ()
+renderjobs()
 {
    # Computes the number of queued renders (solely for output purposes.)
    if [ -z "$JOBS" ]; then
       JOBS=0
    fi
-   
+
    if [ -n "$MODELS" ]; then
       for model in $MODELS; do
-         ENGINES=$(enginestate $model)
+         if [ -e "$model.blend" ] && [ -z "$STATION" ] && ! $RENDER_DIM S $model >/dev/null; then
+            ENGINES=$(enginestate $model)
+         fi
+
          if [ -n "$layers" ]; then
             for layer in $layers; do
                JOBS=$(expr $JOBS + 1)
@@ -53,6 +70,10 @@ renderjobs ()
          else
             JOBS=$(expr $JOBS + 1)
          fi
+
+         if [ -e "$model.blend" ] && [ -z "$COMM" ] && [ "$STATION" != "true" ] && ! $RENDER_DIM S $model >/dev/null; then
+            JOBS=$(expr $JOBS + 1)
+         fi
       done
    else
       JOBS=$(expr $ARGCOUNT \* 2)
@@ -60,10 +81,10 @@ renderjobs ()
    echo $JOBS
 }
 
-enginestate ()
+enginestate()
 {
    # If engines are disabled (as an argument), don't bother checking dim.sh
-   if [ "$ENGINERENDER" == "0" ]; then
+   if [ "$ENGINERENDER" == "0" ] ; then
       ENGINES=false
    elif [ "$ENGINERENDER" == "1" ]; then
       ENGINES=true
@@ -73,22 +94,43 @@ enginestate ()
    echo $ENGINES
 }
 
-render ()
+render()
 {
    BLEND="$1"
    RENDERPATH=$SHIPPATH
-   
+   if ! $RENDER_DIM s $BLEND > /dev/null; then
+      echo -e "\E[31m$BLEND not found."; tput sgr0
+      return
+   fi
+
    # Check what to run.
-   if [ "$2" = "comm" ]; then
+   if [ "$STATION" == "true" ]; then
       INTENSITY=`$RENDER_DIM i $BLEND`
-      REND_SCRIPT="$RENDER_COMM"
-      REND_PARAMS="--intensity $INTENSITY"
+      REND_SCRIPT="$RENDER"
+      SPRITES=
+      REND_PARAMS="--spritex 1 --intensity $INTENSITY"
+   elif [ "$2" = "comm" ]; then
+      INTENSITY=`$RENDER_DIM i $BLEND`
+      rotz=-135
+      REND_SCRIPT="$RENDER"
+      REND_PARAMS="--spritex 1 --intensity $INTENSITY --comm 1"
    else
       SPRITES=`$RENDER_DIM s $BLEND`
-      #STATION=`$RENDER_DIM S $BLEND`
+      STATION=`$RENDER_DIM S $BLEND`
       INTENSITY=`$RENDER_DIM i $BLEND`
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY"
+   fi
+
+   # Render from the stations/ dir if argument is passed.
+   if [ "$STATION" == true  ]; then
+      RENDERPATH=$STATIONPATH
+      REND_PARAMS="--spritex 1 --intensity $INTENSITY"
+   fi
+
+   if [[ ! -e "$BLEND" ]] && [ "$STATION" != "true" ] || [[ ! -e "../stations/$BLEND" ]] &&  [[ "$STATION" == "true" ]]; then
+      echo -e "\E[31m$BLEND not found."; tput sgr0
+      return
    fi
 
    # Iterate over arguments and build the options list passed to render.py
@@ -103,11 +145,6 @@ render ()
    cd .render
    if [ -z "$COUNT" ]; then
       COUNT=1
-   fi
-
-   # Render from the stations/ dir if argument is passed.
-   if [ "$STATION" == true  ]; then
-      RENDERPATH=$STATIONPATH
    fi
 
    # Outputs different things depending on layers.
@@ -130,8 +167,11 @@ render ()
 
    # Post process
    if [ "$2" = "comm" ]; then
-      cp "comm.png" "../../raw/${BLEND%.blend}_comm.png"
+      cp "000.png" "../../raw/${BLEND%.blend}_comm.png"
       echo -e " ... Comm done!"
+   elif [ -n "$STATION" ]; then
+      cp "000.png" "../../raw/${BLEND%.blend}.png"
+      echo -e " ... Station done!"
    else
       # Make sprite
       $MKSPR $SPRITES
@@ -146,11 +186,11 @@ render ()
    fi
 
    # Clean up
-   rm *.png
+   #rm *.png
    cd ..
 }
 
-finish ()
+finish()
 {
    # Runs at the end, showing duration.
    if [ -n "$JOBS" ]; then
@@ -168,9 +208,16 @@ if [ $# -gt 0 ]; then
          render "$BLEND" "comm"
       done
    elif [ "$1" = "-g" ]; then
-      while getopts ":Sl:m:e:dghr:R:" opt; do
+      while getopts ":Sc:l:m:e:dghr:R:" opt; do
          case $opt in
             S) STATION="true"
+               ;;
+            c) if [ "$OPTARG" == 0 ]; then
+                  COMM=$OPTARG
+               elif [ "$OPTARG" != 1 ]; then
+                  echo -e "\E[31mValid input for -c is 0 or 1."; tput sgr0
+                  exit 1
+               fi
                ;;
             l) layers=$OPTARG 
                ;;
@@ -187,16 +234,7 @@ if [ $# -gt 0 ]; then
                ;;
             g) echo -e "\E[33mNAEV Render Script (Getopts Mode)"; tput sgr0
                ;;
-            h) echo -e " Usage: ./render.sh [options]\n"\
-               " Options:\n"\
-               "  -S: Render models from stations/\n"\
-               "  -l \"[layers]\": Renders with extra layers. One render per layer.\n"\
-               "  -m \"[models]\": List of models to be rendered.\n"\
-               "  -e [0/1]: Disable or enable automatic engine glow rendering.\n"\
-               "  -r [degrees]: Rotate the model before rendering. Negative is clockwise.\n"\
-               "  -R [pixels]: Render at an arbitrary resolution. Default is 512px.\n"\
-               "  -d: Enable verbose output from Blender.\n\n"\
-               " Note: When rendering multiple models or layers, quotes are necessary."
+            h) usage
                exit 1
                ;;
             r) rotz=$OPTARG
@@ -221,6 +259,12 @@ if [ $# -gt 0 ]; then
                for layer in $layers; do
                   render "$model.blend"
                done
+            elif [ "$STATION" == "true" ]; then
+               render "$model.blend"
+            elif [ -z "$STATION" ] && $RENDER_DIM S $model || [[ -e "../stations/$model.blend" ]]; then
+               $RENDER_DIM S $model
+               STATION="true"
+               render "$model.blend"
             elif [ "$ENGINES" == "true" ]; then
                # Engine meshes are on their own layer, but layer is not set by Getopts.
                render "$model.blend"
@@ -231,17 +275,49 @@ if [ $# -gt 0 ]; then
                # Simply renders model with no special layers.
                render $model.blend
             fi
+
+            if [ -z "$COMM" ] && [ "$STATION" != "true" ]; then
+               render "$model.blend" "comm"
+            fi
          done
+      else
+         echo -n "This will render all models, which may take a while. Type yes to continue: "
+      read choice
+      case $choice in
+         yes)
+            for SHIPNAME in "$@"; do
+               ARGCOUNT="`count $@`"
+               JOBS=$(renderjobs)
+               render "$SHIPNAME.blend"
+               render "$SHIPNAME.blend" "comm"
+               finish
+            done
+            ;;
+         *)
+            echo "$choice" is not valid, terminating.
+            exit 1
+            ;;
+      esac
       fi
       finish
    else # Falls back to legacy behaviour.
-      for SHIPNAME in "$@"; do
-         ARGCOUNT="`count $@`"
-         JOBS=$(renderjobs)
-         render "$SHIPNAME.blend"
-         render "$SHIPNAME.blend" "comm"
-         finish
-      done
+      echo -n "This will render all models, which may take a while. Type \"yes\" to continue: "
+      read choice
+      case $choice in
+         yes)
+            for SHIPNAME in "$@"; do
+               ARGCOUNT="`count $@`"
+               JOBS=$(renderjobs)
+               render "$SHIPNAME.blend"
+               render "$SHIPNAME.blend" "comm"
+               finish
+            done
+            ;;
+         *)
+            echo "$choice" is not valid, terminating.
+            exit 1
+            ;;
+      esac
    fi
 
 # No parameters, do them all

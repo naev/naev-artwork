@@ -2,19 +2,14 @@
 
 import math
 import Blender
-
-import render_init
-
-
-#
-#  global variables
-#
-filename = Blender.Get('filename')
-scn = Blender.Scene.GetCurrent() # global scene
-ctxt = scn.getRenderingContext()
+import os
 
 
-def Initialize():
+def Initialize( intensity=1., resolution=512 ):
+   # variables to use
+   scn = Blender.Scene.GetCurrent() # global scene
+   ctxt = scn.getRenderingContext()
+
    # unlink stuff we don't want
    for obj in Blender.Object.Get(): # destroy old cameras
       if obj.getType() in ('Camera','Lamp'):
@@ -22,64 +17,176 @@ def Initialize():
 
    # set the camera up
    cam = Blender.Camera.New('persp')
+   cam.lens=28
    camobj = Blender.Object.New('Camera')
    camobj.link(cam)
-   camobj.LocX = 0.5
-   camobj.LocY = -10.
-   camobj.LocZ = 0.5
-   camobj.RotX = 1.518
+   camobj.LocZ = 5.
+   camobj.LocX = -9.
+   camobj.LocY = 0.
+   camobj.RotX = math.pi / 3.
    camobj.RotY = 0.
-   camobj.RotZ = 0.052
+   camobj.RotZ = - math.pi / 2.
    scn.objects.link(camobj)
    scn.objects.camera = camobj
 
-   # Top Right Spot
-   sun = Blender.Lamp.New('Spot')
-   sun.setEnergy( 2.8 )
+   # Overhead Spot
+   sun = Blender.Lamp.New('Area')
+   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
+   sun.setEnergy( .4*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
-   sunobj.LocZ = 25.
-   sunobj.LocY = -25. / math.sqrt(2)
-   sunobj.LocX = 25. / math.sqrt(2)
-   sunobj.RotY =  0.78539
-   sunobj.RotZ = - 0.78539
+   sunobj.LocZ = 14.
+   sunobj.LocY = -9.
+   sunobj.LocX = 9.
+   sunobj.RotY = math.pi / 4.
+   sunobj.RotZ = - math.pi / 4.
    scn.objects.link(sunobj)
 
-   # Top Left Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( 1.68 )
+   # Forward Upper Spot
+   sun = Blender.Lamp.New('Spot')
+   sun.setEnergy( .32*intensity )
    sunobj = Blender.Object.New('Lamp')
    sunobj.link(sun)
-   sunobj.LocZ = 25.
-   sunobj.LocY = -25. / math.sqrt(2)
-   sunobj.LocX = -25. / math.sqrt(2)
-   sunobj.RotY =  0.78539
-   sunobj.RotZ = -2.35619
-   scn.objects.link(sunobj)
-   
-   # Bottom Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( 0.42 )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = -10.
-   sunobj.LocY = -25. / math.sqrt(2)
+   sunobj.LocZ = 7.
+   sunobj.LocY = -15.
    sunobj.LocX = 0.
-   sunobj.RotX = 1.0471
-   sunobj.RotY = 3.14159
+   sunobj.RotX = 1.13446
+   sunobj.RotY = 0.
    sunobj.RotZ = 0.
    scn.objects.link(sunobj)
 
+   # Forward Lower Spot
+   sun = Blender.Lamp.New('Spot')
+   sun.setEnergy( .64*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = -7.
+   sunobj.LocY = -15.
+   sunobj.LocX = 0.
+   sunobj.RotX = 2.00712
+   sunobj.RotY = 0.
+   sunobj.RotZ = 0.
+   scn.objects.link(sunobj)
 
-def Render():
-   ctxt.render()
-   ctxt.saveRenderedImage( "comm.png" )
+   # Forward Middle Hemi
+   sun = Blender.Lamp.New('Hemi')
+   sun.setEnergy( .08*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = -3.5
+   sunobj.LocY = -15.
+   sunobj.LocX = 0.
+   sunobj.RotX = 1.57079
+   sunobj.RotY = 0.
+   sunobj.RotZ = 0.
+   scn.objects.link(sunobj)
+
+   # Back Middle Hemi
+   sun = Blender.Lamp.New('Hemi')
+   sun.setEnergy( .08*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = -3.5
+   sunobj.LocY = 15.
+   sunobj.LocX = 0.
+   sunobj.RotX = 4.71238
+   sunobj.RotY = 0.
+   sunobj.RotZ = 0.
+   scn.objects.link(sunobj)
+
+   # Left Middle Hemi
+   sun = Blender.Lamp.New('Hemi')
+   sun.setEnergy( .08*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = -3.5
+   sunobj.LocY = 0.
+   sunobj.LocX = -15.
+   sunobj.RotX = 0.
+   sunobj.RotY = 1.57079
+   sunobj.RotZ = 3.14159
+   scn.objects.link(sunobj)
+
+   # Right Middle Hemi
+   sun = Blender.Lamp.New('Hemi')
+   sun.setEnergy( .08*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = -3.5
+   sunobj.LocY = 0.
+   sunobj.LocX = 15.
+   sunobj.RotX = 0.
+   sunobj.RotY = -1.57079
+   sunobj.RotZ = 3.14159
+   scn.objects.link(sunobj)
+
+   # Side Lamp
+   sun = Blender.Lamp.New('Lamp')
+   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
+   sun.setEnergy( .6*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = 1.
+   sunobj.LocY = -0.
+   sunobj.LocX = -4.
+   sunobj.RotX = 0.
+   sunobj.RotY = 0.
+   sunobj.RotZ = 0.
+   scn.objects.link(sunobj)
+
+   # Overhead Lamp
+   sun = Blender.Lamp.New('Lamp')
+   sun.setEnergy( .8*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = 12.
+   sunobj.LocY = 0.
+   sunobj.LocX = 0.
+   sunobj.RotX = 0.
+   sunobj.RotY = 0.
+   sunobj.RotZ = 0.
+   scn.objects.link(sunobj)
+
+   # Test Sun
+   sun = Blender.Lamp.New('Sun')
+   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
+   sun.setEnergy( .48*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = 25.
+   sunobj.LocY = 0.
+   sunobj.LocX = 0.
+   sunobj.RotX = 0.
+   sunobj.RotY = 0.
+   sunobj.RotZ = 0.
+   scn.objects.link(sunobj)
+
+   # Overhead Hemi
+   sun = Blender.Lamp.New('Hemi')
+   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
+   sun.setEnergy( .2*intensity )
+   sunobj = Blender.Object.New('Lamp')
+   sunobj.link(sun)
+   sunobj.LocZ = 18.
+   sunobj.LocY = -9.
+   sunobj.LocX = 9.
+   sunobj.RotY = 0.61086
+   sunobj.RotZ = -0.78539
+   scn.objects.link(sunobj)
+
+   # set the rendering context up
+   ctxt.extensions = True
+   ctxt.setImageType(Blender.Scene.Render.PNG)
+   ctxt.enablePremultiply()
+   ctxt.enableRGBAColor()
+   ctxt.imageSizeX(resolution)
+   ctxt.imageSizeY(resolution)
+   ctxt.threads = 5
+   ctxt.OSALevel = 8
+   ctxt.oversampling = True
+   ctxt.rayTracing = False
+   ctxt.renderPath = os.getcwd() + "/"
 
 
 if __name__ == "__main__":
-   render_init.Initialize()
    Initialize()
-   Render()
-   Blender.Quit()

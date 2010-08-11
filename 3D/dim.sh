@@ -34,7 +34,10 @@ function getsprites {
    elif [[ "$SHIP" =~ quicksilver ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ derivative ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ peacemaker ]]; then SPRITES=12;
-   else echo "Error, $SHIP not found."
+   elif [[ -e "$SHIP" ]]; then
+      SPRITES=1
+   else
+      exit 1
    fi
 }
 
@@ -73,6 +76,21 @@ function hasengine {
    ENGINE="true"
 }
 
+function isstation {
+   SHIP=`basename "${1%.png}"`
+
+   if [[ "$SHIP" =~ outpost ]]; then STATION="true";
+   elif [[ "$SHIP" =~ fighter_base ]]; then STATION="true";
+   elif [[ "$SHIP" =~ fighterbase ]]; then STATION="true";
+   elif [[ "$SHIP" =~ shipyard ]]; then STATION="true";
+   elif [[ "$SHIP" =~ research ]]; then STATION="true";
+   #elif [[ "$SHIP" =~ darkshed ]]; then STATION="true";
+   else
+      STATION="false";
+      exit 1;
+   fi
+}
+
 if [ "$1" == "s" ]; then
    getsprites $2
    echo $SPRITES
@@ -82,6 +100,9 @@ elif [ "$1" == "w" ]; then
 elif [ "$1" == "e" ]; then
    hasengine $2
    echo $ENGINE
+elif [ "$1" == "S" ]; then
+   isstation $2
+   echo $STATION
 elif [ "$1" == "i" ]; then
    getintensity $2
    echo $INTENSITY
