@@ -1,7 +1,7 @@
 
 
 RENDER      := "./render.py"
-RENDER_COMM := "./render-comm.py"
+RENDER_COMM := "./render_comm.py"
 MKSPR       := "$(HOME)/usr/prj/naev/mkspr"
 
 SPRITE_OBJS := $(patsubst %.blend,raw/%.png,$(wildcard ships/*.blend))
