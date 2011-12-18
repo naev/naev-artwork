@@ -6,7 +6,9 @@ MKSPR="$(./naevpath.sh)/mkspr"
 SHIPPATH=".."
 STATIONPATH="../../stations"
 BEGIN=$(date +%s)
-
+BLENDER="blender -b"
+# allow for custom path for blender as return by optional blenderpath.sh script
+[[ -f "blenderpath.sh" ]] && BLENDER="$(./blenderpath.sh)blender -b"
 export PYTHONPATH="$PWD"
 
 # Create output directory if needed
@@ -147,22 +149,23 @@ render()
       COUNT=1
    fi
 
+   # echo "$BLENDER $RENDERPATH/$BLEND -P $PWD/../$REND_SCRIPT -- $REND_PARAMS"
    # Outputs different things depending on layers.
    if [ -n "$layer" ] && [ "$layer" != 9 ]; then
       echo -en "\E[32mRendering ${BLEND%.blend}_$layer ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
+      debuglevel $BLENDER "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
    elif [ "$layer" == 9 ]; then
       echo -en "\E[32mRendering ${BLEND%.blend}_engine ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
+      debuglevel $BLENDER "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
    else
       echo -en "\E[32mRendering ${BLEND%.blend} ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel blender "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
+      debuglevel $BLENDER "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
    fi
 
    # Post process
