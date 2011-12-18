@@ -1,21 +1,24 @@
 #/usr/bin/env python
 
 import math
-import Blender
+import sys
 
+#sys.path.append( '/home/softcoder/Code/naev-artwork/3D' )
 import render_init
 import render_comm
 
-import sys
 import optparse
-
+import bpy
+import os
+from os import path
+from os.path import dirname
 
 #
 #  global variables
 #
-filename = Blender.Get('filename')
-scn      = Blender.Scene.GetCurrent() # global scene
-ctxt     = scn.getRenderingContext()
+filename = os.path.basename(bpy.data.filepath)
+scn = bpy.context.scene
+ctxt = scn.render
 
 #
 # Renders the 36 sprites with names like 000.png, 001.png, ...
@@ -23,20 +26,22 @@ ctxt     = scn.getRenderingContext()
 def Render( sx, sy ):
    total = sx*sy
    for i in range(0,total):
-      for obj in Blender.Object.Get():
-         if i != 0 and obj.getType() in ['Mesh','Empty']:
-            obj.RotZ = obj.RotZ + ((math.pi * 2) / total)
-         elif obj.getType() in ['Mesh','Empty'] and options.rotz:
-           obj.RotZ = obj.RotZ + (options.rotz / 180. * math.pi)
+      for obj in bpy.data.objects:
+         obj.rotation_mode = 'XYZ'
+         if i != 0 and obj.type in ['MESH','EMPTY']:
+            obj.rotation_euler[2] = obj.rotation_euler[2] + ((math.pi * 2) / total)
+         elif obj.type in ['MESH','EMPTY'] and options.rotz:
+            obj.rotation_euler[2] = obj.rotation_euler[2] + (options.rotation_euler[2] / 180. * math.pi)
 
-      ctxt.render()
-      ctxt.saveRenderedImage( str(i).zfill(3)+".png" )
+      ctxt.filepath = str(i).zfill(3)+".png"
+      ctxt.use_file_extension = True
+      bpy.ops.render.render(write_still=True)
 
 #
 # Actual commands to run.
 #
 if __name__ == "__main__":
-    # get the args passed to blender after "--", all of which are ignored by blender specifically
+   # get the args passed to blender after "--", all of which are ignored by blender specifically
    # so python may receive its own arguments
    argv= sys.argv
 
@@ -86,15 +91,18 @@ if __name__ == "__main__":
 
    # Set up layers if needed
    if options.engine == "true":
-      Blender.Window.ViewLayers( [1, 2, 3, 4, 5, 6, 7, 8, 9] )
+      for i in range(9):
+            bpy.context.scene.layers[i] = True
    if options.layers:
       layerlist = ( [1, 2, 3, 4, 5, 6, 7, 8] )
       layers = layers.split()
       layers=map(int, layers)
       layerlist.extend(layers)
-      Blender.Window.ViewLayers(layerlist)
+      for i in layerlist:
+            bpy.context.scene.layers[i] = True
    else:
-      Blender.Window.ViewLayers( [1, 2, 3, 4, 5, 6, 7, 8] )
+      for i in range(8):
+            bpy.context.scene.layers[i] = True
 
    # Use the comm render script if necessary.
    if options.comm == "1":
@@ -103,4 +111,4 @@ if __name__ == "__main__":
       render_init.Initialize( intensity, resolution )
 
    Render( sx, sy )
-   Blender.Quit()
+   bpy.ops.wm.quit_blender()

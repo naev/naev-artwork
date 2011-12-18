@@ -1,192 +1,154 @@
 #/usr/bin/env python
 
 import math
-import Blender
+import bpy
 import os
-
 
 def Initialize( intensity=1., resolution=512 ):
    # variables to use
-   scn = Blender.Scene.GetCurrent() # global scene
-   ctxt = scn.getRenderingContext()
+   scn = bpy.context.scene
+   ctxt = scn.render
 
    # unlink stuff we don't want
-   for obj in Blender.Object.Get(): # destroy old cameras
-      if obj.getType() in ('Camera','Lamp'):
+   for obj in bpy.data.objects:
+      if obj.type in ('CAMERA','LAMP'):
          scn.objects.unlink(obj)
+   scn.update()
 
    # set the camera up
-   cam = Blender.Camera.New('ortho')
-   cam.scale = 10.
-   camobj = Blender.Object.New('Camera')
-   camobj.link(cam)
-   camobj.LocZ = 9.
-   camobj.LocX = -9.
-   camobj.LocY = 0.
-   camobj.RotX = math.pi / 4.
-   camobj.RotY = 0.
-   camobj.RotZ = - math.pi / 2.
+   cam = bpy.data.cameras.new('ortho')
+   cam.ortho_scale = 10.
+   camobj = bpy.data.objects.new(name="Camera1", object_data=cam)
+   camobj.location = -9.0, 0.0, 9.0
+   camobj.rotation_mode = 'XYZ'
+   camobj.rotation_euler = math.pi / 4., 0.0, -math.pi / 2.
    scn.objects.link(camobj)
-   scn.objects.camera = camobj
+   scn.update()
+   scn.camera = camobj
 
    # Overhead Spot
-   sun = Blender.Lamp.New('Area')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .4*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 14.
-   sunobj.LocY = -9.
-   sunobj.LocX = 9.
-   sunobj.RotY = math.pi / 4.
-   sunobj.RotZ = - math.pi / 4.
+   sun = bpy.data.lamps.new('Area1','AREA')
+   sun.use_specular = False
+   sun.energy = .4*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp1', object_data=sun)
+   sunobj.location = 9.0, -9.0, 14.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, math.pi / 4., - math.pi / 4.
+
    scn.objects.link(sunobj)
+   scn.update()
    
    # Forward Upper Spot
-   sun = Blender.Lamp.New('Spot')
-   sun.setEnergy( .32*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 7.
-   sunobj.LocY = -15.
-   sunobj.LocX = 0.
-   sunobj.RotX = 1.13446
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Spot1','SPOT')
+   sun.energy = .32*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp2', object_data=sun)
+   sunobj.location = 0.0, -15.0, 7.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 1.13446, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
    
    # Forward Lower Spot
-   sun = Blender.Lamp.New('Spot')
-   sun.setEnergy( .64*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = -7.
-   sunobj.LocY = -15.
-   sunobj.LocX = 0.
-   sunobj.RotX = 2.00712
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Spot2','SPOT')
+   sun.energy = .64*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp3', object_data=sun)
+   sunobj.location = 0.0, -15.0, -7.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 2.00712, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
    
    # Forward Middle Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = -3.5
-   sunobj.LocY = -15.
-   sunobj.LocX = 0.
-   sunobj.RotX = 1.57079
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Hemi1','HEMI')
+   sun.energy = .08*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp4', object_data=sun)
+   sunobj.location = 0.0, -15.0, -3.5
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 1.57079, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
    
    # Back Middle Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = -3.5
-   sunobj.LocY = 15.
-   sunobj.LocX = 0.
-   sunobj.RotX = 4.71238
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Hemi2','HEMI')
+   sun.energy = .08*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp5', object_data=sun)
+   sunobj.location = 0.0, -15.0, -3.5
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 4.71238, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
    
    # Left Middle Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = -3.5
-   sunobj.LocY = 0.
-   sunobj.LocX = -15.
-   sunobj.RotX = 0.
-   sunobj.RotY = 1.57079
-   sunobj.RotZ = 3.14159
+   sun = bpy.data.lamps.new('Hemi3','HEMI')
+   sun.energy = .08*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp6', object_data=sun)
+   sunobj.location = -15.0, 0.0, -3.5
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, 1.57079, 3.14159
    scn.objects.link(sunobj)
+   scn.update()
 
    # Right Middle Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.setEnergy( .08*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = -3.5
-   sunobj.LocY = 0.
-   sunobj.LocX = 15.
-   sunobj.RotX = 0.
-   sunobj.RotY = -1.57079
-   sunobj.RotZ = 3.14159
+   sun = bpy.data.lamps.new('Hemi4','HEMI')
+   sun.energy = .08*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp7', object_data=sun)
+   sunobj.location = 15.0, 0.0, -3.5
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, -1.57079, 3.14159
    scn.objects.link(sunobj)
+   scn.update()
 
    # Side Lamp
-   sun = Blender.Lamp.New('Lamp')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .6*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 1.
-   sunobj.LocY = -0.
-   sunobj.LocX = -4.
-   sunobj.RotX = 0.
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Lamp8','POINT')
+   sun.use_specular = False
+   sun.energy = .6*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp9', object_data=sun)
+   sunobj.location = -4.0, -0.0, 1.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
 
    # Overhead Lamp
-   sun = Blender.Lamp.New('Lamp')
-   sun.setEnergy( .8*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 12.
-   sunobj.LocY = 0.
-   sunobj.LocX = 0.
-   sunobj.RotX = 0.
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Lamp10','POINT')
+   sun.energy = .8*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp11', object_data=sun)
+   sunobj.location = 0.0, 0.0, 0.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
    
       # Test Sun
-   sun = Blender.Lamp.New('Sun')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .48*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 25.
-   sunobj.LocY = 0.
-   sunobj.LocX = 0.
-   sunobj.RotX = 0.
-   sunobj.RotY = 0.
-   sunobj.RotZ = 0.
+   sun = bpy.data.lamps.new('Lamp12','SUN')
+   sun.use_specular = False
+   sun.energy =.48*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp12', object_data=sun)
+   sunobj.location = 0.0, 0.0, 25.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, 0.0, 0.0
    scn.objects.link(sunobj)
+   scn.update()
 
    # Overhead Hemi
-   sun = Blender.Lamp.New('Hemi')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( .2*intensity )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 18.
-   sunobj.LocY = -9.
-   sunobj.LocX = 9.
-   sunobj.RotY = 0.61086
-   sunobj.RotZ = -0.78539
+   sun = bpy.data.lamps.new('Lamp13','HEMI')
+   sun.use_specular = False
+   sun.energy = .2*intensity
+   sunobj = bpy.data.objects.new(name='MyLamp13', object_data=sun)
+   sunobj.location = 9.0, -9.0, 18.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euler = 0.0, 0.61086, -0.78539
    scn.objects.link(sunobj)
+   scn.update()
 
    # set the rendering context up
-   ctxt.extensions = True
-   ctxt.setImageType(Blender.Scene.Render.PNG)
-   ctxt.enablePremultiply()
-   ctxt.enableRGBAColor()
-   ctxt.imageSizeX(resolution)
-   ctxt.imageSizeY(resolution)
+   ctxt.image_settings.file_format = 'PNG';
+   ctxt.alpha_mode = 'PREMUL'
+   ctxt.resolution_x = resolution
+   ctxt.resolution_y = resolution
    ctxt.threads = 5
-   ctxt.OSALevel = 8
-   ctxt.oversampling = True
-   ctxt.renderPath = os.getcwd() + "/"
-
+   ctxt.use_antialiasing = True
+   ctxt.filepath = os.getcwd() + "/"
 
 if __name__ == "__main__":
    Initialize()
-
