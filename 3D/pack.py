@@ -1,13 +1,12 @@
 #/usr/bin/env python
 
 import math
-import Blender
-
+import bpy
 
 if __name__ == "__main__":
-   Blender.PackAll()
+ #  Blender.PackAll()
+   bpy.ops.file.pack_all()
+   filename = os.path.basename(bpy.data.filepath)
+   bpy.ops.wm.save_mainfile(filename,False)
 
-   filename = Blender.Get('filename')
-   Blender.Save(filename, 1)
-
-   Blender.Quit()
+   bpy.ops.wm.quit_blender()

@@ -1,61 +1,53 @@
 #/usr/bin/env python
 
 import math
-import Blender
-
+import bpy
+import os
+from os import path
+from os.path import dirname
 
 #
 #  global variables
 #
-filename = Blender.Get('filename')
-scn = Blender.Scene.GetCurrent() # global scene
-ctxt = scn.getRenderingContext()
-
+filename = os.path.basename(bpy.data.filepath)
+scn = bpy.context.scene
+ctxt = scn.render
 
 def Initialize():
    # unlink stuff we don't want
-   for obj in Blender.Object.Get(): # destroy old cameras
-      if obj.getType() in ('Camera','Lamp'):
+   for obj in bpy.data.objects:
+      if obj.type in ('CAMERA','LAMP'):
          scn.objects.unlink(obj)
+   scn.update()
 
    # set the camera up
-   cam = Blender.Camera.New('ortho')
-   camobj = Blender.Object.New('Camera')
-   camobj.link(cam)
-   camobj.LocX = 7.
-   camobj.LocY = 0.
-   camobj.LocZ = 0.
-   camobj.RotX = math.pi/2.
-   camobj.RotY = 0.
-   camobj.RotZ = math.pi/2.
+   cam = bpy.data.cameras.new('ORTHO')
+   camobj = bpy.data.objects.new(name="Camera1", object_data=cam)
+   camobj.location = 7.0, 0.0, 0.0
+   sunobj.rotation_mode = 'XYZ'
+   camobj.rotation_euler = math.pi/2., 0.0, math.pi/2.
    scn.objects.link(camobj)
    scn.objects.camera = camobj
 
    # set lighting up
-   sun = Blender.Lamp.New('Spot')
-   sun.mode |= Blender.Lamp.Modes["NoSpecular"]
-   sun.setEnergy( 4 )
-   sunobj = Blender.Object.New('Lamp')
-   sunobj.link(sun)
-   sunobj.LocZ = 25.
-   sunobj.LocY = -25. / math.sqrt(2)
-   sunobj.LocX = 25. / math.sqrt(2)
-   sunobj.RotY = 45.
-   sunobj.RotZ = -45.
+   sun = bpy.data.lamps.new('Spot1','SPOT')
+   sun.use_specular = False
+   sun.energy = 4
+   sunobj = bpy.data.objects.new(name='MyLamp1', object_data=sun)
+   sunobj.location = 25. / math.sqrt(2), -25. / math.sqrt(2), 25.0
+   sunobj.rotation_mode = 'XYZ'
+   sunobj.rotation_euelr = 0.0, 45.0, -45.0
    scn.objects.link(sunobj)
 
    # set the rendering context up
-   ctxt.extensions = True
-   ctxt.setImageType(Blender.Scene.Render.PNG)
-   ctxt.enablePremultiply()
-   ctxt.enableRGBAColor()
-   ctxt.imageSizeX(512)
-   ctxt.imageSizeY(512)
-   ctxt.threads = 3
-   ctxt.OSALevel = 8
-   ctxt.oversampling = True
-   ctxt.renderPath = os.getcwd() + "/"
+   ctxt.image_settings.file_format = 'PNG';
+   ctxt.alpha_mode = 'PREMUL'
+   ctxt.resolution_x = 512
+   ctxt.resolution_y = 512
 
+   ctxt.threads = 3
+   ctxt.use_antialiasing = True
+   ctxt.filepath = os.getcwd() + "/"
 
 if __name__ == "__main__":
    Initialize()
