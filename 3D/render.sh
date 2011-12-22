@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+cd "$(dirname $0)"
 RENDER="../render.py"
 RENDER_DIM="../dim.sh"
 MKSPR="$(./naevpath.sh)/mkspr"
@@ -120,6 +121,7 @@ render()
       INTENSITY=`$RENDER_DIM i $BLEND`
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY"
+      unset rotz;
    fi
 
    # Render from the stations/ dir if argument is passed.
@@ -285,13 +287,12 @@ if [ $# -gt 0 ]; then
       read choice
       case $choice in
          yes)
-            for SHIPNAME in "$@"; do
-               ARGCOUNT="`count $@`"
-               JOBS=$(renderjobs)
-               render "$SHIPNAME.blend"
-               render "$SHIPNAME.blend" "comm"
-               finish
+            for BLEND in *.blend; do
+               unset rotz
+               render "$BLEND"
+               render "$BLEND" "comm"
             done
+            finish
             ;;
          *)
             echo "$choice" is not valid, terminating.
@@ -305,13 +306,12 @@ if [ $# -gt 0 ]; then
       read choice
       case $choice in
          yes)
-            for SHIPNAME in "$@"; do
-               ARGCOUNT="`count $@`"
-               JOBS=$(renderjobs)
-               render "$SHIPNAME.blend"
-               render "$SHIPNAME.blend" "comm"
-               finish
+            for BLEND in *.blend; do
+               unset rotz
+               render "$BLEND"
+               render "$BLEND" "comm"
             done
+            finish
             ;;
          *)
             echo "$choice" is not valid, terminating.
