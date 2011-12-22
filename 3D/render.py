@@ -31,7 +31,7 @@ def Render( sx, sy ):
          if i != 0 and obj.type in ['MESH','EMPTY']:
             obj.rotation_euler[2] = obj.rotation_euler[2] + ((math.pi * 2) / total)
          elif obj.type in ['MESH','EMPTY'] and options.rotz:
-            obj.rotation_euler[2] = obj.rotation_euler[2] + (options.rotation_euler[2] / 180. * math.pi)
+            obj.rotation_euler[2] = obj.rotation_euler[2] + (options.rotz / 180. * math.pi)
 
       ctxt.filepath = str(i).zfill(3)+".png"
       ctxt.use_file_extension = True
