@@ -153,12 +153,12 @@ render()
 
    # echo "$BLENDER $RENDERPATH/$BLEND -P $PWD/../$REND_SCRIPT -- $REND_PARAMS"
    # Outputs different things depending on layers.
-   if [ -n "$layer" ] && [ "$layer" != 9 ]; then
+   if [ -n "$layer" ] && [ "$layer" != 8 ]; then
       echo -en "\E[32mRendering ${BLEND%.blend}_$layer ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
       debuglevel $BLENDER "$RENDERPATH/$BLEND" -P "$PWD/../$REND_SCRIPT" -- $REND_PARAMS
-   elif [ "$layer" == 9 ]; then
+   elif [ "$layer" == 8 ]; then
       echo -en "\E[32mRendering ${BLEND%.blend}_engine ... "; tput sgr0
       echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
@@ -180,9 +180,9 @@ render()
    else
       # Make sprite
       $MKSPR $SPRITES
-      if [ -n "$layer" ] && [ "$layer" != 9 ]; then
+      if [ -n "$layer" ] && [ "$layer" != 8 ]; then
          cp "sprite.png"  "../../raw/${BLEND%.blend}_$layer.png"
-      elif [ "$layer" == 9 ] && [ "$ENGINES" == "true" ]; then
+      elif [ "$layer" == 8 ] && [ "$ENGINES" == "true" ]; then
          cp "sprite.png"  "../../raw/${BLEND%.blend}_engine.png"
       else
          cp "sprite.png"  "../../raw/${BLEND%.blend}.png"
@@ -191,7 +191,7 @@ render()
    fi
 
    # Clean up
-   #rm *.png
+   rm *.png
    cd ..
 }
 
@@ -273,7 +273,7 @@ if [ $# -gt 0 ]; then
             elif [ "$ENGINES" == "true" ]; then
                # Engine meshes are on their own layer, but layer is not set by Getopts.
                render "$model.blend"
-               layer=9
+               layer=8
                render "$model.blend"
                unset layer
             else
