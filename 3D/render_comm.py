@@ -11,7 +11,7 @@ def Initialize( intensity=1., resolution=512 ):
 
    # unlink stuff we don't want
    for obj in bpy.data.objects:
-      if obj.type() in ('CAMERA','LAMP'):
+      if obj.type in ('CAMERA','LAMP'):
          scn.objects.unlink(obj)
    scn.update()
 
@@ -23,12 +23,13 @@ def Initialize( intensity=1., resolution=512 ):
    camobj.rotation_mode = 'XYZ'
    camobj.rotation_euler = math.pi / 3., 0.0, -math.pi / 2.
    scn.objects.link(camobj)
-   scn.objects.camera = camobj
+   scn.update()
+   scn.camera = camobj
 
    # Overhead Spot
    sun = bpy.data.lamps.new('Area1','AREA')
    sun.use_specular = False
-   sun.energy = 4*intensity
+   sun.energy = .4*intensity
    sunobj = bpy.data.objects.new(name='MyLamp2', object_data=sun)
    sunobj.location = 9.0, -9.0, 14.0
    sunobj.rotation_mode = 'XYZ'
@@ -89,7 +90,7 @@ def Initialize( intensity=1., resolution=512 ):
    scn.objects.link(sunobj)
 
    # Side Lamp
-   sun = bpy.data.lamps.new('MyLamp9','LAMP')
+   sun = bpy.data.lamps.new('MyLamp9','POINT')
    sun.use_specular = False
    sun.energy = .6*intensity
    sunobj = bpy.data.objects.new(name='MyLamp10', object_data=sun)
@@ -99,7 +100,7 @@ def Initialize( intensity=1., resolution=512 ):
    scn.objects.link(sunobj)
 
    # Overhead Lamp
-   sun = bpy.data.lamps.new('MyLamp11','LAMP')
+   sun = bpy.data.lamps.new('MyLamp11','POINT')
    sun.energy = .8*intensity
    sunobj = bpy.data.objects.new(name='MyLamp12', object_data=sun)
    sunobj.location = 0.0, 0.0, 12.0
@@ -129,13 +130,12 @@ def Initialize( intensity=1., resolution=512 ):
 
    # set the rendering context up
    ctxt.image_settings.file_format = 'PNG';
+   ctxt.image_settings.color_mode = 'RGBA';
    ctxt.alpha_mode = 'PREMUL'
    ctxt.resolution_x = resolution
    ctxt.resolution_y = resolution
-
    ctxt.threads = 5
    ctxt.use_antialiasing = True
-   ctxt.use_raytrace = False
    ctxt.filepath = os.getcwd() + "/"
 
 if __name__ == "__main__":
