@@ -16,7 +16,8 @@ def Initialize( intensity=1., resolution=512 ):
    scn.update()
 
    # set the camera up
-   cam = bpy.data.cameras.new('ortho')
+   cam = bpy.data.cameras.new('ORTHO')
+   cam.type = 'ORTHO'
    cam.ortho_scale = 10.
    camobj = bpy.data.objects.new(name="Camera1", object_data=cam)
    camobj.location = -9.0, 0.0, 9.0
