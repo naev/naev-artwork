@@ -3,15 +3,12 @@
 import math
 import sys
 
-#sys.path.append( '/home/softcoder/Code/naev-artwork/3D' )
 import render_init
 import render_comm
 
 import optparse
 import bpy
 import os
-from os import path
-from os.path import dirname
 
 #
 #  global variables
@@ -89,23 +86,23 @@ if __name__ == "__main__":
    if options.layers:
       layers = options.layers
 
-   # Set up layers if needed
+   # Disable layers 1-9 by default.
+   for i in range(8,19):
+      bpy.context.scene.layers[i] = False
+
    if options.engine == "true":
-      for i in range(9):
-            bpy.context.scene.layers[i] = True
+      bpy.context.scene.layers[8] = True
+
    if options.layers:
-      layerlist = ( [1, 2, 3, 4, 5, 6, 7, 8] )
+      layerlist = ( [0, 1, 2, 3, 4, 5, 6, 7] )
       layers = layers.split()
       layers=map(int, layers)
       layerlist.extend(layers)
       for i in layerlist:
-            bpy.context.scene.layers[i] = True
-   else:
-      for i in range(8):
-            bpy.context.scene.layers[i] = True
+         bpy.context.scene.layers[i] = True
 
    # Use the comm render script if necessary.
-   if options.comm == "1":
+   if options.comm == 1:
       render_comm.Initialize( intensity, resolution )
    else:
       render_init.Initialize( intensity, resolution )
