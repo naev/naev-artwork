@@ -30,5 +30,6 @@ comm: $(COMM_OBJS)
 
 sprite: $(SPRITE_OBJS)
 
-	
+clean:
+	$(RM) $(COMM_OBJS) $(SPRITE_OBJS)
 
