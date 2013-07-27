@@ -145,7 +145,7 @@ def Initialize( intensity=1., resolution=512 ):
    # set the rendering context up
    ctxt.image_settings.file_format = 'PNG';
    ctxt.image_settings.color_mode = 'RGBA';
-   ctxt.alpha_mode = 'PREMUL'
+   ctxt.alpha_mode = 'TRANSPARENT'
    ctxt.resolution_x = resolution
    ctxt.resolution_y = resolution
    ctxt.threads = 5

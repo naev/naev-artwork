@@ -3,7 +3,7 @@
 cd "$(dirname $0)"
 RENDER="../render.py"
 RENDER_DIM="../dim.sh"
-MKSPR="$(./naevpath.sh)/mkspr"
+MKSPR="$(./naevpath.sh)/utils/mkspr/mkspr"
 SHIPPATH=".."
 STATIONPATH="../../stations"
 BEGIN=$(date +%s)
