@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="76.798225"
+   height="82.050766"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <g
+     transform="translate(-159.20178,-226.36218)"
+     id="layer1">
+    <g
+       id="g3217">
+      <path
+         d="M 234.28572,272.36218 A 30,28.571428 0 1 1 174.28572,272.36218 A 30,28.571428 0 1 1 234.28572,272.36218 z"
+         transform="translate(0.7142792,1.4285717)"
+         id="path2383"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="M 162.12948,295.25284 A 4.7982244,5.0507627 0 1 1 152.53303,295.25284 A 4.7982244,5.0507627 0 1 1 162.12948,295.25284 z"
+         transform="translate(17.870522,7.1093445)"
+         id="path2385"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="M 217.13269,284.74741 L 235,302.36218"
+         id="path2389"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="M 204.74747,244.53477 L 205,227.36218"
+         id="path2391"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="M 162.12948,295.25284 A 4.7982244,5.0507627 0 1 1 152.53303,295.25284 A 4.7982244,5.0507627 0 1 1 162.12948,295.25284 z"
+         transform="translate(7.6687469,-7.8398929)"
+         id="path3163"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
