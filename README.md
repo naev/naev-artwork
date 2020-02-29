@@ -14,7 +14,6 @@ Directories
    - For the laser, only the base .blend is included. The Mk2 is created by merely increasing the muzzle size by 20% and changing the heatsink near the base to a green material.
    - The launcher graphics were created by combining the missile .blends with a desaturated Banshee launcher.
    - For creating your own graphics, turret.blend and turret2.blend are included. They're not actually used in-game, but they are the basis for the other turret models.
-   - There is one .blend missing from this repository, due to its immense size. The model for the Hellburner is roughly 40 MB, and can be acquired by contacting Deiz or Joss.
 
 Rendering
 ---------
