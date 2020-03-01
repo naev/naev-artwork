@@ -40,7 +40,7 @@ def Initialize():
    scn.objects.link(sun_o)
    scn.update()
 
-   sun_data = bpy.data.lamps.new('Lamp2', 'LAMP')
+   sun_data = bpy.data.lamps.new('Lamp2', 'SUN')
    sunobj = bpy.data.objects.new(name='MyLamp2', object_data=sun_data)
    sunobj.location = 25. / math.sqrt(2), -25.0 / math.sqrt(2), 25.0
    sunobj.rotation_mode = 'XYZ'
@@ -52,7 +52,7 @@ def Initialize():
    sun_o2 = bpy.data.objects.new(name='MyLamp3', object_data=sun2)
    scn.objects.link(sun_o2)
    scn.update()
-   sunobj2 = bpy.data.lamps.new('Lamp4', 'LAMP')
+   sunobj2 = bpy.data.lamps.new('Lamp4', 'SUN')
    sun_obj2 = bpy.data.objects.new(name='MyLamp4', object_data=sunobj2)
    sun_obj2.location = 25. / math.sqrt(2), -25.0 / math.sqrt(2), 25.0
    sun_obj2.rotation_mode = 'XYZ'
@@ -62,7 +62,7 @@ def Initialize():
 
    # set the rendering context up
    ctxt.image_settings.file_format = 'PNG';
-   ctxt.alpha_mode = 'PREMUL'
+   ctxt.alpha_mode = 'TRANSPARENT'
    ctxt.filepath = "./"
    ctxt.resolution_x = 512
    ctxt.resolution_y = 512
