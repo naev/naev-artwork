@@ -61,7 +61,8 @@ def Initialize():
    scn.update()
 
    # set the rendering context up
-   ctxt.image_settings.file_format = 'PNG';
+   ctxt.image_settings.file_format = 'PNG'
+   ctxt.image_settings.color_mode = 'RGBA'
    ctxt.alpha_mode = 'TRANSPARENT'
    ctxt.filepath = "./"
    ctxt.resolution_x = 512
