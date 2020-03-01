@@ -20,6 +20,9 @@ for i in os.listdir(DAT + 'ships'):
     if not i.endswith('.xml'):
         continue
     et = ElementTree.parse(DAT + 'ships/' + i)
+    if et.find('GFX') == None:
+        print('No GFX tag in \'' + i + '\'')
+        continue
     gfx = et.find('GFX').text
     if not os.path.exists('ships/' + gfx + '.blend'):
         missing.add(gfx)
@@ -35,6 +38,15 @@ for i in os.listdir(DAT + 'outfits'):
         if not os.path.exists('outfits/' + gfx + '.blend'):
             missing.add(gfx)
 print_missing("Outfits", missing)
+
+# Similarly to outfits.
+missing = set()
+for i in os.listdir(DAT + 'gfx/planet/space'):
+    if i.endswith('.png'):
+        if not os.path.exists('stations/' + i.replace('.png', '.blend')):
+            missing.add(i)
+print_missing("Planets Space", missing)
+
 
 missing = set()
 for i in os.listdir(DAT + 'gfx/logo'):
