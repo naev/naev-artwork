@@ -77,8 +77,8 @@ function getsize {
    elif [[ "$SHIP" =~ scintillation ]]; then SIZE=70;
    elif [[ "$SHIP" =~ virtuosity ]]; then SIZE=70;
    elif [[ "$SHIP" =~ taciturnity ]]; then SIZE=80;
-   elif [[ "$SHIP" =~ apprehension ]]; then SIZE=120;
-   elif [[ "$SHIP" =~ certitude ]]; then SIZE=90;
+   elif [[ "$SHIP" =~ apprehension ]]; then SIZE=90;
+   elif [[ "$SHIP" =~ certitude ]]; then SIZE=120;
    fi
 }
 
