@@ -38,6 +38,8 @@ function getsprites {
    elif [[ "$SHIP" =~ scintillation ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ virtuosity ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ taciturnity ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ apprehension ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ certitude ]]; then SPRITES=12;
    elif [[ -e "$SHIP" ]]; then
       SPRITES=1
    else
@@ -75,6 +77,8 @@ function getsize {
    elif [[ "$SHIP" =~ scintillation ]]; then SIZE=70;
    elif [[ "$SHIP" =~ virtuosity ]]; then SIZE=70;
    elif [[ "$SHIP" =~ taciturnity ]]; then SIZE=80;
+   elif [[ "$SHIP" =~ apprehension ]]; then SIZE=120;
+   elif [[ "$SHIP" =~ certitude ]]; then SIZE=90;
    fi
 }
 
