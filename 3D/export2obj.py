@@ -28,7 +28,7 @@ bpy.ops.object.join()
 bpy.context.scene.objects.active.name = 'engine'
 bpy.context.scene.objects.active.data.name = 'engine'
 
-bpy.ops.export_scene.obj(filepath=objpath, use_triangles=True, axis_forward='Y', axis_up='Z', path_mode='COPY')
+bpy.ops.export_scene.obj(filepath=objpath, use_triangles=True, path_mode='COPY')
 
 os.chdir(shipdir)
 with open(shipname + '.mtl') as mtlfile:
