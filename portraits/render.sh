@@ -1,7 +1,8 @@
 #!/bin/bash
 
-for i in *.xcf
+for i in $(find -name '*.xcf')
 do
-    echo "$i -> $i.png"
-    ./xcf2png.sh $i $i.png
+    mkdir -p out/$(dirname "$i")
+    echo "$i -> out/${i%.xcf}.png"
+    ./xcf2png.sh $i out/${i%.xcf}.png
 done
