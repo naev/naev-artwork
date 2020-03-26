@@ -528,8 +528,10 @@ def polygonify_all_ships(pngPath, polyPath, overwrite):
     
     # First define the parameters for special files
     maxNmin = {
+               "apprehension.png" : (12,12,150,3,6),
                "archimedes.png" : (12,12,150,3,6),
                "arx.png" : (12,12,150,3,6),
+               "certitude.png" : (12,12,150,3,6),
                "demon.png" : (12,12,150,3,6),
                "diablo.png" : (12,12,1,4,8),
                "divinity.png" : (12,12,150,3,6),
@@ -608,8 +610,8 @@ def polygonify_all_ships(pngPath, polyPath, overwrite):
 
 if __name__ == "__main__":
         
-    polygonify_all_outfits( '../naev/dat/gfx/outfit/space/', '../naev/dat/gfx/outfit/space_polygon/', 0 )
-    polygonify_all_ships( '../naev/dat/gfx/ship/', '../naev/dat/gfx/ship_polygon/', 0 )
+    polygonify_all_outfits( '../../../naev/dat/gfx/outfit/space/', '../../../naev/dat/gfx/outfit/space_polygon/', 0 )
+    polygonify_all_ships( '../../../naev/dat/gfx/ship/', '../../../naev/dat/gfx/ship_polygon/', 0 )
     
     # Use the above stuff to generate only one ship or outfit polygon :
     
