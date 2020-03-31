@@ -102,7 +102,6 @@
 
 import numpy as np
 import math
-from scipy import ndimage
 import matplotlib.pyplot as plt
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as pretty
@@ -110,7 +109,7 @@ import os
 
 # Create an array from the picture
 def arrFromPng(adress,sx,sy):
-    picture = ndimage.imread(adress)
+    picture = plt.imread(adress)
     
     if np.shape(picture)[2] == 4:
         picture = picture[:,:,3]
