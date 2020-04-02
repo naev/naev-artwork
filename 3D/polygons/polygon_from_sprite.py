@@ -3,6 +3,10 @@
 # Generates polygons from png files
 
 
+# WARNING : this script uses python 3
+# For needed depandancies, please see the import section
+
+
 # If you added a space ammo/bolt png:
 # Go to bottom of the file, and replace '../naev/dat/gfx/outfit/space/' and
 # '../naev/dat/gfx/outfit/space_polygon/' by the right paths in naev repo
@@ -114,12 +118,12 @@ def arrFromPng(adress,sx,sy):
     picture = plt.imread(adress)
     
     if np.shape(picture)[2] == 4:
-        picture = picture[:,:,3]
+        picture = 255*picture[:,:,3]
     elif np.shape(picture)[2] == 2: # Black and white
-        picture = picture[:,:,1]
+        picture = 255*picture[:,:,1]
     else:
         print('Warning: unable to read png file')
-        picture = picture[:,:,3] # Try this, maybe it will work
+        picture = 255*picture[:,:,3] # Try this, maybe it will work
     
     # Store all the different pictures in a list of matrices
     six = picture.shape[0]/sx
