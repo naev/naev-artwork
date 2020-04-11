@@ -1,14 +1,18 @@
 RES := $(if $(HIDPI),800x800,400x400)
-PNG_OUTPUTS := $(patsubst %.png,out/%.png,$(wildcard *.png))
-JPG_OUTPUTS := $(patsubst %.jpg,out/%.png,$(wildcard *.jpg))
+OUTDIR := ../out/exterior
+PNG_OUTPUTS := $(patsubst %.png,$(OUTDIR)/%.png,$(wildcard *.png))
+JPG_OUTPUTS := $(patsubst %.jpg,$(OUTDIR)/%.png,$(wildcard *.jpg))
 OUTPUTS := $(PNG_OUTPUTS) $(JPG_OUTPUTS)
 
 all: $(OUTPUTS)
 
-out/%.png: %.jpg
+$(OUTDIR):
+	mkdir -p $@
+
+$(OUTDIR)/%.png: %.jpg | $(OUTDIR)
 	convert -scale $(RES) "$<" "$@"
 
-out/%.png: %.png
+$(OUTDIR)/%.png: %.png | $(OUTDIR)
 	convert -scale $(RES) "$<" "$@"
 
 clean:
