@@ -5,9 +5,8 @@ OUTPUTS := $(patsubst %.xcf,$(OUTDIR)/%.png,$(SOURCES))
 
 all: $(OUTPUTS)
 
-$(OUTDIR)/%.png: %.xcf
+$(OUTDIR)/%.png: %.xcf background.png xcf2png.sh
 	@mkdir -p "$(dir $@)"
 	./xcf2png.sh "$<" "$@" $(RES)
 
-.PHONY:
-	all
+.PHONY: all
