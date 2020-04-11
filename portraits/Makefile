@@ -9,8 +9,5 @@ $(OUTDIR)/%.png: %.xcf
 	@mkdir -p "$(dir $@)"
 	./xcf2png.sh "$<" "$@" $(RES)
 
-clean:
-	rm -rf out/*
-
 .PHONY:
-	all clean
+	all
