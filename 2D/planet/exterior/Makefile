@@ -15,5 +15,4 @@ $(OUTDIR)/%.png: %.jpg | $(OUTDIR)
 $(OUTDIR)/%.png: %.png | $(OUTDIR)
 	convert -scale $(RES) "$<" "$@"
 
-.PHONY:
-	all
+.PHONY: all
