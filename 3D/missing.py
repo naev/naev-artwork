@@ -44,15 +44,15 @@ missing = set()
 for i in os.listdir(DAT + 'gfx/planet/space'):
     if i.endswith('.png'):
         if not os.path.exists('stations/' + i.replace('.png', '.blend')):
-            missing.add(i)
+            if not os.path.exists('../2D/planet/space/' + i.replace('.png', '.psd')):
+                missing.add(i)
 print_missing("Planets Space", missing)
-
 
 missing = set()
 for i in os.listdir(DAT + 'gfx/logo'):
     if not i.endswith('_small.png'):
         continue
     faction = i.replace('_small.png', '')
-    if not os.path.exists('../logos/' + faction + '.svg'):
+    if not os.path.exists('../2D/logo/' + faction + '.svg'):
         missing.add(faction)
 print_missing("Faction Logos", missing)
