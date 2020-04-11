@@ -1,9 +1,12 @@
-all: portraits exterior
+all: portraits logo exterior
 
 portraits:
 	$(MAKE) -C portraits
 
+logo:
+	$(MAKE) -C logo
+
 exterior:
 	$(MAKE) -C planet/exterior
 
-.PHONY: portraits exterior
+.PHONY: portraits logo exterior
