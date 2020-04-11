@@ -6,7 +6,7 @@ if [ "$1" == "--hidpi" ]; then
 fi
 
 mkdir -p out
-for i in *.png
+for i in *.png *.jpg
 do
     echo "$i -> out/$i"
     convert -scale $res "$i" "out/$i"
