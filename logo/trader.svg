@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
    id="svg22060"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docname="trader_logo.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="trader.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs22062">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 526.18109 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="744.09448 : 526.18109 : 1"
-       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_x="0 : 561.25983 : 1"
+       inkscape:vp_y="0 : 1066.6667 : 0"
+       inkscape:vp_z="793.70078 : 561.25983 : 1"
+       inkscape:persp3d-origin="396.85039 : 374.17322 : 1"
        id="perspective22068" />
   </defs>
   <sodipodi:namedview
@@ -39,10 +40,11 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="25" />
+     inkscape:window-width="1916"
+     inkscape:window-height="1014"
+     inkscape:window-x="2"
+     inkscape:window-y="64"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata22065">
     <rdf:RDF>
@@ -51,6 +53,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+        <cc:license
+           rdf:resource="https://creativecommons.org/licenses/by/3.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>enigmatic</dc:title>
+          </cc:Agent>
+        </dc:creator>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,38 +68,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot15342"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       transform="matrix(0.3357359,0,0,0.3357359,341.56403,429.79393)"><flowRegion
-         id="flowRegion15344"><rect
-           id="rect15346"
-           width="290"
-           height="91.428574"
-           x="338.57144"
-           y="689.50507" /></flowRegion><flowPara
-         id="flowPara15348">by enigmatic</flowPara></flowRoot>    <image
-       y="623.77783"
-       x="452.39883"
-       id="image15359"
-       height="31"
-       width="88"
-       sodipodi:absref="/home/brutkasten/Dokumente/naev/pastedpic_09172009_162558.png"
-       xlink:href="pastedpic_09172009_162558.png" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot21123"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       transform="matrix(0.3357359,0,0,0.3357359,345.07454,447.30925)"><flowRegion
-         id="flowRegion21125"><rect
-           id="rect21127"
-           width="290"
-           height="91.428574"
-           x="338.57144"
-           y="689.50507" /></flowRegion><flowPara
-         id="flowPara21129">cc v3.0</flowPara><flowPara
-         id="flowPara21131" /></flowRoot>    <g
+    <g
        id="g38610"
        transform="translate(4975.9643,-6280.4563)">
       <path

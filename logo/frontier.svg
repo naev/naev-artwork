@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
    id="svg22060"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docname="frontier_logo.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="frontier.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
   <defs
      id="defs22062">
     <filter
@@ -54,92 +55,12 @@
          stdDeviation="2.8062822"
          inkscape:collect="always" />
     </filter>
-    <filter
-       id="filter15966"
-       inkscape:collect="always">
-      <feGaussianBlur
-         id="feGaussianBlur15968"
-         stdDeviation="1.8708548"
-         inkscape:collect="always" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter21931"
-       x="-0.22838603"
-       width="1.4567721"
-       y="-3.6088594"
-       height="8.2177187">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="6.4710961"
-         id="feGaussianBlur21933" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter21877"
-       x="-2.4734495"
-       width="5.9468991"
-       y="-0.26753253"
-       height="1.5350651">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="4.4351769"
-         id="feGaussianBlur21879" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter21563"
-       x="-0.86982249"
-       width="2.739645"
-       y="-0.86982249"
-       height="2.739645">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="17.939174"
-         id="feGaussianBlur21565" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter21647"
-       x="-0.28646147"
-       width="1.5729229"
-       y="-0.25313594"
-       height="1.5062719">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.6270468"
-         id="feGaussianBlur21649" />
-    </filter>
-    <filter
-       height="1.3946332"
-       y="-0.19731662"
-       width="1.446426"
-       x="-0.22321299"
-       id="filter15690"
-       inkscape:collect="always">
-      <feGaussianBlur
-         id="feGaussianBlur15692"
-         stdDeviation="5.6510621"
-         inkscape:collect="always" />
-    </filter>
-    <filter
-       height="2.7400067"
-       y="-0.87000337"
-       width="1.2427341"
-       x="-0.12136706"
-       id="filter15740"
-       inkscape:collect="always">
-      <feGaussianBlur
-         id="feGaussianBlur15742"
-         stdDeviation="4.4678318"
-         inkscape:collect="always" />
-    </filter>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 526.18109 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="744.09448 : 526.18109 : 1"
-       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_x="0 : 561.25983 : 1"
+       inkscape:vp_y="0 : 1066.6667 : 0"
+       inkscape:vp_z="793.70078 : 561.25983 : 1"
+       inkscape:persp3d-origin="396.85039 : 374.17322 : 1"
        id="perspective22068" />
   </defs>
   <sodipodi:namedview
@@ -155,10 +76,11 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="25" />
+     inkscape:window-width="1916"
+     inkscape:window-height="1014"
+     inkscape:window-x="2"
+     inkscape:window-y="64"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata22065">
     <rdf:RDF>
@@ -167,6 +89,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>enigmatic</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="https://creativecommons.org/licenses/by/3.0/" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -174,38 +104,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot15342"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       transform="matrix(0.3357359,0,0,0.3357359,341.56403,429.79393)"><flowRegion
-         id="flowRegion15344"><rect
-           id="rect15346"
-           width="290"
-           height="91.428574"
-           x="338.57144"
-           y="689.50507" /></flowRegion><flowPara
-         id="flowPara15348">by enigmatic</flowPara></flowRoot>    <image
-       y="623.77783"
-       x="452.39883"
-       id="image15359"
-       height="31"
-       width="88"
-       sodipodi:absref="/home/brutkasten/Dokumente/naev/pastedpic_09172009_162558.png"
-       xlink:href="pastedpic_09172009_162558.png" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot21123"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       transform="matrix(0.3357359,0,0,0.3357359,345.07454,447.30925)"><flowRegion
-         id="flowRegion21125"><rect
-           id="rect21127"
-           width="290"
-           height="91.428574"
-           x="338.57144"
-           y="689.50507" /></flowRegion><flowPara
-         id="flowPara21129">cc v3.0</flowPara><flowPara
-         id="flowPara21131" /></flowRoot>    <g
+    <g
        id="g35013"
        transform="matrix(0.5886226,0,0,0.5886226,-64.829833,-1301.7646)"
        inkscape:export-filename="/home/brutkasten/Dokumente/naev/frontier_logo.png"
