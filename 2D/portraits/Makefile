@@ -1,5 +1,5 @@
 RES := $(if $(HIDPI),400x300,200x150)
-OUTDIR := ../out/portraits
+OUTDIR := ../../out/portraits
 SOURCES := $(shell find -name '*.xcf')
 OUTPUTS := $(patsubst %.xcf,$(OUTDIR)/%.png,$(SOURCES))
 

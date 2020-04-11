@@ -1,5 +1,5 @@
 RES := $(if $(HIDPI),800x800,400x400)
-OUTDIR := ../../out/planet/exterior
+OUTDIR := ../../../out/planet/exterior
 PNG_OUTPUTS := $(patsubst %.png,$(OUTDIR)/%.png,$(wildcard *.png))
 JPG_OUTPUTS := $(patsubst %.jpg,$(OUTDIR)/%.png,$(wildcard *.jpg))
 OUTPUTS := $(PNG_OUTPUTS) $(JPG_OUTPUTS)
