@@ -3,3 +3,14 @@ Many ship models are sourced from Vega Strike.
 Content is licensed under a mixture of Public Domain, GPLv2, GPLv3, and Creative Commons 3.0 licenses. See dat/gfx/ARTWORK_LICENSE for more information.
 
 https://github.com/naev/naev/blob/master/dat/gfx/ARTWORK_LICENSE
+
+Special cases are listed below.
+
+
+2D/portraits/portrait_nihilos.xcf:
+
+This is a template file used for generating portraits. Originally by
+Nihilos <https://opengameart.org/users/nihilos>, based on portraits by
+Ingo Ruhnke <grumbel@gmx.de>. Components are by Nihilos.
+
+* License: CC-by 3.0
