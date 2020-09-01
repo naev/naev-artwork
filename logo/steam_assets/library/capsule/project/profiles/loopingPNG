@@ -1,0 +1,11 @@
+description=600x900 20.00fps
+frame_rate_num=20
+frame_rate_den=1
+width=600
+height=900
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=600
+display_aspect_den=900
+colorspace=601
