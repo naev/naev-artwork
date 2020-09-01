@@ -4,7 +4,7 @@
  <producer id="producer1" in="00:00:00.000" out="00:00:10.150">
   <property name="length">204</property>
   <property name="eof">pause</property>
-  <property name="resource">../../../../naev.svg</property>
+  <property name="resource">../../../naev.svg</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="progressive">1</property>
