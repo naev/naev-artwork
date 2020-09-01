@@ -32,6 +32,7 @@ if [[ ! -z $(command -v gimp) ]]; then
     GIMPEXEC=gimp
 else
     echo "You're missing the gimp package for your distro."
+    exit 1
 fi
 
 # Start gimp with python-fu batch-interpreter
