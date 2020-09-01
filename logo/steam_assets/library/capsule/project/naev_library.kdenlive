@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<mlt title="Anonymous Submission" LC_NUMERIC="en_CA.UTF-8" producer="main_bin" version="6.20.0" root="/home/synchro/Documents/GitStuff/naev-artwork-synchro/logo/steam_assets/library/capsule/project">
+<mlt title="Anonymous Submission" LC_NUMERIC="en_CA.UTF-8" producer="main_bin" version="6.20.0" root="./">
  <profile frame_rate_num="20" sample_aspect_num="1" display_aspect_den="900" colorspace="601" progressive="1" description="600x900 20.00fps" display_aspect_num="600" frame_rate_den="1" width="600" height="900" sample_aspect_den="1"/>
  <producer id="producer1" in="00:00:00.000" out="00:00:10.150">
   <property name="length">204</property>
   <property name="eof">pause</property>
-  <property name="resource">/home/synchro/Documents/GitStuff/naev-artwork-synchro/logo/naev.svg</property>
+  <property name="resource">../../../../naev.svg</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="progressive">1</property>
@@ -122,7 +122,7 @@
   <property name="kdenlive:docproperties.position">41</property>
   <property name="kdenlive:docproperties.previewextension"/>
   <property name="kdenlive:docproperties.previewparameters"/>
-  <property name="kdenlive:docproperties.profile">/home/synchro/.local/share/kdenlive/profiles/customprofile2</property>
+  <property name="kdenlive:docproperties.profile">profiles/loopingPNG</property>
   <property name="kdenlive:docproperties.proxyextension"/>
   <property name="kdenlive:docproperties.proxyimageminsize">2000</property>
   <property name="kdenlive:docproperties.proxyimagesize">800</property>
