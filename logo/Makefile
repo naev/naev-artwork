@@ -1,4 +1,4 @@
-OUTDIR := ./out/logo
+OUTDIR := ./out
 LOGOS_OUTPUTS := $(patsubst %.svg,$(OUTDIR)/%.png,$(wildcard *.svg))
 OUTPUTS := $(LOGOS_OUTPUTS)
 
