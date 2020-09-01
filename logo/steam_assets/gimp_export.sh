@@ -28,8 +28,14 @@ elif [[ -z "$OUTPUTDIR" ]]; then
     exit 1
 fi
 
+if [[ ! -z $(command -v gimp) ]]; then
+    GIMPEXEC=gimp
+else
+    echo "You're missing the gimp package for your distro."
+fi
+
 # Start gimp with python-fu batch-interpreter
-gimp -i --batch-interpreter=python-fu-eval -b - << EOF
+${GIMPEXEC} -i --batch-interpreter=python-fu-eval -b - << EOF
 import gimpfu
 
 def convert(filename):
