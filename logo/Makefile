@@ -15,6 +15,4 @@ $(OUTDIR)/%.png: %.svg | $(OUTDIR)
 steam:
 	$(MAKE) -C steam_assets
 
-
-
 .PHONY: logos steam
