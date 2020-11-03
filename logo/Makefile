@@ -10,7 +10,7 @@ $(OUTDIR):
 	mkdir -p $@
 
 $(OUTDIR)/%.png: %.svg | $(OUTDIR)
-	inkscape --export-type="png" "$<" -o "$@"
+	inkscape -z "$<" -e "$@"
 
 steam:
 	$(MAKE) -C steam_assets
