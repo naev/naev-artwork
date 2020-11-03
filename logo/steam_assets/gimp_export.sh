@@ -35,21 +35,25 @@ else
     exit 1
 fi
 
-# Start gimp with python-fu batch-interpreter
-${GIMPEXEC} -i --batch-interpreter=python-fu-eval -b - << EOF
-import gimpfu
+# Start gimp with script-fu convert-xcf-png
+{
+cat <<EOF
+(define (convert-xcf-png ${XCFFILE} ${OUTPUTDIR})
+    (let* (
+            (image (car (gimp-xcf-load RUN-NONINTERACTIVE ${XCFFILE} ${XCFFILE} )))
+            (drawable (car (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)))
+            )
+        (begin (display "Exporting ")(display ${XCFFILE})(display " -> ")(display ${OUTPUTDIR})(newline))
+        (file-png-save2 RUN-NONINTERACTIVE image drawable ${OUTPUTDIR} ${OUTPUTDIR} 0 9 0 0 0 0 0 0 0)
+        (gimp-image-delete image)
+    )
+)
 
-def convert(filename):
-    img = pdb.gimp_file_load(filename, filename)
-    new_name = filename.rsplit(".",1)[0] + ".png"
-    layer = pdb.gimp_image_merge_visible_layers(img, 1)
-
-    pdb.gimp_file_save(img, layer, new_name, new_name)
-    pdb.gimp_image_delete(img)
-
-convert('${XCFFILE}')
-
-pdb.gimp_quit(1)
+(gimp-message-set-handler 1) ; Messages to standard output
 EOF
 
-mv *.png ${OUTPUTDIR}
+echo "(convert-xcf-png \"${XCFFILE}\" \"${OUTPUTDIR}\")"
+
+echo "(gimp-quit 0)"
+
+} | ${GIMPEXEC} -i -b -
