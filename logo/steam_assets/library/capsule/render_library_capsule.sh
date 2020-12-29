@@ -19,24 +19,24 @@ while getopts d:f:o: OPTION "$@"; do
     esac
 done
 
-if [[ -z "$MLTFILE" ]]; then
+if [ -z "$MLTFILE" ]; then
     echo "usage: `basename $0` [-d] -f <mltFile> -o <outputDir>"
     exit 1
-elif [[ -z "$OUTPUTDIR" ]]; then
+elif [ -z "$OUTPUTDIR" ]; then
     echo "usage: `basename $0` [-d] -f mltFile> -o <outputDir>"
     exit 1
 fi
 
-if [[ ! -z $(command -v ffmpeg) ]]; then
+if [ ! -z $(command -v ffmpeg) ]; then
     FFMPEGEXEC=ffmpeg
 else
     echo "You're missing the ffmpeg package for your distro."
     exit 1
 fi
 
-if [[ ! -z $(command -v mlt-melt) ]]; then
+if [ ! -z $(command -v mlt-melt) ]; then
     MLTEXEC=mlt-melt
-elif [[ ! -z $(command -v melt) ]]; then
+elif [ ! -z $(command -v melt) ]; then
     MLTEXEC=melt
 else
     echo "You're missing the mlt-melt package for your distro."
