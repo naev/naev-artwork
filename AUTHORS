@@ -7,9 +7,10 @@ https://github.com/naev/naev/blob/master/dat/gfx/ARTWORK_LICENSE
 Special cases are listed below.
 
 
-2D/portraits/portrait_nihilos.xcf:
+2D/portraits/portrait_nihilos.xcf
+2D/portraits/portrait_nihilos-scaled.xcf
 
-This is a template file used for generating portraits. Originally by
+These are template files used for generating portraits. Originally by
 Nihilos <https://opengameart.org/users/nihilos>, based on portraits by
 Ingo Ruhnke <grumbel@gmx.de>. Components are by Nihilos and Unnamed.
 
