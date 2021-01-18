@@ -480,7 +480,7 @@ def generateXML(polygon,adress):
     myfile.close()
 
 # Generates polygon for all outfits
-def polygonify_all_outfits(pngPath, polyPath, overwrite):
+def polygonify_all_outfits(gfxPath, polyPath, overwrite):
     
     # Default parameters
     default_maxNmin = (2,4)
@@ -490,14 +490,11 @@ def polygonify_all_outfits(pngPath, polyPath, overwrite):
                "ripperM.png" : (3,6)
               }
     
-    for fileName in os.listdir(pngPath):
-        if (fileName.endswith(".png") and not fileName.endswith("-end.png")) \
+    for fileName in os.listdir(gfxPath):
+        if (fileName.endswith((".png", ".webp")) and not fileName.endswith(("-end.png", "-end.webp"))) \
            and not fileName.startswith("beam_"):
             
-            # Remove the .png
-            name = os.path.splitext(fileName)[0]
-            
-            polyAdress = (polyPath+name+".xml")
+            polyAdress = (polyPath+fileName+".xml")
             
             # Test if the file already exists
             if ( not overwrite and os.path.exists(polyAdress) ) :
@@ -516,7 +513,7 @@ def polygonify_all_outfits(pngPath, polyPath, overwrite):
                 lmin = mNm[0]
                 lmax = mNm[1]
             
-            pngAdress  = (pngPath+fileName)
+            pngAdress  = (gfxPath+fileName)
             
             print("Generation of " + polyAdress)
             
@@ -526,7 +523,7 @@ def polygonify_all_outfits(pngPath, polyPath, overwrite):
             generateXML(polygon,polyAdress)
             
 # Generates polygon for all ships
-def polygonify_all_ships(pngPath, polyPath, overwrite):
+def polygonify_all_ships(gfxPath, polyPath, overwrite):
     
     # Default parameters
     default_maxNmin = (8,8,150,3,6)
@@ -574,7 +571,7 @@ def polygonify_all_ships(pngPath, polyPath, overwrite):
                "watson.png" : (12,12,150,3,6),
               }
     
-    for root, directories, filenames in os.walk(pngPath):
+    for root, directories, filenames in os.walk(gfxPath):
         for fileName in filenames:
             if (fileName.endswith(".png") and not fileName.endswith("_comm.png")) \
                and not fileName.endswith("_engine.png"):
