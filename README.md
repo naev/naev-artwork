@@ -1,7 +1,7 @@
 Artwork for Naev
 ================
 
-**IMPORTANT**: Since render.sh is subject to change, the path to mkspr is grabbed from `3D/naevpath.sh`. Copy `3D/naevpath.sh.example` to `3D/naevpath.sh` and edit it to point to your NAEV Git checkout.
+**IMPORTANT**: Since render.sh is subject to change, the path to the output repo (naev-artwork-production) is grabbed from `3D/naevpath.sh`. Copy `3D/naevpath.sh.example` to `3D/naevpath.sh` and edit it to point to your NAEV Git checkout.
 
 **WARNING**: The .sh files within `3D/` are subject to change, and being that they can contain user-specific data, it's wise to back them up.
 
