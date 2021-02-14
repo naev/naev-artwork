@@ -3,7 +3,7 @@
 cd "$(dirname $0)"
 RENDER="../render.py"
 RENDER_DIM="../dim.sh"
-MKSPR="$(./naevpath.sh)/utils/mkspr/mkspr"
+MKSPR="../../mkspr"
 SHIPPATH=".."
 STATIONPATH="../../stations"
 BEGIN=$(date +%s)
@@ -179,7 +179,7 @@ render()
       echo -e " ... Station done!"
    else
       # Make sprite
-      $MKSPR $SPRITES
+      make -s -C "$(dirname $MKSPR)" mkspr && $MKSPR $SPRITES
       if [ -n "$layer" ] && [ "$layer" != 8 ]; then
          cp "sprite.png"  "../../raw/${BLEND%.blend}_$layer.png"
       elif [ "$layer" == 8 ] && [ "$ENGINES" == "true" ]; then
