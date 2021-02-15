@@ -15,6 +15,8 @@ Directories
    - The launcher graphics were created by combining the missile .blends with a desaturated Banshee launcher.
    - For creating your own graphics, turret.blend and turret2.blend are included. They're not actually used in-game, but they are the basis for the other turret models.
 
+Miscellaneous note: there are other categories in 3D, and some scenes fit into more than one. (For instance, `3D/landingports/zalek_station.blend` is also the source for a station image; it's just a matter of alternative cameras.)
+
 Rendering
 ---------
 For an overview, see http://code.google.com/p/naev/wiki/HowtoGraphics
