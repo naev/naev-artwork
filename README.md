@@ -1,7 +1,7 @@
 Artwork for Naev
 ================
 
-**IMPORTANT**: Since render.sh is subject to change, the path to mkspr is grabbed from `3D/naevpath.sh`. Copy `3D/naevpath.sh.example` to `3D/naevpath.sh` and edit it to point to your NAEV Git checkout.
+**IMPORTANT**: Since render.sh is subject to change, the path to the output repo (naev-artwork-production) is grabbed from `3D/naevpath.sh`. Copy `3D/naevpath.sh.example` to `3D/naevpath.sh` and edit it to point to your NAEV Git checkout.
 
 **WARNING**: The .sh files within `3D/` are subject to change, and being that they can contain user-specific data, it's wise to back them up.
 
@@ -14,6 +14,8 @@ Directories
    - For the laser, only the base .blend is included. The Mk2 is created by merely increasing the muzzle size by 20% and changing the heatsink near the base to a green material.
    - The launcher graphics were created by combining the missile .blends with a desaturated Banshee launcher.
    - For creating your own graphics, turret.blend and turret2.blend are included. They're not actually used in-game, but they are the basis for the other turret models.
+
+Miscellaneous note: there are other categories in 3D, and some scenes fit into more than one. (For instance, `3D/landingports/zalek_station.blend` is also the source for a station image; it's just a matter of alternative cameras.)
 
 Rendering
 ---------
