@@ -570,11 +570,21 @@ def polygonify_all_ships(gfxPath, polyPath, overwrite):
                "vox.png" : (12,12,150,4,8),
                "watson.png" : (12,12,150,3,6),
               }
-    
+
+    def goodfile( filename ):
+        if (fileName.endswith(".png") and \
+            not fileName.endswith("_comm.png")) \
+            and not fileName.endswith("_engine.png"):
+           return True
+        if (fileName.endswith(".webp") and \
+            not fileName.endswith("_comm.webp")) \
+            and not fileName.endswith("_engine.webp"):
+           return True
+        return False
+
     for root, directories, filenames in os.walk(gfxPath):
         for fileName in filenames:
-            if (fileName.endswith(".png") and not fileName.endswith("_comm.png")) \
-               and not fileName.endswith("_engine.png"):
+            if goodfile( fileName ):
                 
                 # Remove the .png
                 name = os.path.splitext(fileName)[0]
@@ -614,6 +624,7 @@ if __name__ == "__main__":
         
     polygonify_all_outfits( '../../../naev/dat/gfx/outfit/space/', '../../../naev/dat/gfx/outfit/space_polygon/', 0 )
     polygonify_all_ships( '../../../naev/dat/gfx/ship/', '../../../naev/dat/gfx/ship_polygon/', 0 )
+    #polygonify_all_ships( '../../../naev-artprod/gfx/ship/', '../../../naev-artprod/gfx/ship_polygon/', 0 )
     
     # Use the above stuff to generate only one ship or outfit polygon :
     
