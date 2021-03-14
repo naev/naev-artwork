@@ -17,7 +17,7 @@ dirs:
 
 raw/%.png: %.blend mkspr
 	@echo -n "Rendering $< ... "
-	@blender "$<" -P $(RENDER) > /dev/null
+	@blender --background "$<" -P $(RENDER) > /dev/null
 	@$(MKSPR)
 	@cp "sprite.png"  "$@"
 	@echo "done!"
@@ -25,7 +25,7 @@ raw/%.png: %.blend mkspr
 
 raw/%_engine.png: %.blend mkspr
 	@echo -n "Rendering $< ... "
-	@blender "$<" -P $(RENDER) -- --engine true > /dev/null
+	@blender --background "$<" -P $(RENDER) -- --engine true > /dev/null
 	@$(MKSPR)
 	@cp "sprite.png"  "$@"
 	@echo "done!"
@@ -33,7 +33,7 @@ raw/%_engine.png: %.blend mkspr
 
 raw/%_comm.png: %.blend
 	@echo -n "Rendering $< ... "
-	@blender "$<" -P $(RENDER) -- --comm 1 -x 1 -y 1 -r 255 > /dev/null
+	@blender --background "$<" -P $(RENDER) -- --comm 1 -x 1 -y 1 -r 255 > /dev/null
 	@cp "000.png" "$@"
 	@echo "comm done!"
 	@rm *.png
