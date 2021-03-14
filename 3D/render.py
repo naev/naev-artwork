@@ -353,7 +353,7 @@ if __name__ == "__main__":
    options, args = parser.parse_args(argv) # In this example we wont use the args
 
    # Set sprites to use.
-   sx = 6
+   sx = 8 
    if options.sx:
       sx = options.sx
    if options.sy:
