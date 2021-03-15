@@ -98,6 +98,7 @@ function getsize {
    elif [[ "$SHIP" =~ marauder ]]; then SIZE=66;
    elif [[ "$SHIP" =~ ira ]]; then SIZE=112;
    elif [[ "$SHIP" =~ dogma ]]; then SIZE=128;
+   #elif [[ "$SHIP" =~ viper ]]; then SIZE=60; # NOT IN GAME!!
    else
       exit 1
    fi
