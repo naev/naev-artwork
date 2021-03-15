@@ -12,7 +12,7 @@ function getsprites {
    SHIP=`basename "${1%.png}"`
 
    if [[ "$SHIP" =~ hawking ]]; then SPRITES=12;
-   elif [[ "$SHIP" =~ arx ]]; then SPRITES=12;
+   elif [[ "$SHIP" = arx ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ mule ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ pacifier ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ goddard ]]; then SPRITES=12;

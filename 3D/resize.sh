@@ -8,6 +8,7 @@ function process {
    RAWFILE=$1
    BASE=`basename $RAWFILE`
    OUTFILE="final/${BASE%.png}.webp"
+   FILENAME="${RAWFILE%.png}"
    if [[ -f "$OUTFILE" ]]; then
       return
    fi
@@ -16,8 +17,8 @@ function process {
    if [[ "$RAWFILE" =~ .*_comm\.png ]]; then
       SIZE=512
    else
-      W=`$RENDER_DIM w "$RAWFILE"`
-      S=`$RENDER_DIM s "$RAWFILE"`
+      W=`$RENDER_DIM w "$FILENAME"`
+      S=`$RENDER_DIM s "$FILENAME"`
       SIZE=$(($W*$S))
    fi
 
@@ -38,20 +39,6 @@ function process {
 
 if [ ! -d "final" ];then mkdir "final"; fi
 
-if [ $# -gt 0 ]; then
-   if [ "$1" = "comm" ]; then
-      for RAWFILE in raw/ships/*_comm.png; do
-         process $RAWFILE
-      done
-   else
-      for FILE in "$@"; do
-         process "raw/${FILE}.png"
-         process "raw/${FILE}_comm.png"
-		 process "raw/${FILE}_engine.png"
-      done
-   fi
-else
-   for RAWFILE in raw/*.png; do
-      process $RAWFILE
-   done
-fi
+for RAWFILE in raw/*.png; do
+   process $RAWFILE
+done

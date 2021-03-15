@@ -105,7 +105,8 @@ render()
    RENDERPATH=$SHIPPATH
    BLENDPATH="$BASEPATH/$1"
    BLEND=`basename $BLENDPATH`
-   if ! $RENDER_DIM w $BLEND > /dev/null; then
+   BLENDNAME=${BLEND%.blend}
+   if ! $RENDER_DIM w $BLENDNAME > /dev/null; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLEND not found."
       return
@@ -113,20 +114,20 @@ render()
 
    # Check what to run.
    if [ "$STATION" == "true" ]; then
-      INTENSITY=`$RENDER_DIM i $BLEND`
+      INTENSITY=`$RENDER_DIM i $BLENDNAME`
       REND_SCRIPT="$RENDER"
       SPRITES=
       REND_PARAMS="--spritex 1 --intensity $INTENSITY --resolution 2048"
    elif [ "$2" = "comm" ]; then
-      INTENSITY=`$RENDER_DIM i $BLEND`
+      INTENSITY=`$RENDER_DIM i $BLENDNAME`
       rotz=-135
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex 1 --intensity $INTENSITY --comm 1 --resolution 2048"
    else
-      SPRITES=`$RENDER_DIM s $BLEND`
-      STATION=`$RENDER_DIM S $BLEND`
-      INTENSITY=`$RENDER_DIM i $BLEND`
-      SIZE=`$RENDER_DIM w $BLEND`
+      SPRITES=`$RENDER_DIM s $BLENDNAME`
+      STATION=`$RENDER_DIM S $BLENDNAME`
+      INTENSITY=`$RENDER_DIM i $BLENDNAME`
+      SIZE=`$RENDER_DIM w $BLENDNAME`
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY --resolution $(expr $SIZE \* 4)"
       unset rotz;
@@ -141,7 +142,6 @@ render()
    if [[ ! -e "$BLEND" ]] && [ "$STATION" != "true" ] || [[ ! -e "../stations/$BLEND" ]] &&  [[ "$STATION" == "true" ]]; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLEND not found."
-      exit 1
       return
    fi
 
