@@ -30,6 +30,13 @@ function getsprites {
    elif [[ "$SHIP" = zalek_sting ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ rhino ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ phalanx ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ diablo ]]; then SPRITES=12;
+   elif [[ "$SHIP" =~ hephaestus ]]; then SPRITES=12;
+   elif [[ "$SHIP" =~ mephisto ]]; then SPRITES=12;
+   elif [[ "$SHIP" =~ preacher ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ nyx ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ ira ]]; then SPRITES=12;
+   elif [[ "$SHIP" =~ dogma ]]; then SPRITES=12;
    else
       SPRITES=8
    fi
@@ -82,6 +89,15 @@ function getsize {
    elif [[ "$SHIP" = hyena ]]; then SIZE=44;
    elif [[ "$SHIP" =~ rhino ]]; then SIZE=100;
    elif [[ "$SHIP" =~ phalanx ]]; then SIZE=95;
+   elif [[ "$SHIP" =~ diablo ]]; then SIZE=170; # near 2048. Increase?
+   elif [[ "$SHIP" =~ hephaestus ]]; then SPRITES=170; # near 2048. Increase?
+   elif [[ "$SHIP" =~ mephisto ]]; then SIZE=156;
+   elif [[ "$SHIP" =~ reaver ]]; then SIZE=68;
+   elif [[ "$SHIP" =~ preacher ]]; then SIZE=70;
+   elif [[ "$SHIP" =~ nyx ]]; then SIZE=96;
+   elif [[ "$SHIP" =~ marauder ]]; then SIZE=66;
+   elif [[ "$SHIP" =~ ira ]]; then SIZE=112;
+   elif [[ "$SHIP" =~ dogma ]]; then SIZE=128;
    fi
 }
 
