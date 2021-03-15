@@ -23,8 +23,12 @@ function process {
 
    # Actually process.
    echo -n "Finishing ${BASE} [${SIZE}x${SIZE}] ... "
-   convert -resize $SIZE -sharpen 1 "$RAWFILE" "final/${BASE}" > /dev/null
-   optipng "final/${BASE}" > /dev/null
+   #convert -resize $SIZE -sharpen 1 "$RAWFILE" "final/${BASE}" > /dev/null
+   #optipng "final/${BASE}" > /dev/null
+   # Resize using LAB colorspace and sharpen once. Afterwards convert into lossless best quality webp
+   TMPFILE=`mktemp --suffix .png`
+   convert -colorspace LAB -resize $SIZE -sharpen 1 -colorspace sRGB "$RAWFILE" "$TMPFILE" > /dev/null
+   cwebp -lossless -z 9 "$TMPFILE" -o "final/${BASE%.png}.webp" > /dev/null
    echo "Done!"
 }
 
