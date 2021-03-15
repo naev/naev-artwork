@@ -7,10 +7,14 @@ RENDER_DIM="$PWD/dim.sh"
 function process {
    RAWFILE=$1
    BASE=`basename $RAWFILE`
+   OUTFILE="final/${BASE%.png}.webp"
+   if [[ -f "$OUTFILE" ]]; then
+      return
+   fi
 
    # Get size.
    if [[ "$RAWFILE" =~ .*_comm\.png ]]; then
-      SIZE=256
+      SIZE=512
    else
       W=`$RENDER_DIM w "$RAWFILE"`
       S=`$RENDER_DIM s "$RAWFILE"`
@@ -27,8 +31,8 @@ function process {
    #optipng "final/${BASE}" > /dev/null
    # Resize using LAB colorspace and sharpen once. Afterwards convert into lossless best quality webp
    TMPFILE=`mktemp --suffix .png`
-   convert -colorspace LAB -resize $SIZE -sharpen 1 -colorspace sRGB "$RAWFILE" "$TMPFILE" > /dev/null
-   cwebp -lossless -z 9 "$TMPFILE" -o "final/${BASE%.png}.webp" > /dev/null
+   convert -colorspace LAB -resize $SIZE -sharpen 1 -colorspace sRGB "$RAWFILE" "$TMPFILE" &> /dev/null
+   cwebp -lossless -z 9 "$TMPFILE" -o "$OUTFILE" &> /dev/null
    echo "Done!"
 }
 
