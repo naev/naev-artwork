@@ -11,41 +11,27 @@ function getintensity {
 function getsprites {
    SHIP=`basename "${1%.png}"`
 
-   if [[ "$SHIP" =~ dirge ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ gawain ]]; then SPRITES=6;
-   elif [[ "$SHIP" =~ hawking ]]; then SPRITES=12;
-   elif [[ "$SHIP" = hyena ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ koala ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ lancelot ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ llama ]]; then SPRITES=8;
+   if [[ "$SHIP" =~ hawking ]]; then SPRITES=12;
+   elif [[ "$SHIP" =~ arx ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ mule ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ pacifier ]]; then SPRITES=10;
-   elif [[ "$SHIP" =~ seaxbane ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ admonisher ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ schroedinger ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ goddard ]]; then SPRITES=12;
-   elif [[ "$SHIP" =~ vendetta ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ ancestor ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ kestrel ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ vigilance ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ kahan ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ archimedes ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ watson ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ quicksilver ]]; then SPRITES=10;
-   elif [[ "$SHIP" =~ derivative ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ peacemaker ]]; then SPRITES=12;
-   elif [[ "$SHIP" =~ perspicacity ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ scintillation ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ virtuosity ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ taciturnity ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ apprehension ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ certitude ]]; then SPRITES=12;
-   elif [[ "$SHIP" =~ drone ]]; then SPRITES=8;
-   elif [[ "$SHIP" =~ drone-hyena ]]; then SPRITES=8;
-   elif [[ -e "$SHIP" ]]; then
-      SPRITES=1
+   elif [[ "$SHIP" =~ divinity ]]; then SPRITES=12;
+   elif [[ "$SHIP" = zalek_sting ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ rhino ]]; then SPRITES=10;
+   elif [[ "$SHIP" =~ phalanx ]]; then SPRITES=10;
    else
-      exit 1
+      SPRITES=8
    fi
 }
 
@@ -81,8 +67,21 @@ function getsize {
    elif [[ "$SHIP" =~ taciturnity ]]; then SIZE=80;
    elif [[ "$SHIP" =~ apprehension ]]; then SIZE=90;
    elif [[ "$SHIP" =~ certitude ]]; then SIZE=120;
-   elif [[ "$SHIP" =~ drone ]]; then SIZE=70;
-   elif [[ "$SHIP" =~ drone-hyena ]]; then SIZE=70;
+   elif [[ "$SHIP" = drone ]]; then SIZE=70;
+   elif [[ "$SHIP" = drone-hyena ]]; then SIZE=70;
+   elif [[ "$SHIP" = zalek_drone_bomber ]]; then SIZE=48;
+   elif [[ "$SHIP" = zalek_drone_heavy ]]; then SIZE=45;
+   elif [[ "$SHIP" = zalek_drone_light ]]; then SIZE=40;
+   elif [[ "$SHIP" = zalek_drone_scout ]]; then SIZE=38;
+   elif [[ "$SHIP" = shaman ]]; then SIZE=68;
+   elif [[ "$SHIP" =~ shark ]]; then SIZE=54;
+   elif [[ "$SHIP" = zalek_sting ]]; then SIZE=95;
+   elif [[ "$SHIP" = arx ]]; then SIZE=124;
+   elif [[ "$SHIP" = divinity ]]; then SIZE=140;
+   elif [[ "$SHIP" = fidelity ]]; then SIZE=60;
+   elif [[ "$SHIP" = hyena ]]; then SIZE=44;
+   elif [[ "$SHIP" =~ rhino ]]; then SIZE=100;
+   elif [[ "$SHIP" =~ phalanx ]]; then SIZE=95;
    fi
 }
 
