@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#set -x
+set -x
 
 BASEPATH=`pwd`
 RENDER="${BASEPATH}/render.py"
@@ -104,8 +104,8 @@ render()
 {
    RENDERPATH=$SHIPPATH
    BLENDPATH="$BASEPATH/$1"
-   BLEND=`basename $BLENDPATH`
-   BLENDNAME=${BLEND%.blend}
+   BLENDFILE=`basename $BLENDPATH`
+   BLENDNAME=${BLENDFILE%.blend}
    if ! $RENDER_DIM w $BLENDNAME > /dev/null; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLEND not found."
@@ -139,9 +139,9 @@ render()
       REND_PARAMS="--spritex 1 --intensity $INTENSITY"
    fi
 
-   if [[ ! -e "$BLEND" ]] && [ "$STATION" != "true" ] || [[ ! -e "../stations/$BLEND" ]] &&  [[ "$STATION" == "true" ]]; then
+   if [[ ! -e "$BLENDFILE" ]] && [ "$STATION" != "true" ] || [[ ! -e "../stations/$BLENDFILE" ]] &&  [[ "$STATION" == "true" ]]; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
-      echo "$BLEND not found."
+      echo "$BLENDFILE not found."
       return
    fi
 
@@ -160,21 +160,21 @@ render()
    fi
 
    if [ "$2" = "comm" ]; then
-      OUTPUTFILE="${BLEND%.blend}_comm"
+      OUTPUTFILE="${BLENDFILE%.blend}_comm"
    elif [ -n "$STATION" ]; then
-      OUTPUTFILE="${BLEND%.blend}"
+      OUTPUTFILE="${BLENDFILE%.blend}"
    else
       if [ -n "$layer" ] && [ "$layer" != 8 ]; then
-         OUTPUTFILE="${BLEND%.blend}_$layer"
+         OUTPUTFILE="${BLENDFILE%.blend}_$layer"
       elif [ "$layer" == 8 ] && [ "$ENGINES" == "true" ]; then
-         OUTPUTFILE="${BLEND%.blend}_engine"
+         OUTPUTFILE="${BLENDFILE%.blend}_engine"
       else
-         OUTPUTFILE="${BLEND%.blend}"
+         OUTPUTFILE="${BLENDFILE%.blend}"
       fi
    fi
    OUTPUTFILE="$RENDEROUT/$OUTPUTFILE.png"
    if [[ -f "$OUTPUTFILE" ]]; then
-      echo "Skipping ${BLEND%.blend}! (Render $COUNT of $JOBS)"
+      echo "Skipping ${BLENDFILE%.blend}! (Render $COUNT of $JOBS)"
       popd > /dev/null
       return
    fi
@@ -352,9 +352,9 @@ if [ $# -gt 0 ]; then
 # No parameters, do them all
 else
    #DEBUG="true"
-   for BLEND in ships/*.blend; do
+   for MODEL in ships/*.blend; do
       JOBS=`find $SHIPPATH -maxdepth 1 -name "*.blend" | wc -l`
-      render "$BLEND"
-      render "$BLEND" "comm"
+      render "$MODEL"
+      render "$MODEL" "comm"
    done
 fi
