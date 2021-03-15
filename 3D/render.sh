@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x
+#set -x
 
 BASEPATH=`pwd`
 RENDER="${BASEPATH}/render.py"
@@ -12,7 +12,7 @@ STATIONPATH="${BASEPATH}/stations"
 BEGIN=$(date +%s)
 BLENDER="blender -b"
 # allow for custom path for blender as return by optional blenderpath.sh script
-[[ -f "blenderpath.sh" ]] && BLENDER="$(./blenderpath.sh)blender -b"
+#[[ -f "blenderpath.sh" ]] && BLENDER="$(./blenderpath.sh)blender -b"
 export PYTHONPATH="$PWD"
 
 # Create output directory if needed
@@ -50,7 +50,7 @@ debuglevel()
       printf '\n'
       $@
    else
-      $@ &>/dev/null
+      $@ &> /dev/null
    fi
 }
 
@@ -105,7 +105,7 @@ render()
    RENDERPATH=$SHIPPATH
    BLENDPATH="$BASEPATH/$1"
    BLEND=`basename $BLENDPATH`
-   if ! $RENDER_DIM s $BLEND > /dev/null; then
+   if ! $RENDER_DIM w $BLEND > /dev/null; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLEND not found."
       return
@@ -141,6 +141,7 @@ render()
    if [[ ! -e "$BLEND" ]] && [ "$STATION" != "true" ] || [[ ! -e "../stations/$BLEND" ]] &&  [[ "$STATION" == "true" ]]; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLEND not found."
+      exit 1
       return
    fi
 
@@ -153,7 +154,7 @@ render()
 
    # Render
    test -d ".render" || mkdir ".render"
-   pushd .render
+   pushd .render >> /dev/null
    if [ -z "$COUNT" ]; then
       COUNT=1
    fi
@@ -172,10 +173,9 @@ render()
       fi
    fi
    OUTPUTFILE="$RENDEROUT/$OUTPUTFILE.png"
-
    if [[ -f "$OUTPUTFILE" ]]; then
       echo "Skipping ${BLEND%.blend}! (Render $COUNT of $JOBS)"
-      popd
+      popd > /dev/null
       return
    fi
 
@@ -200,11 +200,11 @@ render()
    fi
 
    # Post process
-   if [ "$2" = "comm" ]; then
+   if [[ "$2" = "comm" ]]; then
       cp "000.png" "$OUTPUTFILE"
       #echo -e " ... Comm done!"
       echo " ... Comm done!"
-   elif [ -n "$STATION" ]; then
+   elif [[ -n "$STATION" ]]; then
       cp "000.png" "$OUTPUTFILE"
       #echo -e " ... Station done!"
       echo " ... Station done!"
@@ -216,8 +216,8 @@ render()
    fi
 
    # Clean up
-   rm *.png
-   popd
+   rm -f *.png
+   popd > /dev/null
 }
 
 finish()
@@ -356,8 +356,5 @@ else
       JOBS=`find $SHIPPATH -maxdepth 1 -name "*.blend" | wc -l`
       render "$BLEND"
       render "$BLEND" "comm"
-      #exit 1
-      #convert admonisher.png -resize 25% -sharpen 1 foo.png
-      #cwebp -lossless -z 9 admonisher.png -o admonisher.webp
    done
 fi
