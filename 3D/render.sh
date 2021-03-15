@@ -130,6 +130,9 @@ render()
       SIZE=`$RENDER_DIM w $BLENDNAME`
       REND_SCRIPT="$RENDER"
       REND_PARAMS="--spritex $SPRITES --intensity $INTENSITY --resolution $(expr $SIZE \* 4)"
+      if [ "$2" = "engine" ]; then
+         REND_PARAMS="$REND_PARAMS --engine true"
+      fi
       unset rotz;
    fi
 
@@ -166,7 +169,8 @@ render()
    else
       if [ -n "$layer" ] && [ "$layer" != 8 ]; then
          OUTPUTFILE="${BLENDFILE%.blend}_$layer"
-      elif [ "$layer" == 8 ] && [ "$ENGINES" == "true" ]; then
+      #elif [ "$layer" == 8 ] && [ "$ENGINES" == "true" ]; then
+      elif [ "$2" = "engine" ]; then
          OUTPUTFILE="${BLENDFILE%.blend}_engine"
       else
          OUTPUTFILE="${BLENDFILE%.blend}"
@@ -356,5 +360,6 @@ else
       JOBS=`find $SHIPPATH -maxdepth 1 -name "*.blend" | wc -l`
       render "$MODEL"
       render "$MODEL" "comm"
+      render "$MODEL" "engine"
    done
 fi
