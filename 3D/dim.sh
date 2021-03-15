@@ -90,7 +90,7 @@ function getsize {
    elif [[ "$SHIP" =~ rhino ]]; then SIZE=100;
    elif [[ "$SHIP" =~ phalanx ]]; then SIZE=95;
    elif [[ "$SHIP" =~ diablo ]]; then SIZE=170; # near 2048. Increase?
-   elif [[ "$SHIP" =~ hephaestus ]]; then SPRITES=170; # near 2048. Increase?
+   elif [[ "$SHIP" =~ hephaestus ]]; then SIZE=170; # near 2048. Increase?
    elif [[ "$SHIP" =~ mephisto ]]; then SIZE=156;
    elif [[ "$SHIP" =~ reaver ]]; then SIZE=68;
    elif [[ "$SHIP" =~ preacher ]]; then SIZE=70;
