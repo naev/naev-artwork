@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x
+#set -x
 
 BASEPATH=`pwd`
 RENDER="${BASEPATH}/render.py"
@@ -108,7 +108,7 @@ render()
    BLENDNAME=${BLENDFILE%.blend}
    if ! $RENDER_DIM w $BLENDNAME > /dev/null; then
       #echo -e "\E[31m$BLEND not found."; tput sgr0
-      echo "$BLEND not found."
+      echo "$BLENDNAME not found."
       return
    fi
 
