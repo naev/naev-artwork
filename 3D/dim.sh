@@ -14,7 +14,7 @@ function getsprites {
    if [[ "$SHIP" =~ dirge ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ gawain ]]; then SPRITES=6;
    elif [[ "$SHIP" =~ hawking ]]; then SPRITES=12;
-   elif [[ "$SHIP" =~ hyena ]]; then SPRITES=8;
+   elif [[ "$SHIP" = hyena ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ koala ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ lancelot ]]; then SPRITES=8;
    elif [[ "$SHIP" =~ llama ]]; then SPRITES=8;
@@ -40,6 +40,8 @@ function getsprites {
    elif [[ "$SHIP" =~ taciturnity ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ apprehension ]]; then SPRITES=10;
    elif [[ "$SHIP" =~ certitude ]]; then SPRITES=12;
+   elif [[ "$SHIP" =~ drone ]]; then SPRITES=8;
+   elif [[ "$SHIP" =~ drone-hyena ]]; then SPRITES=8;
    elif [[ -e "$SHIP" ]]; then
       SPRITES=1
    else
@@ -53,7 +55,7 @@ function getsize {
    if [[ "$SHIP" =~ dirge ]]; then SIZE=40;
    elif [[ "$SHIP" =~ gawain ]]; then SIZE=56; # Upsized from 48, engine.
    elif [[ "$SHIP" =~ hawking ]]; then SIZE=139; # Downsized from 150, engine.
-   elif [[ "$SHIP" =~ hyena ]]; then SIZE=44; # Upsized from 40, engine.
+   elif [[ "$SHIP" = hyena ]]; then SIZE=44; # Upsized from 40, engine.
    elif [[ "$SHIP" =~ koala ]]; then SIZE=46; # Upsized from 46, engine 
    elif [[ "$SHIP" =~ lancelot ]]; then SIZE=56; # Downsized from 60, engine 
    elif [[ "$SHIP" =~ llama ]]; then SIZE=47; # Upsized from 44, engine.
@@ -79,6 +81,8 @@ function getsize {
    elif [[ "$SHIP" =~ taciturnity ]]; then SIZE=80;
    elif [[ "$SHIP" =~ apprehension ]]; then SIZE=90;
    elif [[ "$SHIP" =~ certitude ]]; then SIZE=120;
+   elif [[ "$SHIP" =~ drone ]]; then SIZE=70;
+   elif [[ "$SHIP" =~ drone-hyena ]]; then SIZE=70;
    fi
 }
 
