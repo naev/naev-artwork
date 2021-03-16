@@ -8,7 +8,7 @@ function process {
    RAWFILE=$1
    BASE=`basename $RAWFILE`
    OUTFILE="final/${BASE%.png}.webp"
-   FILENAME="${RAWFILE%.png}"
+   FILENAME="${BASE%.png}"
    if [[ -f "$OUTFILE" ]]; then
       return
    fi
@@ -17,8 +17,8 @@ function process {
    if [[ "$RAWFILE" =~ .*_comm\.png ]]; then
       SIZE=512
    else
-      W=`$RENDER_DIM w "$FILENAME"`
-      S=`$RENDER_DIM s "$FILENAME"`
+      W=`$RENDER_DIM w "${FILENAME%_engine}"`
+      S=`$RENDER_DIM s "${FILENAME%_engine}"`
       SIZE=$(($W*$S))
    fi
 
