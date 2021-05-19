@@ -21,9 +21,32 @@ should be able to run the scripts as below:
 blender ships/hyena.blend -P ./render.py
 ```
 
-You can also automatically generate all the images using the provided Makefile
-with:
+You can also set parameters such as number of x and y sprites with the following parameters:
+
+```
+  -h, --help            show this help message and exit
+  -x SX, --spritex=SX   X sprites to render.
+  -y SY, --spritey=SY   Y sprites to render.
+  -e ENGINE, --engine=ENGINE
+                        Enable engine glow on layer 9.
+  -i INTENSITY, --intensity=INTENSITY
+                        Controls the intensity level.
+  -l LAYERS, --layer=LAYERS
+                        Enable rendering of arbitrary layers.
+  -r ROTZ, --rotz=ROTZ  Begins render with arbitrary Z rotation.
+  -R RESOLUTION, --resolution=RESOLUTION
+                        Renders at an arbitrary resolution.
+  -c COMM, --comm=COMM  Renders using the comm camera.
+```
+
+For example, the following would render a ship with a 12x12 sprite sheet where each sprite is 128 by 128 pixels you can do:
 
 ```sh
-make
-``
+blender ships/hyena.blend -P ./render.py -- -x 12 -y 12 -R 128
+```
+
+You can also automatically generate all the images using the provided `render.sh` script:
+
+```sh
+./render.sh
+```
