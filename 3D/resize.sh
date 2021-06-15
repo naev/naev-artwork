@@ -15,7 +15,7 @@ function process {
 
    # Get size.
    if [[ "$RAWFILE" =~ .*_comm\.png ]]; then
-      SIZE=512
+      SIZE=1024
    else
       W=`$RENDER_DIM w "${FILENAME%_engine}"`
       S=`$RENDER_DIM s "${FILENAME%_engine}"`
