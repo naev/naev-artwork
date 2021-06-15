@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 RENDER="./render.py"
-BLENDER="blender -b"
+BLENDER="${BLENDER:-blender}"
 # allow for custom path for blender as return by optional blenderpath.sh script
-[[ -f "../blenderpath.sh" ]] && BLENDER="$(../blenderpath.sh)blender -b"
+[[ -f "../blenderpath.sh" ]] && BLENDER="$(../blenderpath.sh)blender"
 
 # Create output directory if needed
 if [ ! -d "raw" ]; then mkdir "raw"; fi
@@ -11,7 +11,7 @@ if [ ! -d "raw" ]; then mkdir "raw"; fi
 function render {
    BLEND="$1"
    echo -n "Rendering ${BLEND%.blend} ... "
-   $BLENDER "$BLEND" -P $RENDER > /dev/null
+   $BLENDER -b "$BLEND" -P $RENDER > /dev/null
    mv "000.png"  "raw/${BLEND%.blend}.png"
    echo "done!"
 }

@@ -8,7 +8,7 @@
 #'../naev-atwork_back/naev-artwork/3D/ships/' and
 # './ship_polygon_3d/' by the right paths in naev repo.
 # If the ship is big, go in the function "polygonify_all_ships"
-# and add the name of your blend in the dictionnary params,
+# and add the name of your blend in the dictionary params,
 # along with (sx,np).
 # If your ship is small (fighter, yacht...), use (8,30)
 # Rem : in this case, it's not useful to add it to the dict.
@@ -48,6 +48,7 @@ import matplotlib.pyplot as plt
 #import polygon_from_sprite
 from polygon_from_sprite import *
 import os
+import subprocess
 
 # Create the projections of the ship from the STL data
 def pointsFromSTL( adress, sx, size, center, alpha ) :
@@ -197,9 +198,8 @@ def polygonFromSTL(adress,sx,scale,center,alpha,minlen,maxlen):
 # Computes a polygon from Blender
 def polygonFromBlend(adress,sx,scale,center,alpha,minlen,maxlen):
     # Export from Blender to STL
-    command = ("blender " + adress + " --background --python blend_to_stl.py")
-    ret = os.system(command)
-    if ret != 0:
+    ret = subprocess.run([os.environ.get('BLENDER', 'blender'), address, '--background', '--python', 'blend_to_stl.py'])
+    if ret.returncode != 0:
         print("Warning: STL export failed.\
               probably the required blender file does not exist")
     
@@ -209,7 +209,7 @@ def polygonFromBlend(adress,sx,scale,center,alpha,minlen,maxlen):
     out = polygonFromSTL(stlAdress,sx,scale,center,alpha,minlen,maxlen)
     
     # Remove the intermediate stl file
-    os.system(("rm " + stlAdress))
+    os.remove(stlAdress)
     
     return out
     

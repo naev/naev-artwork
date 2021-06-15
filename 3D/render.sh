@@ -10,7 +10,7 @@ RENDEROUT="${BASEPATH}/raw"
 SHIPPATH="${BASEPATH}/ships"
 STATIONPATH="${BASEPATH}/stations"
 BEGIN=$(date +%s)
-BLENDER="blender -b"
+BLENDER="${BLENDER:-blender}"
 # allow for custom path for blender as return by optional blenderpath.sh script
 #[[ -f "blenderpath.sh" ]] && BLENDER="$(./blenderpath.sh)blender -b"
 export PYTHONPATH="$PWD"
@@ -183,24 +183,24 @@ render()
       return
    fi
 
-   # echo "$BLENDER $RENDERPATH/$BLEND -P $PWD/../$REND_SCRIPT -- $REND_PARAMS"
+   # echo "$BLENDER -b $RENDERPATH/$BLEND -P $PWD/../$REND_SCRIPT -- $REND_PARAMS"
    # Outputs different things depending on layers.
    echo "Rendering $OUTPUTFILE ... (Render $COUNT of $JOBS)"
    if [ -n "$layer" ] && [ "$layer" != 8 ]; then
       #echo -en "\E[32mRendering ${BLEND%.blend}_$layer ... "; tput sgr0
       #echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel $BLENDER "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
+      debuglevel $BLENDER -b "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
    elif [ "$layer" == 8 ]; then
       #echo -en "\E[32mRendering ${BLEND%.blend}_engine ... "; tput sgr0
       #echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel $BLENDER "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
+      debuglevel $BLENDER -b "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
    else
       #echo -en "\E[32mRendering ${BLEND%.blend} ... "; tput sgr0
       #echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
-      debuglevel $BLENDER "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
+      debuglevel $BLENDER -b "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
    fi
 
    # Post process

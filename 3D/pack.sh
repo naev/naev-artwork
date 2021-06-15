@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 PACK="./pack.py"
+BLENDER="${BLENDER:-blender}"
 
 function pack {
    BLEND=$1
    echo -n "Packing ${BLEND%.blend} ... "
-   blender "$BLEND" -P $PACK > /dev/null
+   "$BLENDER" "$BLEND" -P $PACK > /dev/null
    echo "done!"
 }
 
