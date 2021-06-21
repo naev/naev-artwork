@@ -16,10 +16,12 @@ function process {
    # Get size.
    if [[ "$RAWFILE" =~ .*_comm\.png ]]; then
       SIZE=1024
+      TRIM="-trim +repage -bordercolor none -border 64"
    else
       W=`$RENDER_DIM w "${FILENAME%_engine}"`
       S=`$RENDER_DIM s "${FILENAME%_engine}"`
       SIZE=$(($W*$S))
+      TRIM=""
    fi
 
    if [ $SIZE -gt 2048 ]; then
@@ -32,7 +34,7 @@ function process {
    #optipng "final/${BASE}" > /dev/null
    # Resize using LAB colorspace and sharpen once. Afterwards convert into lossless best quality webp
    TMPFILE=`mktemp --suffix .png`
-   convert -colorspace LAB -resize $SIZE -sharpen 1 -colorspace sRGB "$RAWFILE" "$TMPFILE" &> /dev/null
+   convert $TRIM -colorspace LAB -resize $SIZE -sharpen 1 -colorspace sRGB "$RAWFILE" "$TMPFILE" &> /dev/null
    cwebp -lossless -z 9 "$TMPFILE" -o "$OUTFILE" &> /dev/null
    echo "Done!"
 }
