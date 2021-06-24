@@ -75,7 +75,7 @@ function getsize {
    elif [[ "$SHIP" =~ apprehension ]]; then SIZE=90;
    elif [[ "$SHIP" =~ certitude ]]; then SIZE=120;
    elif [[ "$SHIP" = drone ]]; then SIZE=70;
-   elif [[ "$SHIP" = drone-hyena ]]; then SIZE=70;
+   elif [[ "$SHIP" = drone_hyena ]]; then SIZE=70;
    elif [[ "$SHIP" = zalek_drone_bomber ]]; then SIZE=48;
    elif [[ "$SHIP" = zalek_drone_heavy ]]; then SIZE=45;
    elif [[ "$SHIP" = zalek_drone_light ]]; then SIZE=40;
@@ -99,6 +99,16 @@ function getsize {
    elif [[ "$SHIP" =~ ira ]]; then SIZE=112;
    elif [[ "$SHIP" =~ dogma ]]; then SIZE=128;
    #elif [[ "$SHIP" =~ viper ]]; then SIZE=60; # NOT IN GAME!!
+   # Derelicts
+   #elif [[ "$SHIP" == derelict_goddard ]]; then SIZE=125;
+   #elif [[ "$SHIP" =~ derelict_koala ]]; then SIZE=46;
+   #elif [[ "$SHIP" =~ derelict_llama ]]; then SIZE=47;
+   #elif [[ "$SHIP" =~ derelict_mule ]]; then SIZE=96;
+   #elif [[ "$SHIP" =~ derelict_phalanx ]]; then SIZE=95;
+   #elif [[ "$SHIP" =~ derelict_shark ]]; then SIZE=54;
+   #elif [[ "$SHIP" =~ derelict_vendetta ]]; then SIZE=46;
+   #elif [[ "$SHIP" =~ debris01 ]]; then SIZE=30;
+   #elif [[ "$SHIP" =~ debris02 ]]; then SIZE=30;
    else
       exit 1
    fi
