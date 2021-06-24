@@ -50,3 +50,5 @@ You can also automatically generate all the images using the provided `render.sh
 ```sh
 ./render.sh
 ```
+
+Note that you will have to add the dimensions into the `dim.sh` script for it to work properly.
