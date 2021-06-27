@@ -11,9 +11,9 @@ $(OUTDIR):
 	mkdir -p $@
 
 $(OUTDIR)/%_tiny.png: %.svg | $(OUTDIR)
-	inkscape -z -w $(RES_TINY) -h $(RES_TINY) "$<" -e "$@"
+	inkscape -w $(RES_TINY) -h $(RES_TINY) "$<" -o "$@"
 
 $(OUTDIR)/%_small.png: %.svg | $(OUTDIR)
-	inkscape -z -w $(RES_SMALL) -h $(RES_SMALL) "$<" -e "$@"
+	inkscape -w $(RES_SMALL) -h $(RES_SMALL) "$<" -o "$@"
 
 .PHONY: all
