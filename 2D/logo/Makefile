@@ -12,10 +12,10 @@ clean:
 $(OUTDIR):
 	mkdir -p $@
 
-$(OUTDIR)/%_tiny.png: %.svg | $(OUTDIR)
+$(OUTDIR)/%_tiny.png: %.svg export.py Makefile | $(OUTDIR)
 	python export.py "$<" $(RES_TINY) "$@"
 
-$(OUTDIR)/%_small.png: %.svg | $(OUTDIR)
+$(OUTDIR)/%_small.png: %.svg export.py Makefile | $(OUTDIR)
 	python export.py "$<" $(RES_SMALL) "$@"
 
 .PHONY: all clean
