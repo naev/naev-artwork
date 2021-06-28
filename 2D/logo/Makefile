@@ -6,14 +6,16 @@ SMALL_OUTPUTS := $(patsubst %.svg,$(OUTDIR)/%_small.png,$(wildcard *.svg))
 OUTPUTS := $(TINY_OUTPUTS) $(SMALL_OUTPUTS)
 
 all: $(OUTPUTS)
+clean:
+	rm -f $(OUTPUTS)
 
 $(OUTDIR):
 	mkdir -p $@
 
 $(OUTDIR)/%_tiny.png: %.svg | $(OUTDIR)
-	inkscape -D -w $(RES_TINY) -h $(RES_TINY) "$<" -o "$@"
+	python export.py "$<" $(RES_TINY) "$@"
 
 $(OUTDIR)/%_small.png: %.svg | $(OUTDIR)
-	inkscape -D -w $(RES_SMALL) -h $(RES_SMALL) "$<" -o "$@"
+	python export.py "$<" $(RES_SMALL) "$@"
 
-.PHONY: all
+.PHONY: all clean
