@@ -2,12 +2,11 @@
 
 set -e
 
-if [ $# -ne 2 ]; then
-    echo "Usage: $0 INFILE OUTFiLE"
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 INFILE MAX_DIMENSION OUTFILE"
 else
-    xcf2png "$1" > "$2"
-    convert +repage -scale 96x96 -sharpen 1x0 "$2" "$2"
-    composite "$2" logos/background.png "$2"
+    xcf2png "$1" > "$3"
+    convert +repage -scale "$2"x"$2" -sharpen 1x0 "$3" "$3"
 fi
 
 # EOF #
