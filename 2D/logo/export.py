@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 from functools import reduce
-from math import floor
 import os
 import subprocess
 import sys
@@ -13,7 +12,7 @@ f = float(max_dimension) / max(w, h)
 tmp_fd, tmp_path = tempfile.mkstemp('.png')
 os.close(tmp_fd)
 subprocess.check_call(['inkscape', '--export-area-drawing',
-                       '-w', str(floor(w*f)),
-                       '-h', str(floor(h*f)), in_path,
+                       '-w', str(round(w*f)),
+                       '-h', str(round(h*f)), in_path,
                        '-o', tmp_path])
 subprocess.check_call(['convert', '-trim', '+repage', tmp_path, out_path])
