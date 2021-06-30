@@ -176,9 +176,16 @@
            d="M 300.70988,579.86022 C 278.83448,565.94765 276.17284,521.53018 226.11105,507.18407 C 292.22198,493.33975 387.81243,404.15072 400.91249,377.23904 C 419.28508,411.9475 466.78908,467.86908 511.21348,490.27841 C 473.70451,503.74283 349.41521,577.40764 361.19567,579.76884"
            id="path6730"
            sodipodi:nodetypes="ccccc" />
+        <ellipse
+           style="fill:#000000;stroke:#ffffff;stroke-width:11.9991;stroke-linecap:square;paint-order:markers stroke fill"
+           id="path1638"
+           cx="399.69806"
+           cy="467.63913"
+           rx="32.43211"
+           ry="30.282972" />
         <path
            sodipodi:type="spiral"
-           style="fill:#000000;fill-rule:evenodd;stroke:#ffffff;stroke-width:7.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            id="path6732"
            sodipodi:cx="-1841.7922"
            sodipodi:cy="591.63794"
