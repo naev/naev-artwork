@@ -159,9 +159,13 @@
          id="g4307">
         <path
            style="fill:url(#linearGradient4353);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient4297);stroke-width:11.48600006000000029;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;stroke-miterlimit:4;stroke-dasharray:68.91599735000001203, 11.48599955999999978;stroke-dashoffset:0;stroke-opacity:1"
-           d="M 287.54312,591.29536 C 262.32123,575.25458 259.25242,524.04242 201.53253,507.50172 C 277.75672,491.53954 388.14082,385.3852 402.26239,353.58274 C 423.44558,393.60072 479.02812,462.17251 530.24836,488.0099 C 487.00143,503.53403 343.69917,588.46766 357.28175,591.19004"
+           d="M 287.54312,591.29536 C 262.32123,575.25458 259.25242,524.04242 201.53253,507.50172 277.77541,487.24533 388.14082,385.3852 402.26239,353.58274 423.44558,393.60072 479.02812,462.17251 530.24836,488.0099 487.00143,503.53403 343.69917,588.46766 357.28175,591.19004"
            id="path6726"
            sodipodi:nodetypes="ccccc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#808080;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 179.63276,506.6946 C 179.68148,506.69529 179.80409,506.69704 179.88685,506.69822 C 179.90158,506.69843 179.91631,506.69863 179.93104,506.69884"
+           id="path7897" />
         <path
            style="fill:url(#linearGradient4294);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:11.48567581;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;stroke-miterlimit:4;stroke-dasharray:68.91405048, 11.48567509;stroke-dashoffset:0;stroke-opacity:1"
            d="M 290.85366,586.80407 C 266.84775,571.53661 264.21547,524.44849 210.36449,506.21115 C 282.91399,491.01849 387.81411,393.14331 402.18994,363.61068 C 422.35188,401.69943 474.48224,463.06722 523.23316,487.65902 C 482.07123,502.43475 345.67736,583.27382 358.60505,585.86492"
@@ -509,10 +513,6 @@
            style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            d="M 544.11452,488.8598 C 544.16324,488.86049 544.28585,488.86224 544.36861,488.86342 C 544.38334,488.86363 544.39807,488.86383 544.4128,488.86404"
            id="path7895" />
-        <path
-           style="fill:none;fill-rule:evenodd;stroke:#808080;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="M 179.63276,506.6946 C 179.68148,506.69529 179.80409,506.69704 179.88685,506.69822 C 179.90158,506.69843 179.91631,506.69863 179.93104,506.69884"
-           id="path7897" />
       </g>
       <path
          style="fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
