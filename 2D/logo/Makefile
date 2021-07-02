@@ -1,11 +1,7 @@
-RES_TINY := $(if $(HIDPI),48,24)
-RES_SMALL := $(if $(HIDPI),128,64)
+RES := 256
 OUTDIR := ../../out/logo
-TINY_OUTPUTS := $(patsubst %.svg,$(OUTDIR)/%_tiny.png,$(wildcard *.svg))
-TINY_OUTPUTS += $(patsubst %.xcf,$(OUTDIR)/%_tiny.png,$(wildcard *.xcf))
-SMALL_OUTPUTS := $(patsubst %.svg,$(OUTDIR)/%_small.png,$(wildcard *.svg))
-SMALL_OUTPUTS += $(patsubst %.xcf,$(OUTDIR)/%_small.png,$(wildcard *.xcf))
-OUTPUTS := $(TINY_OUTPUTS) $(SMALL_OUTPUTS)
+OUTPUTS := $(patsubst %.svg,$(OUTDIR)/%.webp,$(wildcard *.svg))
+OUTPUTS += $(patsubst %.xcf,$(OUTDIR)/%.webp,$(wildcard *.xcf))
 
 all: $(OUTPUTS)
 clean:
@@ -14,16 +10,13 @@ clean:
 $(OUTDIR):
 	mkdir -p $@
 
-$(OUTDIR)/%_tiny.png: %.svg export.py | $(OUTDIR)
-	python export.py "$<" $(RES_TINY) "$@"
+$(OUTDIR)/%.webp: $(OUTDIR)/%.png
+	cwebp -z 9 "$<" -o "$@"
 
-$(OUTDIR)/%_small.png: %.svg export.py | $(OUTDIR)
-	python export.py "$<" $(RES_SMALL) "$@"
+$(OUTDIR)/%.png: %.svg export.py | $(OUTDIR)
+	python export.py "$<" $(RES) "$@"
 
-$(OUTDIR)/%_tiny.png: %.xcf logo_xcf2png.sh | $(OUTDIR)
-	sh logo_xcf2png.sh "$<" $(RES_TINY) "$@"
-
-$(OUTDIR)/%_small.png: %.xcf logo_xcf2png.sh | $(OUTDIR)
-	sh logo_xcf2png.sh "$<" $(RES_SMALL) "$@"
+$(OUTDIR)/%.png: %.xcf logo_xcf2png.sh | $(OUTDIR)
+	sh logo_xcf2png.sh "$<" $(RES) "$@"
 
 .PHONY: all clean
