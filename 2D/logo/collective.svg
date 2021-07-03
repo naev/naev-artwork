@@ -2,8 +2,8 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
+   width="96.595688mm"
+   height="68.880928mm"
    id="svg20632"
    sodipodi:version="0.32"
    inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
@@ -56,38 +56,38 @@
        y2="918.88086" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 561.25983 : 1"
+       inkscape:vp_x="0 : -300.92249 : 1"
        inkscape:vp_y="0 : 1066.6667 : 0"
-       inkscape:vp_z="793.70078 : 561.25983 : 1"
-       inkscape:persp3d-origin="396.85039 : 374.17322 : 1"
+       inkscape:vp_z="793.70078 : -300.92249 : 1"
+       inkscape:persp3d-origin="396.85039 : -488.0091 : 1"
        id="perspective20640" />
     <inkscape:perspective
        id="perspective2457"
-       inkscape:persp3d-origin="64 : 14.933333 : 1"
-       inkscape:vp_z="128 : 22.4 : 1"
+       inkscape:persp3d-origin="64 : -847.24899 : 1"
+       inkscape:vp_z="128 : -839.78232 : 1"
        inkscape:vp_y="0 : 1066.6667 : 0"
-       inkscape:vp_x="0 : 22.4 : 1"
+       inkscape:vp_x="0 : -839.78232 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 22.4 : 1"
+       inkscape:vp_x="0 : -839.78232 : 1"
        inkscape:vp_y="0 : 1066.6667 : 0"
-       inkscape:vp_z="128 : 22.4 : 1"
-       inkscape:persp3d-origin="64 : 14.933333 : 1"
+       inkscape:vp_z="128 : -839.78232 : 1"
+       inkscape:persp3d-origin="64 : -847.24899 : 1"
        id="perspective38983" />
     <inkscape:perspective
        id="perspective22068"
-       inkscape:persp3d-origin="396.85039 : 374.17322 : 1"
-       inkscape:vp_z="793.70078 : 561.25983 : 1"
+       inkscape:persp3d-origin="396.85039 : -488.0091 : 1"
+       inkscape:vp_z="793.70078 : -300.92249 : 1"
        inkscape:vp_y="0 : 1066.6667 : 0"
-       inkscape:vp_x="0 : 561.25983 : 1"
+       inkscape:vp_x="0 : -300.92249 : 1"
        sodipodi:type="inkscape:persp3d" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient6288"
        id="linearGradient4294"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.9999724,-7.4244406e-3,7.4244406e-3,0.9999724,1984.6428,-382.49451)"
+       gradientTransform="rotate(-0.42539304,-50523.875,-267499.92)"
        x1="-1578.8463"
        y1="750.07733"
        x2="-1662.8076"
@@ -97,7 +97,7 @@
        xlink:href="#linearGradient6288"
        id="linearGradient4297"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.9999724,-7.4244406e-3,7.4244406e-3,0.9999724,1984.6428,-382.49451)"
+       gradientTransform="rotate(-0.42539304,-50523.875,-267499.92)"
        x1="-1588.0897"
        y1="749.22992"
        x2="-1664.6733"
@@ -120,8 +120,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.7687381"
-     inkscape:cx="368.16037"
-     inkscape:cy="465.54044"
+     inkscape:cx="136.2525"
+     inkscape:cy="125.37353"
      inkscape:document-units="px"
      inkscape:current-layer="g4307"
      showgrid="false"
@@ -153,7 +153,8 @@
   <g
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-179.63205,-340.04111)">
     <g
        id="g2491">
       <g
