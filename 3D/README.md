@@ -57,3 +57,5 @@ I don't know how to export the Blender files in outfits/ correctly. (Viktor has 
 If you can do it, you can use `wtfuelpod.py` to generate a medium fuel pod from an exported `fueltank` image.
 Does this method make sense? Not really, but it perfectly mimics the way `medium_fuel_pod.png` was originally generated.
 `large_fuel_pod.png` appears to be its own render, though.
+
+The transformation from green to purple "capacitor" images can be done via `convert -modulate 100,100,0 capacitor.webp capacitor-g.webp` and the like.
