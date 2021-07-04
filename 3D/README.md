@@ -50,3 +50,10 @@ You can also automatically generate all the images using the provided `render.sh
 ```sh
 ./render.sh
 ```
+
+## Outfits
+
+I don't know how to export the Blender files in outfits/ correctly. (Viktor has mostly made it work.)
+If you can do it, you can use `wtfuelpod.py` to generate a medium fuel pod from an exported `fueltank` image.
+Does this method make sense? Not really, but it perfectly mimics the way `medium_fuel_pod.png` was originally generated.
+`large_fuel_pod.png` appears to be its own render, though.
