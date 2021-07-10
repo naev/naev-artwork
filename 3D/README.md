@@ -52,3 +52,13 @@ You can also automatically generate all the images using the provided `render.sh
 ```
 
 Note that you will have to add the dimensions into the `dim.sh` script for it to work properly.
+
+## Outfits
+
+I don't know how to export the Blender files in outfits/ correctly. (Viktor has mostly made it work.)
+If you can do it, you can use `wtfuelpod.py` to generate a medium fuel pod from an exported `fueltank` image.
+Does this method make sense? Not really, but it perfectly mimics the way `medium_fuel_pod.png` was originally generated.
+The older `large_fuel_pod.png` appears to be a new model by <ids1024>, though maybe it was just image-edited. The script just
+generates a triple-tank for that one, using the same effect.
+
+The transformation from green to purple "capacitor" images can be done via `convert -modulate 100,100,0 capacitor.webp capacitor-g.webp` and the like.
