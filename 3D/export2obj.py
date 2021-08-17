@@ -36,12 +36,18 @@ with open(shipname + '.mtl') as mtlfile:
 
 for i in os.listdir():
     name, ext = os.path.splitext(i)
-    if ext not in ('.obj', '.mtl', '.png'):
-        newname = name + '.png'
-        print("Converting %s to %s..." % (i, newname))
-        subprocess.call(["convert", i, newname])
-        os.unlink(i)
-        mtltext = mtltext.replace(i, newname)
+    if ext not in ('.obj', '.mtl', '.png', '.webp'):
+        oldname, ext, i = i, '.png', f'{name}.png'
+        print(f'Converting {oldname} to {i}...')
+        subprocess.call(['convert', oldname, i])
+        os.unlink(oldname)
+        mtltext = mtltext.replace(oldname, i)
+    if ext == '.png':
+        oldname, ext, i = i, '.webp', f'{name}.webp'
+        print(f'Converting {oldname} to {i}...')
+        subprocess.call(['cwebp', '-z', '9', oldname, '-o', i])
+        os.unlink(oldname)
+        mtltext = mtltext.replace(oldname, i)
 
 with open(shipname + '.mtl', 'w') as mtlfile:
     mtlfile.write(mtltext)

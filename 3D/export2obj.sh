@@ -1,4 +1,5 @@
 #!/bin/bash
+BLENDER="${BLENDER:-blender}"
 
 if [ -z "$1" ]
 then
@@ -7,5 +8,5 @@ then
         ./export2obj.sh $i
     done
 else
-    blender-2.7 $1 -b -P export2obj.py
+    $BLENDER $1 -b -P export2obj.py
 fi
