@@ -63,15 +63,11 @@ renderjobs()
 
    if [ -n "$MODELS" ]; then
       for model in $MODELS; do
-         if [ -e "$model.blend" ] && [ -z "$STATION" ] && ! $RENDER_DIM S $model >/dev/null; then
-            ENGINES=$(enginestate $model)
-         fi
-
          if [ -n "$layers" ]; then
             for layer in $layers; do
                JOBS=$(expr $JOBS + 1)
             done
-         elif [ "$ENGINES" == "true" ]; then
+         elif [ "$ENGINERENDER" != "0" ]; then
             JOBS=$(expr $JOBS + 2)
          else
             JOBS=$(expr $JOBS + 1)
@@ -87,19 +83,6 @@ renderjobs()
    echo $JOBS
 }
 
-enginestate()
-{
-   # If engines are disabled (as an argument), don't bother checking dim.sh
-   if [ "$ENGINERENDER" == "0" ] ; then
-      ENGINES=false
-   elif [ "$ENGINERENDER" == "1" ]; then
-      ENGINES=true
-   else
-      ENGINES=`$RENDER_DIM e $1`
-   fi
-   echo $ENGINES
-}
-
 render()
 {
    RENDERPATH=$SHIPPATH
@@ -107,7 +90,6 @@ render()
    BLENDFILE=`basename $BLENDPATH`
    BLENDNAME=${BLENDFILE%.blend}
    if ! $RENDER_DIM w $BLENDNAME > /dev/null; then
-      #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLENDNAME not found."
       return
    fi
@@ -143,7 +125,6 @@ render()
    fi
 
    if [[ ! -e "$BLENDFILE" ]] && [ "$STATION" != "true" ] || [[ ! -e "../stations/$BLENDFILE" ]] &&  [[ "$STATION" == "true" ]]; then
-      #echo -e "\E[31m$BLEND not found."; tput sgr0
       echo "$BLENDFILE not found."
       return
    fi
@@ -169,7 +150,6 @@ render()
    else
       if [ -n "$layer" ] && [ "$layer" != 8 ]; then
          OUTPUTFILE="${BLENDFILE%.blend}_$layer"
-      #elif [ "$layer" == 8 ] && [ "$ENGINES" == "true" ]; then
       elif [ "$2" = "engine" ]; then
          OUTPUTFILE="${BLENDFILE%.blend}_engine"
       else
@@ -183,17 +163,12 @@ render()
       return
    fi
 
-   # echo "$BLENDER -b $RENDERPATH/$BLEND -P $PWD/../$REND_SCRIPT -- $REND_PARAMS"
    # Outputs different things depending on layers.
    echo "Rendering $OUTPUTFILE ... (Render $COUNT of $JOBS)"
    if [ -n "$layer" ] && [ "$layer" != 8 ]; then
-      #echo -en "\E[32mRendering ${BLEND%.blend}_$layer ... "; tput sgr0
-      #echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
       debuglevel $BLENDER -b "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
    elif [ "$layer" == 8 ]; then
-      #echo -en "\E[32mRendering ${BLEND%.blend}_engine ... "; tput sgr0
-      #echo -n "(Render $COUNT of $JOBS)"
       COUNT=$(expr $COUNT + 1)
       debuglevel $BLENDER -b "$BLENDPATH" -P "$REND_SCRIPT" -- $REND_PARAMS
    else
@@ -206,11 +181,9 @@ render()
    # Post process
    if [[ "$2" = "comm" ]]; then
       cp "000.png" "$OUTPUTFILE"
-      #echo -e " ... Comm done!"
       echo " ... Comm done!"
    elif [[ -n "$STATION" ]]; then
       cp "000.png" "$OUTPUTFILE"
-      #echo -e " ... Station done!"
       echo " ... Station done!"
    else
       # Make sprite
@@ -228,8 +201,6 @@ finish()
 {
    # Runs at the end, showing duration.
    if [ -n "$JOBS" ]; then
-      #echo -e "\E[31m- - - - - - - -"; tput sgr0
-      #echo -e "Render Finished: \t`date +%T`\nElapsed Time: \t\t$(converttime)"
       echo "- - - - - - -"
       echo "Render Finished: \t`date +%T`\nElapsed Time: \t\t$(converttime)"
    fi
@@ -288,7 +259,6 @@ if [ $# -gt 0 ]; then
       if [ -n "$MODELS" ]; then
          JOBS=$(renderjobs)
          for model in $MODELS; do
-            ENGINES=$(enginestate $model)
             if [ -n "$layers" ]; then
                # Multiple layers can be specified, so they must be iterated over.
                for layer in $layers; do
@@ -300,7 +270,7 @@ if [ $# -gt 0 ]; then
                $RENDER_DIM S $model
                STATION="true"
                render "$model.blend"
-            elif [ "$ENGINES" == "true" ]; then
+            elif [ "$ENGINERENDER" != "0" ]; then
                # Engine meshes are on their own layer, but layer is not set by Getopts.
                render "$model.blend"
                layer=8

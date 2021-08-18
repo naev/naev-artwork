@@ -114,12 +114,6 @@ function getsize {
    fi
 }
 
-function hasengine {
-   SHIP=`basename "${1%.png}"`
-
-   ENGINE="true"
-}
-
 function isstation {
    SHIP=`basename "${1%.png}"`
 
@@ -141,9 +135,6 @@ if [ "$1" == "s" ]; then
 elif [ "$1" == "w" ]; then
    getsize $2
    echo $SIZE
-elif [ "$1" == "e" ]; then
-   hasengine $2
-   echo $ENGINE
 elif [ "$1" == "S" ]; then
    isstation $2
    echo $STATION
