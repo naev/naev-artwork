@@ -86,7 +86,6 @@ function getsize {
    elif [[ "$SHIP" = arx ]]; then SIZE=124;
    elif [[ "$SHIP" = divinity ]]; then SIZE=140;
    elif [[ "$SHIP" = fidelity ]]; then SIZE=60;
-   elif [[ "$SHIP" = hyena ]]; then SIZE=44;
    elif [[ "$SHIP" =~ rhino ]]; then SIZE=100;
    elif [[ "$SHIP" =~ phalanx ]]; then SIZE=95;
    elif [[ "$SHIP" =~ diablo ]]; then SIZE=170; # near 2048. Increase?
