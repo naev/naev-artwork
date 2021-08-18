@@ -351,26 +351,10 @@ if __name__ == "__main__":
    parser.add_option('-c', '--comm', dest='comm', help="Renders using the comm camera.", type='int')
 
    options, args = parser.parse_args(argv) # In this example we wont use the args
-
-   # Set sprites to use.
-   sx = 8 
-   if options.sx:
-      sx = options.sx
-   if options.sy:
-      sy = options.sy
-   else:
-      sy = sx
-
-   # Set intensity
-   intensity = 1.
-   if options.intensity:
-      intensity = options.intensity
-   resolution = 512
-   if options.resolution:
-      resolution = options.resolution
-
-   if options.layers:
-      layers = options.layers
+   sx = options.sx or 8
+   sy = options.sy or sx
+   intensity = options.intensity or 1.
+   resolution = options.resolution or 512
 
    # Disable layers 1-9 by default.
    for i in range(8,19):
@@ -380,11 +364,9 @@ if __name__ == "__main__":
       bpy.context.scene.layers[8] = True
 
    if options.layers:
-      layerlist = ( [0, 1, 2, 3, 4, 5, 6, 7] )
-      layers = layers.split()
-      layers=map(int, layers)
-      layerlist.extend(layers)
-      for i in layerlist:
+      for i in range(8):
+         bpy.context.scene.layers[i] = True
+      for i in map(int, options.layers.split()):
          bpy.context.scene.layers[i] = True
 
    # Use the comm render script if necessary.
