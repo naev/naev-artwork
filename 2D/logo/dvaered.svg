@@ -7,9 +7,12 @@
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="dvaered.svg"
+   sodipodi:docname="dvaered.svg.2021_10_23_16_31_31.0.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.0"
+   inkscape:export-filename="C:\Users\ljsto\Documents\Inkscape\Naev\dvaered original.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -147,13 +150,13 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter8658"
-       x="-0.12929257"
-       y="-0.059581121"
-       width="1.2585851"
-       height="1.1191622">
+       x="-0.12902864"
+       y="-0.059428743"
+       width="1.2580573"
+       height="1.1188575">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="3.947973"
+         stdDeviation="3.9325481"
          id="feGaussianBlur8660" />
     </filter>
     <filter
@@ -225,7 +228,7 @@
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
-       id="filter2117"
+       id="filter1174"
        x="0.092525708"
        y="0.08642894"
        width="0.83790115"
@@ -233,16 +236,16 @@
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="2.889219"
-         id="feGaussianBlur2119" />
+         id="feGaussianBlur1176" />
     </filter>
     <clipPath
        clipPathUnits="userSpaceOnUse"
-       id="clipPath3352">
+       id="clipPath2063">
       <path
          style="display:inline;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 127.88325,9 c -51.06,0 -90,40.32 -90,90 0,34.79621 20.27488,65.02506 50,80 V 84 c 0,-8.29938 5,-15 10,-15 5,0 10,5 10,15 0,41.43777 4.61302,136.91954 20,160 16.58591,-24.87886 20,-120 20,-160 0,-10 5,-15 10,-15 5,0 10,6.64745 10,15 v 95 c 29.60904,-15.01176 52.5,-45.28707 52.5,-80 0,-49.68 -41.44,-90 -92.5,-90 z"
-         id="path3354"
-         sodipodi:nodetypes="cscccscccccsc" />
+         d="m 127.88325,9 c -51.06,0 -90,40.32 -90,90 0,34.79621 20.27488,65.02506 50,80 V 134.00548 L 101.84882,93.7612 87.88325,93.8328 v -9.83275 c 0,-8.29938 5,-15 10,-15 5,0 10,5 10,15 0,3.03423 0.0247,6.35824 0.0766,9.92237 l -14.66268,40.00856 16.08028,0.0688 c 2.37159,43.40615 7.86005,94.03167 18.50578,110.00025 11.41499,-17.12248 16.59093,-67.51636 18.70878,-110.314 L 164.99861,93.78545 147.824,93.66447 c 0.0408,-3.48612 0.0592,-6.72419 0.0592,-9.66444 0,-10 5,-15 10,-15 5,0 10,6.64745 10,15 v 19.62238 l -15.22733,30.25748 15.22733,0.15077 v 44.96937 c 29.60904,-15.01176 52.5,-45.28707 52.5,-80 0,-49.68 -41.44,-90 -92.5,-90 z"
+         id="path2065"
+         sodipodi:nodetypes="csccccccsccccccccccccccscc" />
     </clipPath>
   </defs>
   <sodipodi:namedview
@@ -255,9 +258,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.3164062"
-     inkscape:cx="128"
-     inkscape:cy="128"
+     inkscape:zoom="0.82910156"
+     inkscape:cx="-229.76678"
+     inkscape:cy="97.093051"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      showgrid="false"
@@ -347,23 +350,23 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Stripes"
-     style="display:inline;opacity:1;mix-blend-mode:soft-light">
+     style="display:inline;opacity:0.5;mix-blend-mode:soft-light">
     <g
-       id="g2115"
-       style="filter:url(#filter2117)"
-       clip-path="url(#clipPath3352)">
+       id="g1172"
+       style="filter:url(#filter1174)"
+       clip-path="url(#clipPath2063)">
       <path
-         style="opacity:0.5;mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:24;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter8662)"
+         style="mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:24;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter8662)"
          d="M 198.27922,-6.0651507 58.012934,236.88319"
          id="path8098"
          clip-path="url(#clipPath8963)" />
       <path
-         style="opacity:0.5;mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter8658)"
+         style="mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter8658)"
          d="M 149.53134,-22.072141 9.2650491,220.87621"
          id="path8098-6"
          clip-path="url(#clipPath8959)" />
       <path
-         style="opacity:0.5;mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter8666)"
+         style="mix-blend-mode:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:16;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter8666)"
          d="M 243.62235,14.26115 103.35606,257.20949"
          id="path8098-2"
          clip-path="url(#clipPath8967)" />
