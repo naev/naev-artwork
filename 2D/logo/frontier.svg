@@ -74,6 +74,15 @@
        inkscape:vp_z="793.70078 : -426.13602 : 1"
        inkscape:persp3d-origin="396.85039 : -613.22263 : 1"
        id="perspective22068" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1384">
+      <path
+         sodipodi:nodetypes="cccc"
+         id="path1386"
+         d="m 745.93936,2890.0142 c -5.78174,6.1291 -167.35379,209.279 -169.5137,211.5235 5.61844,-0.01 241.44068,1.0942 331.00262,0.5231 -3.22723,-3.1736 -109.77686,-141.7609 -161.48892,-212.0466 z"
+         style="fill:#c8ab37;fill-rule:evenodd;stroke:none;stroke-width:2.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -130,7 +139,8 @@
          d="m 745.93936,2890.0142 c -5.78174,6.1291 -167.35379,209.279 -169.5137,211.5235 5.61844,-0.01 241.44068,1.0942 331.00262,0.5231 -3.22723,-3.1736 -109.77686,-141.7609 -161.48892,-212.0466 z"
          style="fill:#c8ab37;fill-rule:evenodd;stroke:none;stroke-width:2.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <g
-         id="g1085">
+         id="g1085"
+         clip-path="url(#clipPath1384)">
         <path
            transform="matrix(-2.3251458,0,0,-2.3251458,2831.3625,6437.1631)"
            sodipodi:nodetypes="cccc"
