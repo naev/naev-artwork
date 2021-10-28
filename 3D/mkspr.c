@@ -52,6 +52,9 @@ static int write_png( const char *file_name, png_bytep *rows, int w, int h,
 int main(int argc, char* argv[])
 {
 	int i, ws, hs;
+#if (!SDL_VERSION_ATLEAST(2,0,0))
+	unsigned int sflags, salpha;
+#endif
 	char file[8];
 	SDL_Surface *final, *temp, **load;
 	SDL_Rect r;
@@ -90,7 +93,16 @@ int main(int argc, char* argv[])
 		/* load the image properly */
 		temp = IMG_Load( file );
 		if (temp == NULL) ERR("Problem loading file '%s': %s", file, IMG_GetError());
+#if SDL_VERSION_ATLEAST(2,0,0)
 		SDL_SetSurfaceBlendMode(temp, SDL_BLENDMODE_NONE);
+#else
+		sflags = temp->flags & (SDL_SRCALPHA | SDL_SRCCOLORKEY);
+		salpha = temp->format->alpha;
+		if(sflags & SDL_SRCALPHA)
+			SDL_SetAlpha(temp, 0, SDL_ALPHA_OPAQUE);
+		if(sflags & SDL_SRCCOLORKEY)
+			SDL_SetColorKey(temp, 0, temp->format->colorkey);
+#endif
 		load[i] = temp;
 
 		/* check to see if size has changed */
@@ -103,8 +115,13 @@ int main(int argc, char* argv[])
 
 		/* create the surface if it hasn't been created yet */
 		if (!final) {
+#if SDL_VERSION_ATLEAST(2,0,0)
 			final = SDL_CreateRGBSurface( 0, ws*r.w, hs*r.h,
 					load[i]->format->BitsPerPixel, RGBAMASK );
+#else
+			final = SDL_CreateRGBSurface( SDL_SWSURFACE | SDL_SRCALPHA, ws*r.w, hs*r.h,
+					load[i]->format->BitsPerPixel, RGBAMASK );
+#endif
 			if (!final)
             ERR("Problem creating RGB Surface: %s", SDL_GetError());
 		}
@@ -148,6 +165,11 @@ static int SavePNG( SDL_Surface *surface, const char *file)
 	int alpha = 0;
 	int pixel_bits = 32;
 
+#if (!SDL_VERSION_ATLEAST(2,0,0))
+	unsigned surf_flags;
+	unsigned surf_alpha;
+#endif
+
 	ss_rows = 0;
 	ss_size = 0;
 	ss_surface = 0;
@@ -162,14 +184,28 @@ static int SavePNG( SDL_Surface *surface, const char *file)
 		pixel_bits = 24;
 	}
 
+#if SDL_VERSION_ATLEAST(2,0,0)
 	ss_surface = SDL_CreateRGBSurface( 0, ss_w, ss_h,
 			pixel_bits, RGBAMASK );
+#else
+	ss_surface = SDL_CreateRGBSurface( SDL_SWSURFACE | SDL_SRCALPHA, ss_w, ss_h,
+			pixel_bits, RGBAMASK );
+#endif
 
 	if( ss_surface == 0 ) {
 		return -1;
 	}
 
+#if SDL_VERSION_ATLEAST(2,0,0)
 	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_NONE);
+#else
+	surf_flags = surface->flags & (SDL_SRCALPHA | SDL_SRCCOLORKEY);
+	surf_alpha = surface->format->alpha;
+	if(surf_flags & SDL_SRCALPHA)
+		SDL_SetAlpha(surface, 0, SDL_ALPHA_OPAQUE);
+	if(surf_flags & SDL_SRCCOLORKEY)
+		SDL_SetColorKey(surface, 0, surface->format->colorkey);
+#endif
 
 	ss_rect.x = 0;
 	ss_rect.y = 0;
@@ -184,7 +220,14 @@ static int SavePNG( SDL_Surface *surface, const char *file)
 			return -1;
 		}
 	}
+#if SDL_VERSION_ATLEAST(2,0,0)
 	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_NONE);
+#else
+	if ( surf_flags & SDL_SRCALPHA )
+		SDL_SetAlpha(surface, SDL_SRCALPHA, (Uint8)surf_alpha);
+	if ( surf_flags & SDL_SRCCOLORKEY )
+		SDL_SetColorKey(surface, SDL_SRCCOLORKEY, surface->format->colorkey);
+#endif
 
 	for (i = 0; i < ss_h; i++) {
 		ss_rows[i] = ((unsigned char*)ss_surface->pixels) + i * ss_surface->pitch;
