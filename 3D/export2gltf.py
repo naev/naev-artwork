@@ -19,6 +19,20 @@ bpy.ops.file.unpack_all()
 #bpy.data.collections['Collection 1'].hide_viewport = False
 #bpy.data.collections['Collection 9'].hide_viewport = True
 
+def remove_dups():
+    bpy.ops.object.convert(target='MESH') # Here I've added an option which will
+                                    # apply all modifiers by converting object
+                                    # to mesh
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.mesh.remove_doubles( threshold = 0.001 )
+    bpy.ops.mesh.select_all(action='DESELECT')
+    bpy.ops.mesh.select_mode(type = 'FACE')
+    bpy.ops.mesh.select_interior_faces()
+    bpy.ops.mesh.delete(type='FACE')
+    bpy.ops.object.mode_set(mode='OBJECT')
+
+
 for obj in bpy.data.objects:
     obj.select_set(False)
 for obj in bpy.data.collections['Collection 1'].all_objects:
@@ -26,6 +40,9 @@ for obj in bpy.data.collections['Collection 1'].all_objects:
         obj.select_set(True)
         obj.name = "body"
         obj.data.name = "body"
+        bpy.context.view_layer.objects.active = obj
+        remove_dups()
+
 #bpy.ops.object.select_by_layer(layers=1)
 #bpy.context.scene.objects.active = [i for i in bpy.context.selected_objects if i.type=='MESH'][0]
 bpy.ops.object.join()
@@ -39,6 +56,8 @@ for obj in bpy.data.collections['Collection 9'].all_objects:
         obj.select_set(True)
         obj.name = "engine"
         obj.data.name = "engine"
+        bpy.context.view_layer.objects.active = obj
+        remove_dups()
 #bpy.ops.object.select_by_layer(layers=9)
 #bpy.context.scene.objects.active = [i for i in bpy.context.selected_objects if i.type=='MESH'][0]
 bpy.ops.object.join()
