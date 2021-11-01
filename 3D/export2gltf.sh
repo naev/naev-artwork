@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-   for i in ships/*-cycles.blend
+   for i in ships/*.blend
    do
       $0 $i
    done
