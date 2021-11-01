@@ -512,7 +512,16 @@ class OBJECT_PT_scenemassive(bpy.types.Panel):
             pass
 '''
 
+import sys
+argv = sys.argv
+if "--" in argv:
+    argv = argv[argv.index("--") + 1:]  # get all args after "--"
+    outfile = argv[0]
+else:
+    outfile = bpy.data.filepath.replace(".blend","-cycles.blend")
+
 
 bpy.ops.file.pack_all()
 AutoNode(True)
-bpy.ops.wm.save_as_mainfile( filepath=bpy.data.filepath.replace(".blend","-cycles.blend") )
+bpy.ops.wm.save_as_mainfile( filepath=outfile )
+

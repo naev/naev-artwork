@@ -7,7 +7,15 @@ textures_dir = os.path.dirname(bpy.data.filepath) + '/textures'
 if os.path.exists(textures_dir):
     shutil.rmtree(textures_dir)
 
-shipname = os.path.splitext(os.path.basename(bpy.data.filepath))[0].replace('-cycles','')
+import sys
+argv = sys.argv
+if "--" in argv:
+    argv = argv[argv.index("--") + 1:]  # get all args after "--"
+    filename = argv[0]
+else:
+    filename = bpy.data.filepath
+shipname = os.path.splitext(os.path.basename(filename))[0]
+
 shipdir = os.path.abspath(os.path.join('3d', shipname))
 os.makedirs(shipdir, exist_ok=True)
 gltfpath = os.path.join(shipdir, shipname) + '.gltf'
@@ -64,7 +72,6 @@ bpy.ops.object.join()
 #bpy.context.scene.objects.active.name = 'engine'
 #bpy.context.scene.objects.active.data.name = 'engine'
 
-print(gltfpath)
 bpy.ops.export_scene.gltf(filepath=gltfpath, export_format='GLTF_SEPARATE', export_lights=False, export_cameras=False )
 
 """

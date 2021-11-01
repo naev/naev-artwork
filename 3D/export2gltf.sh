@@ -1,12 +1,13 @@
 #!/bin/bash
-BLENDER="${BLENDER:-blender}"
 
 if [ -z "$1" ]
 then
-    for i in ships/*-cycles.blend
-    do
-        $0 $i
-    done
+   for i in ships/*-cycles.blend
+   do
+      $0 $i
+   done
 else
-    $BLENDER $1 -b -P export2gltf.py
+   TMPFILE=`mktemp --suffix '.blend'`
+   blender-2.7 $1 -b -P materials_cycles_converter.py -- $TMPFILE
+   blender $TMPFILE -b -P export2gltf.py -- $1
 fi
