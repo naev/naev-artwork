@@ -45,7 +45,7 @@ for i in os.listdir():
     if ext == '.png':
         oldname, ext, i = i, '.webp', f'{name}.webp'
         print(f'Converting {oldname} to {i}...')
-        subprocess.call(['cwebp', '-z', '9', oldname, '-o', i])
+        subprocess.call(['cwebp', '-lossless', '-z', '9', oldname, '-o', i])
         os.unlink(oldname)
         mtltext = mtltext.replace(oldname, i)
 
