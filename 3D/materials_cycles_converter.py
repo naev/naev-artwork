@@ -165,7 +165,8 @@ def AutoNode(active=False):
                 TreeNodes.nodes.remove(n)
 
             # Starting point is diffuse BSDF and output material
-            shader = TreeNodes.nodes.new('ShaderNodeBsdfDiffuse')
+            #shader = TreeNodes.nodes.new('ShaderNodeBsdfDiffuse')
+            shader = TreeNodes.nodes.new('ShaderNodeBsdfPrincipled')
             shader.location = 0, 470
             shout = TreeNodes.nodes.new('ShaderNodeOutputMaterial')
             shout.location = 200, 400
@@ -200,7 +201,8 @@ def AutoNode(active=False):
                 if not shader.type == 'ShaderNodeBsdfDiffuse':
                     print("INFO:  Make DIFFUSE shader node" + cmat.name)
                     TreeNodes.nodes.remove(shader)
-                    shader = TreeNodes.nodes.new('ShaderNodeBsdfDiffuse')
+                    #shader = TreeNodes.nodes.new('ShaderNodeBsdfDiffuse')
+                    shader = TreeNodes.nodes.new('ShaderNodeBsdfPrincipled')
                     shader.location = 0, 470
                     links.new(shader.outputs[0], shout.inputs[0])
 
@@ -225,6 +227,7 @@ def AutoNode(active=False):
                     print("INFO:  Mix EMISSION shader node" + cmat.name)
                     TreeNodes.nodes.remove(shader)
                     shader = TreeNodes.nodes.new('ShaderNodeEmission')
+                    #shader = TreeNodes.nodes.new('ShaderNodeBsdfPrincipled')
                     shader.location = 0, 450
                     links.new(shader.outputs[0], shout.inputs[0])
                 else:
@@ -264,7 +267,7 @@ def AutoNode(active=False):
                     pass
                 shtsl.inputs['Color'].default_value = cmat.translucency, cmat.translucency, cmat.translucency, 1
 
-            shader.inputs['Color'].default_value = cmat.diffuse_color.r, cmat.diffuse_color.g, cmat.diffuse_color.b, 1
+            #shader.inputs['Color'].default_value = cmat.diffuse_color.r, cmat.diffuse_color.g, cmat.diffuse_color.b, 1
 
             if shader.type == 'ShaderNodeBsdfDiffuse':
                 shader.inputs['Roughness'].default_value = cmat.specular_intensity
@@ -510,5 +513,6 @@ class OBJECT_PT_scenemassive(bpy.types.Panel):
 '''
 
 
+bpy.ops.file.pack_all()
 AutoNode(True)
 bpy.ops.wm.save_as_mainfile( filepath=bpy.data.filepath.replace(".blend","-cycles.blend") )
