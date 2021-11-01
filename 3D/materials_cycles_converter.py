@@ -125,15 +125,12 @@ def BakingText(tex, mode):
     print('________________________________________')
 
 def AutoNode(active=False):
-    
     sc = bpy.context.scene
 
     if active:
-
-         mats = bpy.context.active_object.data.materials
+        mats = bpy.context.active_object.data.materials
 
     else:
-
         mats = bpy.data.materials
     
 
@@ -520,8 +517,17 @@ if "--" in argv:
 else:
     outfile = bpy.data.filepath.replace(".blend","-cycles.blend")
 
-
+# Get rid of stuff
+"""
+for obj in bpy.data.objects:
+    if obj.type!="MESH":
+        obj.select_set(True)
+    else:
+        obj.select_set(False)
+bpy.ops.object.delete()
+"""
+bpy.context.scene.objects.active = None
 bpy.ops.file.pack_all()
-AutoNode(True)
+AutoNode()
 bpy.ops.wm.save_as_mainfile( filepath=outfile )
 

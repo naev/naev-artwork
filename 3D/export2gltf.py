@@ -66,19 +66,20 @@ remove_dups()
 #bpy.context.scene.objects.active.name = 'body'
 #bpy.context.scene.objects.active.data.name = 'body'
 
-for obj in bpy.data.objects:
-    obj.select_set(False)
-for obj in bpy.data.collections['Collection 9'].all_objects:
-    if obj.type=="MESH":
-        obj.select_set(True)
-        obj.name = "engine"
-        obj.data.name = "engine"
-        bpy.context.view_layer.objects.active = obj
-        remove_dups()
+if "Collection 9" in bpy.data.collections.keys():
+    for obj in bpy.data.objects:
+        obj.select_set(False)
+    for obj in bpy.data.collections['Collection 9'].all_objects:
+        if obj.type=="MESH":
+            obj.select_set(True)
+            obj.name = "engine"
+            obj.data.name = "engine"
+            bpy.context.view_layer.objects.active = obj
+            remove_dups()
 #bpy.ops.object.select_by_layer(layers=9)
 #bpy.context.scene.objects.active = [i for i in bpy.context.selected_objects if i.type=='MESH'][0]
-bpy.ops.object.join()
-remove_dups()
+    bpy.ops.object.join()
+    remove_dups()
 #bpy.context.scene.objects.active.name = 'engine'
 #bpy.context.scene.objects.active.data.name = 'engine'
 
