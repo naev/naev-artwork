@@ -21,6 +21,14 @@ os.makedirs(shipdir, exist_ok=True)
 gltfpath = os.path.join(shipdir, shipname) + '.gltf'
 bpy.ops.file.unpack_all()
 
+# Get rid of stuff
+for obj in bpy.data.objects:
+    if obj.type!="MESH":
+        obj.select_set(True)
+    else:
+        obj.select_set(False)
+bpy.ops.object.delete()
+
 #bpy.context.scene.layers[0] = True
 #bpy.context.scene.layers[8] = True
 
@@ -54,6 +62,7 @@ for obj in bpy.data.collections['Collection 1'].all_objects:
 #bpy.ops.object.select_by_layer(layers=1)
 #bpy.context.scene.objects.active = [i for i in bpy.context.selected_objects if i.type=='MESH'][0]
 bpy.ops.object.join()
+remove_dups()
 #bpy.context.scene.objects.active.name = 'body'
 #bpy.context.scene.objects.active.data.name = 'body'
 
@@ -69,6 +78,7 @@ for obj in bpy.data.collections['Collection 9'].all_objects:
 #bpy.ops.object.select_by_layer(layers=9)
 #bpy.context.scene.objects.active = [i for i in bpy.context.selected_objects if i.type=='MESH'][0]
 bpy.ops.object.join()
+remove_dups()
 #bpy.context.scene.objects.active.name = 'engine'
 #bpy.context.scene.objects.active.data.name = 'engine'
 
