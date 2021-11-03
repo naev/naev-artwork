@@ -46,7 +46,7 @@ sprite: $(SPRITE_OBJS)
 engine: $(ENGINE_OBJS)
 
 mkspr: mkspr.c
-	$(CC) -DNOLOGPRINTFCONSOLE -o "$@" "$<" `pkg-config --cflags --libs SDL_image libpng`
+	$(CC) -DNOLOGPRINTFCONSOLE -o "$@" "$<" `pkg-config --cflags --libs SDL2_image libpng || pkg-config --cflags --libs SDL_image libpng`
 
 clean:
 	$(RM) $(COMM_OBJS) $(SPRITE_OBJS) $(MKSPR)
