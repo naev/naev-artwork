@@ -34,8 +34,8 @@ function getsprites {
    elif [[ "$SHIP" =~ hephaestus ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ mephisto ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ preacher ]]; then SPRITES=10;
-   elif [[ "$SHIP" =~ nyx ]]; then SPRITES=10;
-   elif [[ "$SHIP" =~ ira ]]; then SPRITES=12;
+   elif [[ "$SHIP" = nyx ]]; then SPRITES=10;
+   elif [[ "$SHIP" = ira ]]; then SPRITES=12;
    elif [[ "$SHIP" =~ dogma ]]; then SPRITES=12;
    else
       SPRITES=8
@@ -49,6 +49,7 @@ function getsize {
    elif [[ "$SHIP" =~ gawain ]]; then SIZE=56; # Upsized from 48, engine.
    elif [[ "$SHIP" =~ hawking ]]; then SIZE=139; # Downsized from 150, engine.
    elif [[ "$SHIP" = hyena ]]; then SIZE=44; # Upsized from 40, engine.
+   elif [[ "$SHIP" =~ hyena_pirate ]]; then SIZE=44; # Upsized from 40, engine.
    elif [[ "$SHIP" =~ koala ]]; then SIZE=46; # Upsized from 46, engine 
    elif [[ "$SHIP" =~ lancelot ]]; then SIZE=56; # Downsized from 60, engine 
    elif [[ "$SHIP" =~ llama ]]; then SIZE=47; # Upsized from 44, engine.
