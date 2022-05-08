@@ -1,0 +1,53 @@
+body{
+    background: #273c6c;
+}
+
+#viewport{
+    position: fixed;
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    &>svg{
+        height:calc(100% - 20px);
+        position: absolute;
+        right: 0;
+        top:10px;
+    }
+}
+#main_menu{
+    height:calc(100% - 20px);
+    position: absolute;
+    left:0;
+    top:10px;
+    width:500px;
+    border-radius:0 15px 15px 0;
+    box-shadow:0 0 0 1px #000;
+    background-color:#989898;
+    
+    .preset{
+        width:200px;
+        height:284px;
+        position: relative;
+        &>svg{
+            width:100%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    }
+    #swatches,
+    #presets{
+        position: absolute;
+        top:10px;
+    }
+    
+    &.presets>#swatches,
+    &.swatches>#presets{
+        
+        top:-1000px;
+        pointer-events: none;
+        z-index: -1;
+        
+    }
+}
