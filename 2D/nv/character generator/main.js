@@ -11,7 +11,7 @@ function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = '
 	let choose_presets =``;
 	Object.keys(graphics).forEach(function(preset){
 		
-		choose_presets += `<button class="preset" id="${preset}" data-id="${preset}" onclick="main_print('presets', '${preset}', '${swatch_id}')">><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 1000 1415">${get_svg_code(graphics[preset], 'white')}</svg></button>`;
+		choose_presets += `<button class="preset" id="${preset}" data-id="${preset}" onclick="main_print('presets', '${preset}', '${swatch_id}')"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 1000 1415">${get_svg_code(graphics[preset], 'white')}</svg></button>`;
 		
 	});
 	
@@ -32,7 +32,7 @@ function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = '
 	</div>
 	<div id="export_buttons">
 		<button id="export" onclick="save_character_image();">Export as SVG</button>
-		<button id="export" onclick="save_character_image('webp');">Export as WEBP</button>
+		<!--<button id="export" onclick="save_character_image('webp');">Export as WEBP</button>-->
 	</div>`;
 	
 	
