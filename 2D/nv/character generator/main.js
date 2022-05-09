@@ -3,7 +3,6 @@ var stamp_d = '';
 
 function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = 'default'){
 	
-	stamp_d ='';
 	
 	const print_to = document.getElementById('viewport');
 	
@@ -12,7 +11,7 @@ function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = '
 	let choose_presets =``;
 	Object.keys(graphics).forEach(function(preset){
 		
-		choose_presets += `<button class="preset" id="${preset}" data-id="${preset}" onclick="main_print('presets', '${preset}', '${swatch_id}')">><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 1000 1415">${get_svg_code(graphics[preset], true)}</svg></button>`;
+		choose_presets += `<button class="preset" id="${preset}" data-id="${preset}" onclick="main_print('presets', '${preset}', '${swatch_id}')">><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 1000 1415">${get_svg_code(graphics[preset], 'white')}</svg></button>`;
 		
 	});
 	
@@ -36,8 +35,9 @@ function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = '
 	
 	let portrait_print = '';
 	
+	stamp_d ='';
 		
-	portrait_print += get_svg_code(graphic_info);
+	portrait_print += get_svg_code(graphic_info, swatch_id);
 	
 	const portrait_html = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 1000 1415">
 		<path class="stamp" fill="#fff" stroke-width="20" stroke="#fff" stroke-linejoin="round" d="${stamp_d}" />
@@ -55,7 +55,7 @@ window.onload = function(){
 
 }
 
-function get_svg_code(obj, print_in_white = false){
+function get_svg_code(obj, print_in_white = 'default'){
 	let portrait_print ='';
 	let fill_color = '';
 	
@@ -64,7 +64,7 @@ function get_svg_code(obj, print_in_white = false){
 			portrait_print += obj[info];
 		}
 		else if(info == 'path'){
-			fill_color = (print_in_white) ? '#fff' : 'url(#acc_grad)';
+			fill_color = (print_in_white == 'white') ? '#fff' : 'url(#acc_grad)';
 			portrait_print += `<path class="${info}" fill="${fill_color}" d="${obj[info]}" />`;
 			stamp_d += obj[info];
 		}
@@ -72,8 +72,8 @@ function get_svg_code(obj, print_in_white = false){
 			portrait_print += `<g class="${info}">${get_svg_code(obj[info], print_in_white)}</g>`;
 		}
 		else {
-			const fill_value = ( swatches.default.values.face.hasOwnProperty(info) ) ? swatches.default.values.face[info] : swatches.default.values[info];
-			fill_color = (info == 'lines') ? '000' : ((print_in_white) ? 'fff' : fill_value);
+			const fill_value = ( swatches[print_in_white].values.face.hasOwnProperty(info) ) ? swatches[print_in_white].values.face[info] : swatches[print_in_white].values[info];
+			fill_color = (info == 'lines') ? '000' : ((print_in_white == 'white') ? 'fff' : fill_value);
 			
 			portrait_print += `<path class="${info}" fill="#${fill_color}" d="${obj[info]}" />`;
 			stamp_d += obj[info];
