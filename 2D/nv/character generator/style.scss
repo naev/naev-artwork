@@ -43,9 +43,10 @@ body{
         }
     }
     #swatches,
-    #presets{
+    #presets,
+    #colors{
         position: absolute;
-        top:10px;
+        top:50px;
         display: flex;
         overflow-x: hidden;
         overflow-y: auto;
@@ -70,12 +71,57 @@ body{
     }
     
     &.presets>#swatches,
-    &.swatches>#presets{
-        
+    &.presets>#colors,
+    &.swatches>#presets,
+    &.swatches>#colors,
+    &.colors>#presets,
+    &.colors>#swatches {
         top:-1000px;
         pointer-events: none;
         z-index: -1;
         
+    }
+    .swatch{
+        position: relative;
+        width:33%;
+        height:40px;
+        .swatch_gradient{
+            position: absolute;
+            width:100%;
+            top:20px;
+            height:20px;
+            left:0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        &>span{
+            display: inline-block;
+            top:0;
+            left:0;
+            height:20px;
+            line-height:20px;
+            width:100%;
+            z-index: 1;
+            position: absolute;
+            text-shadow:0px 0px 5px #fff;
+            font-weight: bold;
+        }
+    }
+    
+    #colors #input_holder{
+        width:100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-content: flex-start;
+        justify-content: flex-start;
+        align-items: flex-start;
+        &>input{
+            width:33%;
+            height:50px;
+            display: inline-block;
+            
+        }
     }
 }
 

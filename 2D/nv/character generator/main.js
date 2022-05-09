@@ -1,7 +1,7 @@
 
 var stamp_d = '';
 
-function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = 'default'){
+function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = (swatches.hasOwnProperty('custom')) ? 'custom' : 'default'){
 	
 	
 	const print_to = document.getElementById('viewport');
@@ -18,17 +18,38 @@ function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = '
 	let choose_swatches =``;
 	Object.keys(swatches).forEach(function(swatch){
 		
-		choose_swatches += `<button class="swatch" id="${swatch}" data-id="${swatch}" onclick="main_print('swatches', '${cur_id}', '${swatch}')">${swatches[swatch].label}</button>`;
+		choose_swatches += `<button class="swatch" id="${swatch}" data-id="${swatch}" onclick="main_print('swatches', '${cur_id}', '${swatch}')">
+			<span>${swatches[swatch].label}</span>
+			<div class="swatch_gradient" style="background:linear-gradient(90deg, #${swatches[swatch].values.skin} 0%, #${swatches[swatch].values.skin} 25%, #${swatches[swatch].values.main} 25%, #${swatches[swatch].values.main} 50%, #${swatches[swatch].values.sec} 50%, #${swatches[swatch].values.sec} 75%, #${swatches[swatch].values.trim} 75%, #${swatches[swatch].values.trim} 100%);"></div>
+		</button>`;
 		
+	});
+	
+	let choose_colors =``;
+	Object.keys(swatches[swatch_id].values).forEach(function(color_option){
+		
+		if(color_option == 'face'){
+			Object.keys(swatches[swatch_id].values.face).forEach(function(face_color_option){
+				choose_colors += `<input id="picker_${face_color_option}" onchange="update_color('${face_color_option}', 'colors', '${cur_id}', '${swatch_id}', this)" value="#${swatches[swatch_id].values.face[face_color_option]}" type="color" title="${face_color_option}" />`;
+			});
+		}
+		else if(color_option != 'acc_path'){
+			choose_colors += `<input id="picker_${color_option}" onchange="update_color('${color_option}', 'colors', '${cur_id}', '${swatch_id}', this)" value="#${swatches[swatch_id].values[color_option]}" type="color" title="${color_option}" />`;
+		}
 	});
 	
 	const menu_html = `<div id="main_menu" class="${sub_menu}">
 		<div id="choose_submenu">
 			<button onclick="change_parent_class('presets', this)">Presets</button>
-			<button onclick="change_parent_class('swatches', this)">Colors</button>
+			<button onclick="change_parent_class('swatches', this)">Swatches</button>
+			<button onclick="change_parent_class('colors', this)">Colors</button>
 		</div>
 		<div id="presets"><h2>Choose Preset</h2>${choose_presets}</div>
-		<div id="swatches"><h2>Choose Colors</h2>${choose_swatches}</div>
+		<div id="swatches"><h2>Choose Color Swatch</h2>${choose_swatches}</div>
+		<div id="colors">
+			<h2>Choose Colors</h2>
+			<div id="input_holder">${choose_colors}</div>
+		</div>
 	</div>
 	<div id="export_buttons">
 		<button id="export" onclick="save_character_image();">Export as SVG</button>
@@ -168,4 +189,45 @@ function save_character_image(filetype = 'svg'){
 		
 		
 	}
+}
+
+function update_color(part = false, c_sub_menu, c_cur_id, c_preset = 'default', obj){
+	console.log(obj);
+	const color_val = obj.value.split('#')[1];
+	
+	swatches['custom'] = {
+		'label' : 'Custom',
+		'values' : {
+			'skin' 		: document.getElementById('picker_skin').value.split('#')[1],
+			'main' 		: document.getElementById('picker_main').value.split('#')[1],
+			'sec' 		: document.getElementById('picker_sec').value.split('#')[1],
+			'trim' 		: document.getElementById('picker_trim').value.split('#')[1],
+			'metal' 	: document.getElementById('picker_metal').value.split('#')[1],
+			'dark_metal': document.getElementById('picker_dark_metal').value.split('#')[1],
+			'orange'	: document.getElementById('picker_orange').value.split('#')[1],
+			'green' 	: document.getElementById('picker_green').value.split('#')[1],
+			'white' 	: document.getElementById('picker_white').value.split('#')[1],
+			'nails' 	: document.getElementById('picker_nails').value.split('#')[1],
+			'acc_path' 	: 'acc_grad',
+			'towel' 	: document.getElementById('picker_towel').value.split('#')[1],
+			'hair'		: document.getElementById('picker_hair').value.split('#')[1],
+			'brows'		: document.getElementById('picker_brows').value.split('#')[1],
+			'face' 		: {
+				'eye_white' 	: document.getElementById('picker_eye_white').value.split('#')[1],
+				'eye_color' 	: document.getElementById('picker_eye_color').value.split('#')[1],
+				'lips' 		: document.getElementById('picker_lips').value.split('#')[1],
+				'teeth' 	: document.getElementById('picker_teeth').value.split('#')[1],
+			},
+		},
+	};
+		
+	/*
+	if(swatches.custom.values.hasOwnProperty(part)){
+		swatches.custom.values[part] = color_val;
+	}
+	if(swatches.custom.values.face.hasOwnProperty(part)){
+		swatches.custom.values.face[part] = color_val;
+	}
+	*/
+	main_print(c_sub_menu, c_cur_id, 'custom');
 }
