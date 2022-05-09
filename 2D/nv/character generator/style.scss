@@ -14,6 +14,12 @@ body{
         right: 0;
         top:10px;
     }
+    #hidden_canvas{
+        position: fixed;
+        pointer-events: none;
+        top:100%;
+        left:100%;
+    }
 }
 #main_menu{
     height:calc(100% - 20px);
