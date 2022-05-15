@@ -1,8 +1,9 @@
 
 var stamp_d = '';
 
-function main_print(sub_menu = 'presets', cur_id = 'bartender_m1', swatch_id = (swatches.hasOwnProperty('custom')) ? 'custom' : 'default'){
+function main_print(sub_menu = 'presets', cur_id = temp_char.preset, swatch_id = (swatches.hasOwnProperty('custom')) ? 'custom' : 'default'){
 	
+	temp_char.preset = cur_id;
 	
 	const print_to = document.getElementById('viewport');
 	
@@ -90,6 +91,9 @@ function get_svg_code(obj, print_in_white = 'default'){
 		if(info == 'defs'){
 			portrait_print += obj[info];
 		}
+		else if(info == 'goggles'){
+			portrait_print += `<g class="${info}">${get_svg_code(obj[info][temp_char.goggles], print_in_white)}</g>`;
+		}	
 		else if(info == 'path'){
 			fill_color = (print_in_white == 'white') ? '#fff' : 'url(#acc_grad)';
 			portrait_print += `<path class="${info}" fill="${fill_color}" d="${obj[info]}" />`;
@@ -99,7 +103,7 @@ function get_svg_code(obj, print_in_white = 'default'){
 			portrait_print += `<g class="${info}">${get_svg_code(obj[info], print_in_white)}</g>`;
 		}
 		else {
-			const fill_value = ( swatches[print_in_white].values.face.hasOwnProperty(info) ) ? swatches[print_in_white].values.face[info] : swatches[print_in_white].values[info];
+			const fill_value = ( swatches[print_in_white].values.face.hasOwnProperty(info) ) ? swatches[print_in_white].values.face[info] : ((swatches[print_in_white].values.hasOwnProperty(info)) ? swatches[print_in_white].values[info] : swatches['default'].values[info]);
 			fill_color = (info == 'lines') ? '000' : ((print_in_white == 'white') ? 'fff' : fill_value);
 			
 			portrait_print += `<path class="${info}" fill="#${fill_color}" d="${obj[info]}" />`;
