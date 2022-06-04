@@ -1,0 +1,137 @@
+body{
+    background: #273c6c;
+}
+
+#viewport{
+    position: fixed;
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    &>svg{
+        height:calc(100% - 20px);
+        position: absolute;
+        right: 0;
+        top:10px;
+    }
+    #hidden_canvas{
+        position: fixed;
+        pointer-events: none;
+        top:100%;
+        left:100%;
+    }
+}
+#main_menu{
+    height:calc(100% - 20px);
+    position: absolute;
+    left:0;
+    top:10px;
+    width:500px;
+    border-radius:0 15px 15px 0;
+    box-shadow:0 0 0 1px #000;
+    background-color:#989898;
+    
+    .preset{
+        width:200px;
+        height:284px;
+        position: relative;
+        &>svg{
+            width:100%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    }
+    #swatches,
+    #presets,
+    #colors{
+        position: absolute;
+        top:50px;
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-top:25px;
+        height:calc(100% - 35px);
+        width:90%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: center;
+        align-items: flex-start;
+        h2{
+            position: absolute;
+            top:0;
+            width:100%;
+            display: inline-block;
+            left:0;
+            margin:0;
+            text-align:center;
+            
+        }
+    }
+    
+    &.presets>#swatches,
+    &.presets>#colors,
+    &.swatches>#presets,
+    &.swatches>#colors,
+    &.colors>#presets,
+    &.colors>#swatches {
+        top:-1000px;
+        pointer-events: none;
+        z-index: -1;
+        
+    }
+    .swatch{
+        position: relative;
+        width:33%;
+        height:40px;
+        .swatch_gradient{
+            position: absolute;
+            width:100%;
+            top:20px;
+            height:20px;
+            left:0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        &>span{
+            display: inline-block;
+            top:0;
+            left:0;
+            height:20px;
+            line-height:20px;
+            width:100%;
+            z-index: 1;
+            position: absolute;
+            text-shadow:0px 0px 5px #fff;
+            font-weight: bold;
+        }
+    }
+    
+    #colors #input_holder{
+        width:100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-content: flex-start;
+        justify-content: flex-start;
+        align-items: flex-start;
+        &>input{
+            width:33%;
+            height:50px;
+            display: inline-block;
+            
+        }
+    }
+}
+
+#export_buttons{
+    width:50px;
+    position: absolute;
+    left:500px;
+    top:20px;
+    button{
+        width:100%;
+        text-align: center;
+    }
+}
