@@ -115,15 +115,20 @@ import os
 
 # Create an array from the picture
 def arrFromPng(adress,sx,sy):
-    picture = plt.imread(adress)
     
-    if np.shape(picture)[2] == 4:
-        picture = 255*picture[:,:,3]
-    elif np.shape(picture)[2] == 2: # Black and white
-        picture = 255*picture[:,:,1]
+    buffer = plt.imread(adress)
+    
+    if np.shape(buffer)[2] == 4:
+        picture = buffer[:,:,3]
+    elif np.shape(buffer)[2] == 2: # Black and white
+        picture = buffer[:,:,1]
     else:
         print('Warning: unable to read png file')
-        picture = 255*picture[:,:,3] # Try this, maybe it will work
+        picture = buffer[:,:,3] # Try this, maybe it will work
+    
+    # Now see if values are in [0,1] or [0,255]
+    if np.max(picture) <= 1:
+        picture = 255*picture
     
     # Store all the different pictures in a list of matrices
     six = picture.shape[0]/sx
@@ -522,6 +527,48 @@ def polygonify_all_outfits(gfxPath, polyPath, overwrite):
             polygon = pntNplg[1]
             generateXML(polygon,polyAdress)
             
+# Generates polygon for all asteroids
+def polygonify_all_asteroids(gfxPath, polyPath, overwrite):
+    
+    # Default parameters
+    default_maxNmin = (3,6,150)
+    
+    # First define the parameters for special files
+    maxNmin = { "flower01" : (5,10,150) } # Actually, the algorithm automatically refines this one, so it could be skipped
+
+    for fileName in os.listdir(gfxPath):
+        
+        polyAdress = (polyPath+fileName+".xml")
+        
+        # Test if the file already exists
+        if ( not overwrite and os.path.exists(polyAdress) ) :
+            continue
+        
+        # Manage parameters
+        lmin = default_maxNmin[0]
+        lmax = default_maxNmin[1]
+        ceil = default_maxNmin[2]
+        if fileName in maxNmin:
+            mNm = maxNmin[fileName]
+            lmin = mNm[0]
+            lmax = mNm[1]
+            ceil = mNm[2]
+        
+        pngAdress  = (gfxPath+fileName)
+        
+        print("Generation of " + polyAdress)
+        
+        pntNplg = polygonFromPng(pngAdress,1,1,ceil,lmin,lmax)
+        polygon = pntNplg[1]
+        
+#        points  = pntNplg[0]
+#        plt.figure()
+#        plt.title(polyAdress)
+#        plt.scatter(points[0][0],points[1][0])
+#        plt.scatter(polygon[1][0],polygon[2][0])
+        
+        generateXML(polygon,polyAdress)
+            
 # Generates polygon for all ships
 def polygonify_all_ships(gfxPath, polyPath, overwrite):
     
@@ -630,19 +677,23 @@ if __name__ == "__main__":
         
     #polygonify_all_outfits( '../../../naev/dat/gfx/outfit/space/', '../../../naev/dat/gfx/outfit/space_polygon/', 0 )
     #polygonify_all_ships( '../../../naev/dat/gfx/ship/', '../../../naev/dat/gfx/ship_polygon/', 0 )
-    polygonify_all_ships( '../../../naev-artprod/gfx/ship/', '../../../naev-artprod/gfx/ship_polygon/', 0 )
+    #polygonify_all_ships( '../../../naev-artprod/gfx/ship/', '../../../naev-artprod/gfx/ship_polygon/', 0 )
+    polygonify_all_asteroids('../../../naev-artwork-production/gfx/spob/space/asteroid/',
+                             '../../../naev-artwork-production/gfx/spob/space/asteroid_polygon/', 1)
     
     # Use the above stuff to generate only one ship or outfit polygon :
     
+    #pntNplg = polygonFromPng('../../../naev-artwork-production/gfx/spob/space/asteroid/asteroid-D51.webp',1,1,150,3,6)
+    #pntNplg = polygonFromPng('../../../naev-artwork-production/gfx/spob/space/asteroid/asteroid-D51_bis.png',1,1,150,3,6)
     #pntNplg = polygonFromPng('../naev/dat/gfx/ship/shark/shark.png',8,8,150,3,6)
     #pntNplg = polygonFromPng('../../../naev/dat/gfx/outfit/space/caesar.png',6,6,1,2,4)
     
-    #points  = pntNplg[0]
-    #polygon = pntNplg[1]
-    
-    #poly = polygon[0]
-    
-    #plt.scatter(points[0][0],points[1][0])
-    #plt.scatter(polygon[1][0],polygon[2][0])
+#    points  = pntNplg[0]
+#    polygon = pntNplg[1]
+#    
+#    poly = polygon[0]
+#    
+#    plt.scatter(points[0][0],points[1][0])
+#    plt.scatter(polygon[1][0],polygon[2][0])
     
     #generateXML(polygon,'caesar.xml')
