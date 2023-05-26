@@ -693,17 +693,17 @@ if __name__ == "__main__":
 
     basepath = '../../../naev-artprod/'
 
-    # Special cases
+    # Special cases where we use spob assets for ships
     polygonify_single( basepath+'gfx/spob/space/000.webp', basepath+'gfx/ship_polygon/000.webp.xml' )
     polygonify_single( basepath+'gfx/spob/space/002.webp', basepath+'gfx/ship_polygon/002.webp.xml' )
     polygonify_single( basepath+'gfx/spob/space/station-battlestation.webp', basepath+'gfx/ship_polygon/station-battlestation.webpxml' )
-    polygonify_single( basepath+'gfx/spob/space/derelict_goddard.webp', basepath+'gfx/ship_polygon/derelict_goddard.webp.xml' )
+    polygonify_single( basepath+'gfx/spob/space/derelict_goddard.webp', basepath+'gfx/ship_polygon/derelict_goddard.webp.xml', minlen=1 )
     # All ships
     polygonify_all_ships( basepath+'gfx/ship/', basepath+'gfx/ship_polygon/', 0 )
     # All outfits
     polygonify_all_outfits( basepath+'gfx/outfit/space/', basepath+'gfx/outfit/space_polygon/', 0 )
     # All Asteroids
-    polygonify_all_asteroids( basepath+'gfx/spob/space/asteroid/', basepath+'gfx/spob/space/asteroid_polygon/', 1)
+    polygonify_all_asteroids( basepath+'gfx/spob/space/asteroid/', basepath+'gfx/spob/space/asteroid_polygon/', 0)
     
     # Use the above stuff to generate only one ship or outfit polygon :
     
