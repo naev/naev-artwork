@@ -485,6 +485,19 @@ def generateXML(polygon,adress):
     myfile.close()
 
 # Generates polygon for all outfits
+def polygonify_single(fileName, polyAddress, sx=1, sy=1, ceil=150, minlen=3, maxlen=6):
+    # Test if the file already exists
+    if os.path.exists(polyAddress):
+        return
+    
+    print("Generation of " + polyAddress)
+    
+    pntNplg = polygonFromPng( fileName, sx, sy, ceil, minlen, maxlen )
+    
+    polygon = pntNplg[1]
+    generateXML(polygon,polyAddress)
+
+# Generates polygon for all outfits
 def polygonify_all_outfits(gfxPath, polyPath, overwrite):
     
     # Default parameters
@@ -499,10 +512,10 @@ def polygonify_all_outfits(gfxPath, polyPath, overwrite):
         if (fileName.endswith((".png", ".webp")) and not fileName.endswith(("-end.png", "-end.webp"))) \
            and not fileName.startswith("beam_"):
             
-            polyAdress = (polyPath+fileName+".xml")
+            polyAddress = (polyPath+fileName+".xml")
             
             # Test if the file already exists
-            if ( not overwrite and os.path.exists(polyAdress) ) :
+            if ( not overwrite and os.path.exists(polyAddress) ) :
                 continue
                
             # Special case because of strange non-connex pixels
@@ -518,14 +531,14 @@ def polygonify_all_outfits(gfxPath, polyPath, overwrite):
                 lmin = mNm[0]
                 lmax = mNm[1]
             
-            pngAdress  = (gfxPath+fileName)
+            pngAddress  = (gfxPath+fileName)
             
-            print("Generation of " + polyAdress)
+            print("Generation of " + polyAddress)
             
-            pntNplg = polygonFromPng(pngAdress,6,6,150,lmin,lmax)
+            pntNplg = polygonFromPng(pngAddress,6,6,150,lmin,lmax)
             
             polygon = pntNplg[1]
-            generateXML(polygon,polyAdress)
+            generateXML(polygon,polyAddress)
             
 # Generates polygon for all asteroids
 def polygonify_all_asteroids(gfxPath, polyPath, overwrite):
@@ -538,10 +551,10 @@ def polygonify_all_asteroids(gfxPath, polyPath, overwrite):
 
     for fileName in os.listdir(gfxPath):
         
-        polyAdress = (polyPath+fileName+".xml")
+        polyAddress = (polyPath+fileName+".xml")
         
         # Test if the file already exists
-        if ( not overwrite and os.path.exists(polyAdress) ) :
+        if ( not overwrite and os.path.exists(polyAddress) ) :
             continue
         
         # Manage parameters
@@ -554,20 +567,20 @@ def polygonify_all_asteroids(gfxPath, polyPath, overwrite):
             lmax = mNm[1]
             ceil = mNm[2]
         
-        pngAdress  = (gfxPath+fileName)
+        pngAddress  = (gfxPath+fileName)
         
-        print("Generation of " + polyAdress)
+        print("Generation of " + polyAddress)
         
-        pntNplg = polygonFromPng(pngAdress,1,1,ceil,lmin,lmax)
+        pntNplg = polygonFromPng(pngAddress,1,1,ceil,lmin,lmax)
         polygon = pntNplg[1]
         
 #        points  = pntNplg[0]
 #        plt.figure()
-#        plt.title(polyAdress)
+#        plt.title(polyAddress)
 #        plt.scatter(points[0][0],points[1][0])
 #        plt.scatter(polygon[1][0],polygon[2][0])
         
-        generateXML(polygon,polyAdress)
+        generateXML(polygon,polyAddress)
             
 # Generates polygon for all ships
 def polygonify_all_ships(gfxPath, polyPath, overwrite):
@@ -639,10 +652,10 @@ def polygonify_all_ships(gfxPath, polyPath, overwrite):
                 # Remove the .png
                 name = os.path.splitext(fileName)[0]
                 
-                polyAdress = (polyPath+name+".xml")
+                polyAddress = (polyPath+name+".xml")
                 
                 # Test if the file already exists
-                if ( not overwrite and os.path.exists(polyAdress) ) :
+                if ( not overwrite and os.path.exists(polyAddress) ) :
                     continue
                    
                 # Manage parameters
@@ -665,24 +678,32 @@ def polygonify_all_ships(gfxPath, polyPath, overwrite):
                     lmin = mNm[3]
                     lmax = mNm[4]
 
-                pngAdress  = (root+"/"+fileName)
+                pngAddress  = (root+"/"+fileName)
                 
-                print("Generation of " + polyAdress + ". Parameters are : ("\
+                print("Generation of " + polyAddress + ". Parameters are : ("\
                        + str(sx) + ", " + str(sy) + ", " + str(ceil) + ", "\
                        + str(lmin) + ", " + str(lmax) + ")")
                 
-                pntNplg = polygonFromPng(pngAdress,sx,sy,ceil,lmin,lmax)
+                pntNplg = polygonFromPng(pngAddress,sx,sy,ceil,lmin,lmax)
                 
                 polygon = pntNplg[1]
-                generateXML(polygon,polyAdress)
+                generateXML(polygon,polyAddress)
 
 if __name__ == "__main__":
-        
-    #polygonify_all_outfits( '../../../naev/dat/gfx/outfit/space/', '../../../naev/dat/gfx/outfit/space_polygon/', 0 )
-    #polygonify_all_ships( '../../../naev/dat/gfx/ship/', '../../../naev/dat/gfx/ship_polygon/', 0 )
-    polygonify_all_ships( '../../../naev-artprod/gfx/ship/', '../../../naev-artprod/gfx/ship_polygon/', 0 )
-    #polygonify_all_asteroids('../../../naev-artwork-production/gfx/spob/space/asteroid/',
-    #                         '../../../naev-artwork-production/gfx/spob/space/asteroid_polygon/', 1)
+
+    basepath = '../../../naev-artprod/'
+
+    # Special cases
+    polygonify_single( basepath+'gfx/spob/space/000.webp', basepath+'gfx/ship_polygon/000.webp.xml' )
+    polygonify_single( basepath+'gfx/spob/space/002.webp', basepath+'gfx/ship_polygon/002.webp.xml' )
+    polygonify_single( basepath+'gfx/spob/space/station-battlestation.webp', basepath+'gfx/ship_polygon/station-battlestation.webpxml' )
+    polygonify_single( basepath+'gfx/spob/space/derelict_goddard.webp', basepath+'gfx/ship_polygon/derelict_goddard.webp.xml' )
+    # All ships
+    polygonify_all_ships( basepath+'gfx/ship/', basepath+'gfx/ship_polygon/', 0 )
+    # All outfits
+    polygonify_all_outfits( basepath+'gfx/outfit/space/', basepath+'gfx/outfit/space_polygon/', 0 )
+    # All Asteroids
+    polygonify_all_asteroids( basepath+'gfx/spob/space/asteroid/', basepath+'gfx/spob/space/asteroid_polygon/', 1)
     
     # Use the above stuff to generate only one ship or outfit polygon :
     
