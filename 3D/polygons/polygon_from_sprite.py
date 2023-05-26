@@ -616,6 +616,9 @@ def polygonify_all_ships(gfxPath, polyPath, overwrite):
                "vigilance_dvaered" : (10,10,150,3,6),
                "vox" : (12,12,150,4,8),
                "watson" : (12,12,150,3,6),
+               "apparition_fighter": (8,8,150,3,6),
+               "apparition_corvette": (10,10,150,3,6),
+               "apparition_cruiser": (12,12,150,3,6),
               }
 
     def goodfile( filename ):
@@ -677,9 +680,9 @@ if __name__ == "__main__":
         
     #polygonify_all_outfits( '../../../naev/dat/gfx/outfit/space/', '../../../naev/dat/gfx/outfit/space_polygon/', 0 )
     #polygonify_all_ships( '../../../naev/dat/gfx/ship/', '../../../naev/dat/gfx/ship_polygon/', 0 )
-    #polygonify_all_ships( '../../../naev-artprod/gfx/ship/', '../../../naev-artprod/gfx/ship_polygon/', 0 )
-    polygonify_all_asteroids('../../../naev-artwork-production/gfx/spob/space/asteroid/',
-                             '../../../naev-artwork-production/gfx/spob/space/asteroid_polygon/', 1)
+    polygonify_all_ships( '../../../naev-artprod/gfx/ship/', '../../../naev-artprod/gfx/ship_polygon/', 0 )
+    #polygonify_all_asteroids('../../../naev-artwork-production/gfx/spob/space/asteroid/',
+    #                         '../../../naev-artwork-production/gfx/spob/space/asteroid_polygon/', 1)
     
     # Use the above stuff to generate only one ship or outfit polygon :
     
