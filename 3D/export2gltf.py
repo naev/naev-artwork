@@ -23,6 +23,14 @@ os.makedirs(shipdir, exist_ok=True)
 gltfpath = os.path.join(shipdir, shipname) + '.gltf'
 bpy.ops.file.unpack_all()
 
+# Modernize some stuff
+scn = bpy.context.scene
+scn.render.engine = 'CYCLES'
+scn.cycles.feature_set = 'SUPPORTED'
+scn.render.use_bake_multires = False
+scn.cycles.bake_type = 'NORMAL'
+scn.render.bake.use_selected_to_active = False
+
 # Get rid of stuff
 for obj in bpy.data.objects:
     if obj.type!="MESH":
@@ -62,8 +70,13 @@ for obj in bpy.data.collections['Collection 1'].all_objects:
     remove_dups()
 
     # Bake ambient occlusion
-    #size = 512
-    #bpy.ops.object.bake( type='AO', width=size, height=size, save_mode="EXTERNAL", use_automatic_name=True, use_split_materials=True, pass_filter={'COLOR'}, cage_extrusion=1, max_ray_distance=0 )
+    size = 512
+    samples = 128
+    scn = bpy.context.scene
+    scn.cycles.adaptive_threshold = 0.005
+    scn.cycles.samples = samples
+    scn.cycles.adaptive_min_samples = int(samples / 2)
+    #bpy.ops.object.bake( 'INVOKE_DEFAULT', type='AO', width=size, height=size, save_mode="EXTERNAL", use_automatic_name=True, use_split_materials=True, pass_filter={'COLOR'}, cage_extrusion=1, max_ray_distance=0 )
 bpy.ops.object.join()
 remove_dups()
 
