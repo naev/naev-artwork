@@ -8,7 +8,8 @@ then
    done
 else
    TMPFILE=$(mktemp --suffix '.blend')
+   # First step, we have to upgrade old models to cycles
    blender-2.7 "$1" -b -P materials_cycles_converter.py -- "$TMPFILE"
+   # Second step we export the model
    blender "$TMPFILE" -b -P export2gltf.py -- "$1"
-   #blender $1 -b -P export2gltf.py
 fi
