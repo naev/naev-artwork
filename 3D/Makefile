@@ -1,5 +1,4 @@
 
-
 BLENDER     ?= "blender"
 RENDER      := "./render.py"
 RENDER_COMM := "./render_comm.py"
@@ -50,4 +49,3 @@ mkspr: mkspr.c
 
 clean:
 	$(RM) $(COMM_OBJS) $(SPRITE_OBJS) $(MKSPR)
-

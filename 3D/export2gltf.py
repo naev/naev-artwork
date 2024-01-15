@@ -3,6 +3,8 @@ import subprocess
 import bpy
 import shutil
 
+OUTPATH = "gltf"
+
 textures_dir = os.path.dirname(bpy.data.filepath) + '/textures'
 if os.path.exists(textures_dir):
     shutil.rmtree(textures_dir)
@@ -16,7 +18,7 @@ else:
     filename = bpy.data.filepath
 shipname = os.path.splitext(os.path.basename(filename))[0]
 
-shipdir = os.path.abspath(os.path.join('3d', shipname))
+shipdir = os.path.abspath(os.path.join(OUTPATH, shipname))
 os.makedirs(shipdir, exist_ok=True)
 gltfpath = os.path.join(shipdir, shipname) + '.gltf'
 bpy.ops.file.unpack_all()
@@ -42,6 +44,8 @@ def remove_dups():
     bpy.ops.object.mode_set(mode='EDIT')
     bpy.ops.mesh.select_all(action='SELECT')
     bpy.ops.mesh.remove_doubles( threshold = 0.001 )
+    bpy.ops.mesh.tris_convert_to_quads()
+    bpy.ops.mesh.normals_make_consistent()
     bpy.ops.mesh.select_all(action='DESELECT')
     bpy.ops.mesh.select_mode(type = 'FACE')
     bpy.ops.mesh.select_interior_faces()

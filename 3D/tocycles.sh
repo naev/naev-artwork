@@ -5,8 +5,8 @@ if [ -z "$1" ]
 then
     for i in ships/*.blend
     do
-        ./tocycles.sh $i
+        ./tocycles.sh "$i"
     done
 else
-    $BLENDER $1 -b -P materials_cycles_converter.py
+    $BLENDER "$1" -b -P materials_cycles_converter.py
 fi
