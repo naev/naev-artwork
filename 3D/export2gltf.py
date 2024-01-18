@@ -39,6 +39,9 @@ for obj in bpy.data.objects:
         obj.select_set(False)
 bpy.ops.object.delete()
 
+for mat in bpy.data.materials:
+     mat.use_backface_culling = True
+
 def remove_dups():
     bpy.ops.object.convert(target='MESH') # Here I've added an option which will
                                     # apply all modifiers by converting object
@@ -64,8 +67,6 @@ for obj in bpy.data.collections['Collection 1'].all_objects:
         continue
 
     obj.select_set(True)
-    obj.name = "body"
-    obj.data.name = "body"
     bpy.context.view_layer.objects.active = obj
     remove_dups()
 
@@ -80,6 +81,11 @@ for obj in bpy.data.collections['Collection 1'].all_objects:
 bpy.ops.object.join()
 remove_dups()
 
+# Rename object
+obj = bpy.context.active_object
+obj.name = "body"
+obj.data.name = "body"
+
 # Collection 9 should contain the engine
 if "Collection 9" in bpy.data.collections.keys():
     # Deselect all first
@@ -89,13 +95,15 @@ if "Collection 9" in bpy.data.collections.keys():
         if obj.type!="MESH":
             continue
         obj.select_set(True)
-        obj.name = "engine"
-        obj.data.name = "engine"
         bpy.context.view_layer.objects.active = obj
         remove_dups()
     bpy.ops.object.join()
     remove_dups()
 
+    # Rename object
+    obj = bpy.context.active_object
+    obj.name = "engine"
+    obj.data.name = "engine"
 
 # Finally export the entire scene
 bpy.ops.export_scene.gltf( filepath=gltfpath, export_format='GLTF_SEPARATE', export_lights=False, export_cameras=False, export_normals=True )
