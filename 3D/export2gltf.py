@@ -77,6 +77,10 @@ for obj in bpy.data.collections['Collection 1'].all_objects:
     scn.cycles.adaptive_threshold = 0.005
     scn.cycles.samples = samples
     scn.cycles.adaptive_min_samples = int(samples / 2)
+
+    #bpy.data.textures.new( name='AOTexture', type='IMAGE' )
+    #img = bpy.ops.image.new( name='selfAO', width=size, height=size )
+    #img.source = "GENERATED"
     #bpy.ops.object.bake( 'INVOKE_DEFAULT', type='AO', width=size, height=size, save_mode="EXTERNAL", use_automatic_name=True, use_split_materials=True, pass_filter={'COLOR'}, cage_extrusion=1, max_ray_distance=0 )
 bpy.ops.object.join()
 remove_dups()

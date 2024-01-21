@@ -1,5 +1,5 @@
 # convert_materials_to_cycles.py
-# 
+#
 # Copyright (C) 5-mar-2012, Silvio Falcinelli. Fixes by others.
 #
 # special thanks to user blenderartists.org cmomoney
@@ -132,7 +132,7 @@ def AutoNode(active=False):
 
     else:
         mats = bpy.data.materials
-    
+
 
     for cmat in mats:
         cmat.use_nodes = True
@@ -157,7 +157,7 @@ def AutoNode(active=False):
             Add_Translucent = ''
             Mix_Alpha = ''
             sT = False
-            
+
             for n in TreeNodes.nodes:
                 TreeNodes.nodes.remove(n)
 
@@ -202,6 +202,11 @@ def AutoNode(active=False):
                     shader = TreeNodes.nodes.new('ShaderNodeBsdfPrincipled')
                     shader.location = 0, 470
                     links.new(shader.outputs[0], shout.inputs[0])
+
+                    # Bake AO for diffuse nodes
+                    #texture_node = Treenodes.nodes.new('ShaderNodeTexImage')
+                    #texture_node.name = 'Bake_node'
+
 
             if cmat.raytrace_mirror.use and cmat.raytrace_mirror.reflect_factor > 0.001 and cmat_is_transp:
                 if not shader.type == 'ShaderNodeBsdfGlass':
@@ -432,7 +437,7 @@ class mlrefresh(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         return True
-    
+
     def execute(self, context):
         AutoNode()
         return {'FINISHED'}
@@ -447,7 +452,7 @@ class mlrefresh_active(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         return True
-    
+
     def execute(self, context):
         AutoNode(True)
         return {'FINISHED'}
@@ -501,7 +506,7 @@ class OBJECT_PT_scenemassive(bpy.types.Panel):
                     if n.label == 'Locked':
                         locked = True
                         break
-            
+
             row = layout.row()
             row.label(text="Selected: " + cmat.name, icon=("LOCKED" if locked else "UNLOCKED"))
             row.operator("ml.lock", text=("Unlock" if locked else "Lock"))
@@ -527,7 +532,9 @@ for obj in bpy.data.objects:
 bpy.ops.object.delete()
 """
 bpy.context.scene.objects.active = None
-bpy.ops.file.pack_all()
+try:
+    bpy.ops.file.pack_all()
+except:
+    pass
 AutoNode()
 bpy.ops.wm.save_as_mainfile( filepath=outfile )
-
