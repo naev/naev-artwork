@@ -2,7 +2,6 @@
 
 # Generates polygons from stl files
 
-
 # If you added a ship blend:
 # Go to bottom of the file, and replace
 #'../naev-atwork_back/naev-artwork/3D/ships/' and
@@ -97,7 +96,8 @@ def pointsFromSTL( address, sx, size, center, alpha ) :
         vt1 = proj * vt1
         vt2 = proj * vt2
 
-        x0 = vt0[0,:] # Extract x and y coordiantes
+        # Extract x and y coordinates
+        x0 = vt0[0,:]
         x1 = vt1[0,:]
         x2 = vt2[0,:]
         y0 = vt0[1,:]
@@ -132,7 +132,6 @@ def pointsFromSTL( address, sx, size, center, alpha ) :
 
                 # Hell, there are flat triangles. As a consequence, > cannot
                 # be replaced by >= in np.where
-
                 if len(j4) >= 1: # point is in a triangle
                     fullDots[ai,aj] = 1
 
@@ -172,7 +171,6 @@ def pointsFromSTL( address, sx, size, center, alpha ) :
     print('\rTransforming STL... [%s] %s%%' % (bar, progress), end = '\n')
 
     return (xlist,ylist,factor)
-
 
 # Computes a polygon from STL
 def polygonFromSTL(address,sx,scale,center,alpha,minlen,maxlen):
