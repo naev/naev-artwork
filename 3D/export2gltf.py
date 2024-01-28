@@ -2,6 +2,8 @@ import os
 import subprocess
 import bpy
 import shutil
+import tempfile
+import subprocess
 
 OUTPATH = "gltf"
 
@@ -109,8 +111,19 @@ if "Collection 9" in bpy.data.collections.keys():
     obj.name = "engine"
     obj.data.name = "engine"
 
-# Finally export the entire scene
-bpy.ops.export_scene.gltf( filepath=gltfpath, export_format='GLTF_SEPARATE', export_lights=False, export_cameras=False, export_normals=True )
+# We'll export the entire scene
+blenderdir = tempfile.TemporaryDirectory()
+blenderpath = blenderdir.name+"tmp.gltf"
+
+# Export from blender
+bpy.ops.export_scene.gltf( filepath=blenderpath, export_format='GLTF_SEPARATE', export_lights=False, export_cameras=False, export_normals=True )
+
+# And optimize
+ret = subprocess.run(["gltf-transform", "optimize", "--compress", "false", "--texture-compress", "false", blenderpath, gltfpath ])
+if ret.returncode != 0:
+    print("Problem optimizing mesh!")
+    sys.exit(-1)
+
 
 """
 os.chdir(shipdir)
