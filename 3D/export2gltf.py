@@ -64,7 +64,12 @@ for obj in bpy.data.objects:
     obj.select_set(False)
 
 # Collection 1 should contain the main ship (old format)
-for obj in bpy.data.collections['Collection 1'].all_objects:
+try:
+    body = bpy.data.collections['Collection 1']
+except:
+    body = bpy.data.collections['Collection1']
+
+for obj in body.all_objects:
     if obj.type!="MESH":
         continue
 

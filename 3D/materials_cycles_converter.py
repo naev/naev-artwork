@@ -34,13 +34,19 @@ bl_info = {
     "wiki_url": "http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Material/Blender_Cycles_Materials_Converter",
     "category": "Material"}
 
-
 import bpy
 import math
 from math import log
 from math import pow
 from math import exp
 import os.path
+import sys
+
+# Do a version check and exit if bad
+v = bpy.data.version
+v = v[0]*1e5 + v[1]*1e3 + v[0]
+if v >= 2*1e3 + 7*1e3 + 0:
+    sys.exit(-1)
 
 def AutoNodeOff():
     mats = bpy.data.materials
