@@ -45,8 +45,13 @@ import sys
 # Do a version check and exit if bad
 v = bpy.data.version
 vs = v[0]*1e5 + v[1]*1e3 + v[0]
-if vs >= 2*1e5 + 70*1e3 + 0:
+print(bpy.context.scene.render.engine)
+if vs > 2*1e5 + 90*1e3 + 0:
     print(f"Invalid version: {v[0]}.{v[1]}.{v[2]}")
+    sys.exit(-1)
+# Already up to date
+if bpy.context.scene.render.engine=='CYCLES':
+    print("Already using CYCLES!")
     sys.exit(-1)
 
 def AutoNodeOff():
