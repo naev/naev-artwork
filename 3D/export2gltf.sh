@@ -14,6 +14,7 @@ else
 
    # Second step we export the model
    blender "$TMPFILE" -b -P export2gltf.py -- "$1" || exit 1
+
+   # Also copy over updated lbend file to use as a new base
    cp "$TMPFILE" "gltf/${BNAME%.blend}/$BNAME"
-   #gltf-transform optimize --compress false --texture-compress false $IN $OUT
 fi
