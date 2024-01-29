@@ -44,8 +44,9 @@ import sys
 
 # Do a version check and exit if bad
 v = bpy.data.version
-v = v[0]*1e5 + v[1]*1e3 + v[0]
-if v >= 2*1e3 + 7*1e3 + 0:
+vs = v[0]*1e5 + v[1]*1e3 + v[0]
+if vs >= 2*1e5 + 70*1e3 + 0:
+    print(f"Invalid version: {v[0]}.{v[1]}.{v[2]}")
     sys.exit(-1)
 
 def AutoNodeOff():
