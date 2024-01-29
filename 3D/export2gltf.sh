@@ -7,10 +7,12 @@ then
       $0 "$i"
    done
 else
+   BNAME="$(basename "$1")"
    TMPFILE=$(mktemp --suffix '.blend')
    # First step, we have to upgrade old models to cycles
-   blender-2.7 "$1" -b -P materials_cycles_converter.py -- "$TMPFILE"
+   blender-2.7 "$1" -b -P materials_cycles_converter.py -- "$TMPFILE" || exit 1
    # Second step we export the model
-   blender "$TMPFILE" -b -P export2gltf.py -- "$1"
+   blender "$TMPFILE" -b -P export2gltf.py -- "$1" || exit 1
+   cp "$TMPFILE" "gltf/${BNAME%.blend}/$BNAME"
    #gltf-transform optimize --compress false --texture-compress false $IN $OUT
 fi

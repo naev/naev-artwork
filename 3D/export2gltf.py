@@ -113,7 +113,9 @@ if "Collection 9" in bpy.data.collections.keys():
 
 # We'll export the entire scene
 blenderdir = tempfile.TemporaryDirectory()
-blenderpath = blenderdir.name+"tmp.gltf"
+blenderbase = f"{os.path.basename(filename).split('.')[0]}"
+blenderpath = f"{blenderdir.name}/{blenderbase}/{blenderbase}.gltf"
+os.makedirs( os.path.dirname(blenderpath), exist_ok=True )
 
 # Export from blender
 bpy.ops.export_scene.gltf( filepath=blenderpath, export_format='GLTF_SEPARATE', export_lights=False, export_cameras=False, export_normals=True )
