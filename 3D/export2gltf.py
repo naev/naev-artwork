@@ -67,7 +67,10 @@ for obj in bpy.data.objects:
 try:
     body = bpy.data.collections['Collection 1']
 except:
-    body = bpy.data.collections['Collection1']
+    try:
+        body = bpy.data.collections['Collection1']
+    except:
+        body = bpy.data.collections[0]
 
 for obj in body.all_objects:
     if obj.type!="MESH":
@@ -98,11 +101,21 @@ obj.name = "body"
 obj.data.name = "body"
 
 # Collection 9 should contain the engine
-if "Collection 9" in bpy.data.collections.keys():
+try:
+    engine = bpy.data.collections['Collection 9']
+except:
+    try:
+        engine = bpy.data.collections['Collection 2']
+    except:
+        try:
+            engine = bpy.data.collections[1]
+        except:
+            engine = None
+if engine != None:
     # Deselect all first
     for obj in bpy.data.objects:
         obj.select_set(False)
-    for obj in bpy.data.collections['Collection 9'].all_objects:
+    for obj in engine.all_objects:
         if obj.type!="MESH":
             continue
         obj.select_set(True)
