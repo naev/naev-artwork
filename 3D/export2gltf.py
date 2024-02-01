@@ -44,14 +44,28 @@ bpy.ops.object.delete()
 for mat in bpy.data.materials:
      mat.use_backface_culling = True
 
+def count_vertex():
+    v = 0
+    for obj in bpy.context.selected_objects:
+        v += len(obj.data.vertices)
+    return v
+
 def remove_dups():
     bpy.ops.object.convert(target='MESH') # Here I've added an option which will
                                     # apply all modifiers by converting object
                                     # to mesh
     bpy.ops.object.mode_set(mode='EDIT')
     bpy.ops.mesh.select_all(action='SELECT')
-    bpy.ops.mesh.remove_doubles( threshold = 0.001 )
     bpy.ops.mesh.tris_convert_to_quads()
+    done = False
+    v = count_vertex()
+    for i in range(10):
+        print(f"Reducing doubles (iter={i}, vertices={v})")
+        bpy.ops.mesh.remove_doubles( threshold = 0.001 )
+        nv = count_vertex()
+        print(f"   reduced to {nv}!")
+        if nv==v:
+            break
     bpy.ops.mesh.normals_make_consistent()
     bpy.ops.mesh.select_all(action='DESELECT')
     bpy.ops.mesh.select_mode(type = 'FACE')
