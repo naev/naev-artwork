@@ -23,6 +23,7 @@ shipname = os.path.splitext(os.path.basename(filename))[0]
 shipdir = os.path.abspath(os.path.join(OUTPATH, shipname))
 os.makedirs(shipdir, exist_ok=True)
 gltfpath = os.path.join(shipdir, shipname) + '.gltf'
+blendpath = os.path.join(shipdir, shipname) + '.blend'
 bpy.ops.file.unpack_all()
 
 # Modernize some stuff
@@ -57,6 +58,8 @@ def remove_dups():
     bpy.ops.object.mode_set(mode='EDIT')
     bpy.ops.mesh.select_all(action='SELECT')
     bpy.ops.mesh.tris_convert_to_quads()
+    #bpy.ops.mesh.delete_loose()
+    bpy.ops.mesh.dissolve_degenerate()
     done = False
     v = count_vertex()
     for i in range(10):
@@ -66,6 +69,8 @@ def remove_dups():
         print(f"   reduced to {nv}!")
         if nv==v:
             break
+    #bpy.ops.mesh.bridge_edge_loops( use_merge=True )
+    bpy.ops.mesh.tris_convert_to_quads()
     bpy.ops.mesh.normals_make_consistent()
     bpy.ops.mesh.select_all(action='DESELECT')
     bpy.ops.mesh.select_mode(type = 'FACE')
@@ -157,6 +162,8 @@ ret = subprocess.run(["gltf-transform", "optimize", "--compress", "false", "--te
 if ret.returncode != 0:
     print("Problem optimizing mesh!")
     sys.exit(-1)
+
+bpy.ops.wm.save_as_mainfile( filepath=blendpath )
 
 
 """
