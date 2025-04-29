@@ -3,14 +3,9 @@ OUTDIR := ../../out/logo
 OUTPUTS := $(patsubst %.svg,$(OUTDIR)/%.webp,$(wildcard *.svg))
 OUTPUTS += $(patsubst %.xcf,$(OUTDIR)/%.webp,$(wildcard *.xcf))
 
-SHELL := /usr/bin/bash
-
 all: $(OUTPUTS)
 clean:
 	rm -f $(OUTPUTS)
-
-test:
-	./mkoflag.sh
 
 $(OUTDIR):
 	mkdir -p $@
