@@ -31,8 +31,14 @@ fi
 if ! [ -x "$(command -v inkscape)" ]; then
     echo "You don't have Inkscape installed!, install it for your distro."
 else
-    installedver="$(inkscape --version)"
     targetVer="1.0.0"
+
+    if [ "$(inkscape --version | cut "-d " -f1)" == "Inkscape" ];then
+      installedver="$(inkscape --version | cut "-d " -f2)"
+    else
+      installedver="$(inkscape --version)"
+    fi
+
     if [ "$(printf '%s\n' "$targetVer" "$installedver" | sort -V | head -n1)" = "$targetVer" ]; then 
         inkscape "${SVGFILE}" --export-filename "${OUTPUTDIR}"
     else
