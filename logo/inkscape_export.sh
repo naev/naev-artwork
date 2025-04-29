@@ -33,14 +33,15 @@ if ! [ -x "$(command -v inkscape)" ]; then
 else
     targetVer="1.0.0"
 
-    if [ "$(inkscape --version | cut "-d " -f1)" == "Inkscape" ];then
-      installedver="$(inkscape --version | cut "-d " -f2)"
+    VER="$(inkscape --version)"
+    if [ "$(echo "$VER" | cut "-d " -f1)" == "Inkscape" ];then
+        installedver=$(echo "$VER" | cut "-d " -f2)
     else
-      installedver="$(inkscape --version)"
+        installedver="$VER"
     fi
 
     if [ "$(printf '%s\n' "$targetVer" "$installedver" | sort -V | head -n1)" = "$targetVer" ]; then 
-        inkscape "${SVGFILE}" --export-filename "${OUTPUTDIR}"
+        inkscape "${SVGFILE}" -o "${OUTPUTDIR}"
     else
         inkscape -z "${SVGFILE}" -e "${OUTPUTDIR}"
     fi
