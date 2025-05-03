@@ -14,7 +14,7 @@ $(OUTDIR)/%.webp: $(OUTDIR)/%.png
 	cwebp -z 9 "$<" -o "$@"
 
 $(OUTDIR)/%.png: %.svg export.py | $(OUTDIR)
-	python export.py "$<" $(RES) "$@"
+	python export.py "$<" $(RES) "$@" -`./mkoflag.sh`
 
 $(OUTDIR)/%.png: %.xcf logo_xcf2png.sh | $(OUTDIR)
 	sh logo_xcf2png.sh "$<" $(RES) "$@"

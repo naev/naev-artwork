@@ -39,7 +39,7 @@ if [ ! -z $(command -v mlt-melt) ]; then
 elif [ ! -z $(command -v melt) ]; then
     MLTEXEC=melt
 else
-    echo "You're missing the mlt-melt package for your distro."
+    echo "You're missing the mlt-melt / melt package for your distro."
     exit 1
 fi
 
